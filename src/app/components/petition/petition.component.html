@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Ensure proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Petition System</title>
+    <!-- Tailwind CSS (via CDN for demonstration) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Using max-w-screen-lg to constrain width on larger screens -->
+    <div class="max-w-screen-lg mx-auto p-4">
+      <h1 class="text-3xl sm:text-4xl font-bold text-blue-600 mb-4">Petition System</h1>
+
+      <!-- Petition Creation Form -->
+      <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create a New Petition</h2>
+        <form>
+          <div class="mb-4">
+            <label for="petitionTitle" class="block text-gray-700">Title</label>
+            <input
+              type="text"
+              id="petitionTitle"
+              name="petitionTitle"
+              placeholder="Enter petition title"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="petitionDescription" class="block text-gray-700">Description</label>
+            <textarea
+              id="petitionDescription"
+              name="petitionDescription"
+              rows="4"
+              placeholder="Describe the petition"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            ></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="targetAuthority" class="block text-gray-700">Target Authority</label>
+            <input
+              type="text"
+              id="targetAuthority"
+              name="targetAuthority"
+              placeholder="Enter target authority"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="supportingDocs" class="block text-gray-700">Supporting Documents</label>
+            <input
+              type="file"
+              id="supportingDocs"
+              name="supportingDocs"
+              accept=".pdf, .doc, .docx, image/*"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Submit Petition
+          </button>
+        </form>
+      </section>
+
+      <!-- Petition Listing with Filters -->
+      <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Petitions</h2>
+        <!-- Filters: using grid layout so elements stack on mobile and align side-by-side on larger screens -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+          <input
+            type="text"
+            placeholder="Search petitions..."
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <div class="flex flex-wrap gap-2">
+            <select
+              class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">Newest</option>
+              <option value="oldest">Oldest</option>
+            </select>
+            <select
+              class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">Most Signed</option>
+              <option value="least">Least Signed</option>
+            </select>
+            <select
+              class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              <option value="">All Categories</option>
+              <option value="education">Education</option>
+              <option value="health">Health</option>
+              <option value="environment">Environment</option>
+            </select>
+          </div>
+        </div>
+        <!-- Petition Items: using grid layout -->
+        <div class="grid grid-cols-1 gap-4">
+          <!-- Petition Item 1 -->
+          <div class="border p-4 rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-xl font-bold text-gray-800">Improve Public Transport</h3>
+              <span class="px-2 py-1 bg-green-500 text-white rounded-full text-sm">
+                500 Signed
+              </span>
+            </div>
+            <p class="text-gray-600 mb-2">
+              A petition to improve the quality and frequency of public transport services.
+            </p>
+            <div class="flex items-center justify-between">
+              <a href="#petitionDetail" class="text-blue-600 hover:underline">View Details</a>
+              <button
+                class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
+              >
+                Sign Petition
+              </button>
+            </div>
+          </div>
+          <!-- Petition Item 2 -->
+          <div class="border p-4 rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="text-xl font-bold text-gray-800">Save the Local Park</h3>
+              <span class="px-2 py-1 bg-green-500 text-white rounded-full text-sm">
+                300 Signed
+              </span>
+            </div>
+            <p class="text-gray-600 mb-2">
+              A petition to secure funding for the restoration and maintenance of the local park.
+            </p>
+            <div class="flex items-center justify-between">
+              <a href="#petitionDetail" class="text-blue-600 hover:underline">View Details</a>
+              <button
+                class="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700 transition"
+              >
+                Sign Petition
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Petition Detail View -->
+      <section id="petitionDetail" class="bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Petition Detail</h2>
+        <!-- Title & Progress Tracker -->
+        <div class="mb-4">
+          <h3 class="text-xl font-bold text-gray-800">Improve Public Transport</h3>
+          <div class="w-full bg-gray-200 rounded-full h-4 mt-2">
+            <div class="bg-green-500 h-4 rounded-full" style="width: 60%"></div>
+          </div>
+          <p class="text-gray-600 mt-2">60% of target signatures reached</p>
+        </div>
+        <!-- Petition Description -->
+        <p class="text-gray-700 mb-4">
+          A petition to improve the quality and frequency of public transport services. We believe that an efficient transport system is key to sustainable development and a better quality of life.
+        </p>
+        <!-- Sign Petition Button -->
+        <button
+          class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition mb-4"
+        >
+          Sign Petition
+        </button>
+        <!-- Social Sharing & Update Notifications -->
+        <div class="mb-4">
+          <span class="text-gray-700 font-semibold mr-2">Share:</span>
+          <a href="#" class="text-blue-600 hover:underline mr-2">Facebook</a>
+          <a href="#" class="text-blue-600 hover:underline mr-2">Twitter</a>
+          <a href="#" class="text-blue-600 hover:underline">Email</a>
+        </div>
+        <!-- Comment Section -->
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Comments</h3>
+          <form class="mb-4">
+            <textarea
+              placeholder="Add your comment..."
+              rows="3"
+              class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            ></textarea>
+            <button
+              type="submit"
+              class="bg-blue-600 text-white mt-2 px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Submit Comment
+            </button>
+          </form>
+          <div class="space-y-4">
+            <div class="border p-4 rounded-lg">
+              <p class="text-gray-800 font-semibold">Jane Doe</p>
+              <p class="text-gray-600">I fully support this petition!</p>
+            </div>
+            <div class="border p-4 rounded-lg">
+              <p class="text-gray-800 font-semibold">John Smith</p>
+              <p class="text-gray-600">Great initiative. Let's hope it makes a change.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

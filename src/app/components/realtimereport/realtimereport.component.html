@@ -1,0 +1,98 @@
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold text-blue-600 mb-4">Real-Time Issue Reporting</h1>
+  
+    <!-- Issue Submission Form -->
+    <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Report an Issue</h2>
+      <form>
+        <div class="mb-4">
+          <label for="description" class="block text-gray-700">Description</label>
+          <textarea id="description" name="description" rows="4" placeholder="Describe the issue..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+        </div>
+        <div class="mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="location" class="block text-gray-700">Location</label>
+            <input type="text" id="location" name="location" placeholder="Enter location" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+          </div>
+          <div>
+            <label for="category" class="block text-gray-700">Category</label>
+            <select id="category" name="category" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="">Select Category</option>
+              <option value="infrastructure">Infrastructure</option>
+              <option value="public-safety">Public Safety</option>
+              <option value="environment">Environment</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="images" class="block text-gray-700">Upload Images</label>
+          <input type="file" id="images" name="images" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+        <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+          Submit Issue
+        </button>
+      </form>
+    </section>
+  
+    <!-- Map Integration -->
+    <section class="mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Issue Map</h2>
+      <!-- Placeholder for map; replace with actual integration (Google Maps, Leaflet, etc.) -->
+      <div class="w-full h-64 bg-gray-300 rounded-lg flex items-center justify-center">
+        <span class="text-gray-700">Map Integration Placeholder</span>
+      </div>
+    </section>
+  
+    <!-- Issue Tracking Dashboard -->
+    <section class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Issue Tracking Dashboard</h2>
+      <!-- Search and Filter -->
+      <div class="mb-4 flex flex-col md:flex-row md:items-center md:justify-between">
+        <input type="text" placeholder="Search issues..." class="mb-2 md:mb-0 w-full md:w-1/2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <select class="w-full md:w-1/4 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="">Filter by Status</option>
+          <option value="open">Open</option>
+          <option value="in-progress">In Progress</option>
+          <option value="resolved">Resolved</option>
+        </select>
+      </div>
+  
+      <!-- Issues List -->
+      <div class="space-y-4">
+        <!-- Issue Item 1 -->
+        <div class="border p-4 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-gray-800">Pothole on Main Street</h3>
+            <span class="px-2 py-1 bg-red-500 text-white rounded-full text-sm">Open</span>
+          </div>
+          <p class="text-gray-600 mb-2">A large pothole causing traffic issues on Main Street.</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <button class="text-blue-600 hover:underline">Comment</button>
+              <button class="text-blue-600 hover:underline ml-4">Vote Up</button>
+            </div>
+            <span class="text-gray-500 text-sm">5 votes</span>
+          </div>
+        </div>
+  
+        <!-- Issue Item 2 -->
+        <div class="border p-4 rounded-lg">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-xl font-bold text-gray-800">Broken Streetlight</h3>
+            <span class="px-2 py-1 bg-yellow-500 text-white rounded-full text-sm">In Progress</span>
+          </div>
+          <p class="text-gray-600 mb-2">The streetlight near the park is not functioning properly.</p>
+          <div class="flex items-center justify-between">
+            <div>
+              <button class="text-blue-600 hover:underline">Comment</button>
+              <button class="text-blue-600 hover:underline ml-4">Vote Up</button>
+            </div>
+            <span class="text-gray-500 text-sm">3 votes</span>
+          </div>
+        </div>
+        <!-- Additional issues can be listed similarly -->
+      </div>
+    </section>
+  </div>
+  
