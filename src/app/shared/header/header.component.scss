@@ -1,0 +1,30 @@
+/* Default nav link styling */
+.nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 10px 15px;
+    color: white;
+    transition: color 0.3s ease;
+  }
+
+  /* Hover effect */
+  .nav-link:hover {
+    color: #d1d5db; /* Light gray for visibility */
+  }
+
+  /* Active link effect */
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    width: 0;
+    height: 3px;
+    background-color: white;
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+    left: 0;
+  }

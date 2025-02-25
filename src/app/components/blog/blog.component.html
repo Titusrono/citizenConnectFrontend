@@ -1,0 +1,88 @@
+<div class="container mx-auto p-20">
+    <h1 class="text-3xl font-bold text-blue-600 mb-4">News & Updates</h1>
+  
+    <!-- Search & Filter Section -->
+    <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Find News</h2>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+        <input type="text" placeholder="Search articles..." class="w-full md:w-1/2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <div class="flex space-x-2 mt-2 md:mt-0">
+          <select class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="">All Categories</option>
+            <option value="governance">Governance</option>
+            <option value="policy">Policy Changes</option>
+            <option value="events">Community Events</option>
+          </select>
+          <select class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <option value="">Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Blog Listing -->
+    <section class="bg-white shadow-md rounded-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Latest Articles</h2>
+      <div class="space-y-4">
+        <!-- Blog Post 1 -->
+        <div class="border p-4 rounded-lg">
+          <h3 class="text-xl font-bold text-gray-800">New Public Transport Initiative</h3>
+          <p class="text-gray-600">Published on: February 20, 2025</p>
+          <p class="text-gray-700 mt-2">A new policy is being introduced to improve citywide public transport efficiency...</p>
+          <div class="flex items-center justify-between mt-4">
+            <a href="#articleDetail" class="text-blue-600 hover:underline">Read More</a>
+            <span class="px-2 py-1 bg-blue-600 text-white text-sm rounded">Policy</span>
+          </div>
+        </div>
+  
+        <!-- Blog Post 2 -->
+        <div class="border p-4 rounded-lg">
+          <h3 class="text-xl font-bold text-gray-800">Community Clean-Up Event</h3>
+          <p class="text-gray-600">Published on: February 15, 2025</p>
+          <p class="text-gray-700 mt-2">Join us for a community clean-up drive this weekend to help make our city greener...</p>
+          <div class="flex items-center justify-between mt-4">
+            <a href="#articleDetail" class="text-blue-600 hover:underline">Read More</a>
+            <span class="px-2 py-1 bg-green-500 text-white text-sm rounded">Community Event</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Article Detail View -->
+    <section id="articleDetail" class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Article Title</h2>
+      <p class="text-gray-600">Published on: February 20, 2025 | Category: <span class="text-blue-600">Policy</span></p>
+  
+      <!-- Multimedia (Image / Video) -->
+      <div class="w-full h-64 bg-gray-300 rounded-lg flex items-center justify-center mt-4">
+        <span class="text-gray-700">Image / Video Placeholder</span>
+      </div>
+  
+      <!-- Article Content -->
+      <p class="text-gray-700 mt-4">
+        Full article content goes here. This section can include rich text, embedded media, and links to related resources.
+      </p>
+  
+      <!-- Comment Section -->
+      <div class="mt-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">Comments</h3>
+        <form class="mb-4">
+          <textarea placeholder="Add your comment..." rows="3" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+          <button type="submit" class="bg-blue-600 text-white mt-2 px-4 py-2 rounded hover:bg-blue-700 transition">Submit Comment</button>
+        </form>
+        <!-- Sample Comments -->
+        <div class="space-y-4">
+          <div class="border p-4 rounded-lg">
+            <p class="text-gray-800 font-semibold">Jane Doe</p>
+            <p class="text-gray-600">This is great news! Looking forward to the changes.</p>
+          </div>
+          <div class="border p-4 rounded-lg">
+            <p class="text-gray-800 font-semibold">John Smith</p>
+            <p class="text-gray-600">Excited to join the upcoming clean-up event!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
