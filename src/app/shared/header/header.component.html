@@ -1,63 +1,23 @@
 <div class="bg-blue-600 text-white fixed top-0 w-full z-50 shadow-md">
-  <header class="container mx-auto flex items-center justify-between p-4 relative">
+  <header class="container mx-auto flex flex-wrap items-center justify-between p-4 relative">
     <!-- Logo -->
-    <div class="text-2xl font-bold">
+    <div class="text-2xl font-bold flex-shrink-0">
       Citizen Connect
     </div>
-
-    <!-- Desktop Navigation + Sign In Button -->
-    <div class="hidden md:flex items-center space-x-6">
-      <nav class="flex space-x-6">
-        <a href="" class="hover:text-gray-300 transition">Home</a>
-        <a href="/about" class="hover:text-gray-300 transition">About</a>
-        <a href="/service" class="hover:text-gray-300 transition">Services</a>
-        <a href="/contact" class="hover:text-gray-300 transition">Contact</a>
-      </nav>
-      <!-- Sign In / Login Button -->
-      <a href="/login" class="bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition">
-        Sign In
-      </a>
+    <!-- Sign In Button -->
+    <div class="ml-auto">
+      <a href="/login" class="py-2 px-4 bg-white text-blue-600 rounded hover:bg-gray-100 transition">Sign In</a>
     </div>
 
-    <!-- Mobile Menu Button -->
-    <div class="md:hidden">
-      <button id="menuBtn" class="text-white focus:outline-none text-3xl">
-        ☰
-      </button>
-    </div>
+    <!-- Navigation -->
+    <nav class="flex flex-wrap justify-center w-full md:w-auto space-x-4 md:space-x-6 text-center">
+      <a href="/" class="py-2 px-3 hover:text-gray-300 transition">Home</a>
+      <a href="/about" class="py-2 px-3 hover:text-gray-300 transition">About</a>
+      <a href="/service" class="py-2 px-3 hover:text-gray-300 transition">Services</a>
+      <a href="/contact" class="py-2 px-3 hover:text-gray-300 transition">Contact</a>
+    </nav>
   </header>
-
-  <!-- Mobile Menu (Initially Hidden) -->
-  <div id="mobileMenu" class="hidden md:hidden bg-blue-700 w-full left-0 top-full absolute shadow-md flex flex-col items-center">
-    <a href="" class="block py-2 w-full text-center text-white hover:bg-blue-800">Home</a>
-    <a href="/about" class="block py-2 w-full text-center text-white hover:bg-blue-800">About</a>
-    <a href="/service" class="block py-2 w-full text-center text-white hover:bg-blue-800">Services</a>
-    <a href="/contact" class="block py-2 w-full text-center text-white hover:bg-blue-800">Contact</a>
-    <!-- Sign In Option -->
-    <a href="/login" class="block py-2 w-full text-center text-white hover:bg-blue-800 border-t border-blue-600">
-      Sign In
-    </a>
-  </div>
 </div>
 
-<!-- Space to prevent content from hiding behind the fixed header -->
+<!-- Spacer to prevent content from hiding behind fixed header -->
 <div class="h-16"></div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const menuBtn = document.getElementById("menuBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-
-    menuBtn.addEventListener("click", function (event) {
-      event.stopPropagation();
-      mobileMenu.classList.toggle("hidden");
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener("click", function (event) {
-      if (!menuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
-        mobileMenu.classList.add("hidden");
-      }
-    });
-  });
-</script>
