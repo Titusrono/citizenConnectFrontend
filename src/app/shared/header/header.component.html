@@ -1,13 +1,13 @@
-<div class="bg-green-600 text-white fixed top-0 w-full z-50 shadow-md">
+<div class="bg-white text-black fixed top-0 w-full z-50 shadow-md">
   <header class="container mx-auto flex flex-wrap items-center justify-between p-4 relative">
     <!-- Logo -->
     <div class="text-2xl font-bold flex-shrink-0">
       Citizen Connect
     </div>
 
-    <!-- Sign In Button (Standalone Block) -->
+    <!-- Sign In Button -->
     <div class="w-full text-right mb-2">
-      <a href="/login" class="inline-block py-2 px-6 bg-white text-blue-600 font-semibold rounded hover:bg-gray-100 transition">
+      <a href="/login" class="inline-block py-2 px-6 bg-white text-black font-semibold rounded hover:bg-gray-100 transition">
         Sign In
       </a>
     </div>
@@ -27,10 +27,9 @@
 <!-- Spacer to prevent content from hiding behind fixed header -->
 <div class="h-20"></div>
 
-
 <script>
   // Get current page URL and highlight the active link
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll(".nav-link");
     const currentPath = window.location.pathname;
 
