@@ -1,80 +1,103 @@
 <div class="bg-gray-100 min-h-screen flex flex-col">
-  <div class="bg-white shadow-md py-4 px-6 fixed w-full z-10">
-      <div class="container mx-auto flex justify-between items-center">
-          <h2 class="text-2xl font-bold text-blue-600">Citizen Connect</h2>
-          <nav>
-              <ul class="flex space-x-6">
-                  <li><a href="#" class="text-gray-700 hover:text-blue-600 transition">Home</a></li>
-                  <li><a href="#" class="text-gray-700 hover:text-blue-600 transition">About</a></li>
-                  <li><a href="#" class="text-gray-700 hover:text-blue-600 transition">Contact</a></li>
-              </ul>
-          </nav>
-      </div>
-  </div>
-  
-  <div class="flex-1 overflow-auto mt-16">
-      <div class="container mx-auto px-6 lg:px-20 py-16">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center fade-in">
-              <div>
-                  <h1 class="text-4xl md:text-5xl font-extrabold text-blue-600 leading-tight">
-                      Empowering Citizens <br> for a Transparent Governance
-                  </h1>
-                  <p class="text-gray-600 text-lg mt-4">
-                      Join our platform to stay informed, raise concerns, and engage with governance in a seamless and efficient manner.
-                  </p>
-                  <div class="mt-6">
-                      <a href="/login" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition">
-                          Get Started
-                      </a>
-                      <a href="/about" class="ml-4 text-blue-600 hover:underline font-semibold">
-                          Learn More
-                      </a>
-                  </div>
-              </div>
-              <div class="flex justify-center">
-                  <img src="https://source.unsplash.com/600x400/?city,people" alt="Citizen Engagement" 
-                      class="rounded-2xl shadow-lg w-full max-w-md transition-transform hover:scale-105 fade-in">
-              </div>
-          </div>
-      </div>
-
-      <div class="bg-white py-16 px-6 lg:px-20 fade-in">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold text-blue-600">Why Choose Citizen Connect?</h2>
-            <p class="text-gray-600 text-lg mt-4">We provide a platform for transparent discussions and governance participation.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-                <div class="p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
-                    <img src="https://source.unsplash.com/300x200/?transparency" alt="Transparency" class="rounded-lg mb-4 w-full">
-                    <h3 class="text-xl font-bold text-gray-800">Transparency</h3>
-                    <p class="text-gray-600 mt-2">Access real-time information on governance activities.</p>
-                </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
-                    <img src="https://source.unsplash.com/300x200/?engagement" alt="Engagement" class="rounded-lg mb-4 w-full">
-                    <h3 class="text-xl font-bold text-gray-800">Engagement</h3>
-                    <p class="text-gray-600 mt-2">Participate in decision-making processes effectively.</p>
-                </div>
-                <div class="p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
-                    <img src="https://source.unsplash.com/300x200/?community" alt="Community" class="rounded-lg mb-4 w-full">
-                    <h3 class="text-xl font-bold text-gray-800">Community</h3>
-                    <p class="text-gray-600 mt-2">Join a network of active and concerned citizens.</p>
-                </div>
-            </div>
+    <div class="bg-white shadow-md py-4 px-6 fixed w-full z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <h2 class="text-2xl font-bold text-blue-600">Citizen Connect</h2>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition">Home</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition">About</a></li>
+                    <li><a href="#" class="text-gray-700 hover:text-blue-600 transition">Contact</a></li>
+                </ul>
+            </nav>
         </div>
     </div>
     
-  </div>
-
-  <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const fadeInElements = document.querySelectorAll(".fade-in");
-          const observer = new IntersectionObserver(entries => {
-              entries.forEach(entry => {
-                  if (entry.isIntersecting) {
-                      entry.target.classList.add("visible");
-                  }
-              });
-          }, { threshold: 0.1 });
-          fadeInElements.forEach(el => observer.observe(el));
-      });
-  </script>
+    <div class="flex-1 overflow-auto mt-16">
+        <div class="container mx-auto px-6 lg:px-20 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center fade-in">
+                <div>
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-blue-600 leading-tight">
+                        Empowering Citizens <br> for a Transparent Governance
+                    </h1>
+                    <p class="text-gray-600 text-lg mt-4">
+                        Join our platform to stay informed, raise concerns, and engage with governance in a seamless and efficient manner.
+                    </p>
+                    <div class="mt-6">
+                        <a href="/login" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition">
+                            Get Started
+                        </a>
+                        <a href="/about" class="ml-4 text-blue-600 hover:underline font-semibold">
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <img src="https://res.cloudinary.com/dkero7wyo/image/upload/v1742223216/home1_nx9wib.jpg" alt="Citizen Engagement" 
+                        class="rounded-2xl shadow-lg w-full max-w-md transition-transform hover:scale-105 fade-in">
+                </div>
+            </div>
+        </div>
+  
+        <div class="bg-white py-16 px-6 lg:px-20 fade-in">
+          <div class="container mx-auto text-center">
+              <h2 class="text-3xl font-bold text-blue-600">Why Choose Citizen Connect?</h2>
+              <p class="text-gray-600 text-lg mt-4">We provide a platform for transparent discussions and governance participation.</p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+                  <div class="p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
+                      <img src="https://res.cloudinary.com/dkero7wyo/image/upload/v1742223484/home2_nk2ina.webp" alt="Transparency" class="rounded-lg mb-4 w-full">
+                      <h3 class="text-xl font-bold text-gray-800">Transparency</h3>
+                      <p class="text-gray-600 mt-2">Access real-time information on governance activities.</p>
+                  </div>
+                  <div class="p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
+                      <img src="https://res.cloudinary.com/dkero7wyo/image/upload/v1742223526/home3_ofylyv.jpg" alt="Engagement" class="rounded-lg mb-4 w-full">
+                      <h3 class="text-xl font-bold text-gray-800">Engagement</h3>
+                      <p class="text-gray-600 mt-2">Participate in decision-making processes effectively.</p>
+                  </div>
+                  <div class="p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
+                      <img src="https://res.cloudinary.com/dkero7wyo/image/upload/v1742223613/home4_jucolc.jpg" alt="Community" class="rounded-lg mb-4 w-full">
+                      <h3 class="text-xl font-bold text-gray-800">Community</h3>
+                      <p class="text-gray-600 mt-2">Join a network of active and concerned citizens.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
+    </div>
+    <!-- New Section: How It Works -->
+<div class="bg-gray-200 py-16 px-6 lg:px-20 fade-in">
+    <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold text-blue-600">How It Works</h2>
+        <p class="text-gray-600 text-lg mt-4">A simple step-by-step process to engage with governance.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+            <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
+                <h3 class="text-xl font-bold text-gray-800">Step 1: Sign Up</h3>
+                <p class="text-gray-600 mt-2">Create an account to start participating.</p>
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
+                <h3 class="text-xl font-bold text-gray-800">Step 2: Engage</h3>
+                <p class="text-gray-600 mt-2">Raise concerns, vote on issues, and stay updated.</p>
+            </div>
+            <div class="p-6 bg-white rounded-lg shadow-md hover:shadow-2xl transition-transform transform hover:scale-105">
+                <h3 class="text-xl font-bold text-gray-800">Step 3: Make an Impact</h3>
+                <p class="text-gray-600 mt-2">Your voice matters! Help improve governance.</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+  
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const fadeInElements = document.querySelectorAll(".fade-in");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, { threshold: 0.1 });
+            fadeInElements.forEach(el => observer.observe(el));
+        });
+    </script>
+  </div>
+  
