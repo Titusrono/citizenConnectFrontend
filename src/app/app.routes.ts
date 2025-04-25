@@ -14,6 +14,8 @@ import { BlogComponent } from './components/blog/blog.component';
 import { ModeratorComponent } from './admin/moderator/moderator.component';
 import { StreamingliveComponent } from './components/streaminglive/streaminglive.component';
 import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 export const routes: Routes = [
     {path:'', 'title':'Home', component: HomeComponent},
@@ -30,6 +32,8 @@ export const routes: Routes = [
     {path:'moderator', 'title':'Moderator panel', component: ModeratorComponent},
     {path:'streaminglive', 'title':'Live Streaming', component: StreamingliveComponent},
     {path:'votingdasboard', 'title':'Voting Page', component: VotingdasboardComponent},
+    {path:'privacy', 'title':'Privacy',component:PrivacyComponent},
+    {path:'terms', 'title':'Terms', component:TermsComponent},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 

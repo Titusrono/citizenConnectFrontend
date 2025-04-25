@@ -1,12 +1,15 @@
-<div class="bg-white text-black fixed top-0 w-full z-50 shadow-md">
+<div class="bg-blue-600 text-black fixed top-0 w-full z-50 shadow-md">
   <div class="container mx-auto flex items-center justify-between p-4">
     <!-- Logo -->
     <div class="text-2xl font-bold">Citizen Connect</div>
 
-    <!-- Hamburger Icon (Mobile only) -->
-    <!-- <button (click)="toggleMenu()" class="md:hidden text-3xl focus:outline-none">
-      &#9776;
-    </button> -->
+    <!-- Hamburger Icon (Mobile) -->
+    <button class="md:hidden focus:outline-none" (click)="toggleMobileMenu()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
 
     <!-- Desktop Menu -->
     <div class="hidden md:flex items-center space-x-6">
@@ -16,31 +19,29 @@
       <a href="/contact" routerLink="/contact" routerLinkActive="font-bold underline">Contact</a>
       <a href="/blog" routerLink="/blog" routerLinkActive="font-bold underline">Blogs</a>
       <a href="/dashboard" routerLink="/dashboard" routerLinkActive="font-bold underline">Admin</a>
-      <!-- <a href="/moderator" routerLink="/moderator" routerLinkActive="font-bold underline">Moderator</a>
-      <a href="/petition" routerLink="/petition" routerLinkActive="font-bold underline">Petition</a>
-      <a href="/realtimereport" routerLink="/realtimereport" routerLinkActive="font-bold underline">Real-Time</a>
-      <a href="/streaminglive" routerLink="/streaminglive" routerLinkActive="font-bold underline">Live Stream</a>
-      <a href="/votingdasboard" routerLink="/votingdasboard" routerLinkActive="font-bold underline">Voting</a> -->
-      <a href="/login" class="py-2 px-4 bg-white text-black border rounded hover:bg-gray-100">Sign In</a>
+      <a href="/login"
+         class="py-2 px-5 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">
+        Sign In
+      </a>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div #mobileMenu class="md:hidden hidden flex-col space-y-2 px-4 pb-4">
-    <a href="/" routerLink="/" routerLinkActive="font-bold underline">Home</a>
-    <a href="/about" routerLink="/about" routerLinkActive="font-bold underline">About</a>
-    <a href="/service" routerLink="/service" routerLinkActive="font-bold underline">Services</a>
-    <a href="/contact" routerLink="/contact" routerLinkActive="font-bold underline">Contact</a>
-    <a href="/blog" routerLink="/blog" routerLinkActive="font-bold underline">Blogs</a>
-    <a href="/dashboard" routerLink="/dashboard" routerLinkActive="font-bold underline">Admin</a>
-    <!-- <a href="/moderator" routerLink="/moderator" routerLinkActive="font-bold underline">Moderator</a>
-    <a href="/petition" routerLink="/petition" routerLinkActive="font-bold underline">Petition</a>
-    <a href="/realtimereport" routerLink="/realtimereport" routerLinkActive="font-bold underline">Real-Time</a>
-    <a href="/streaminglive" routerLink="/streaminglive" routerLinkActive="font-bold underline">Live Stream</a>
-    <a href="/votingdasboard" routerLink="/votingdasboard" routerLinkActive="font-bold underline">Voting</a> -->
-    <a href="/login" class="py-2 px-4 bg-white text-black border rounded hover:bg-gray-100">Sign In</a>
-  </div>
+  @if (mobileMenuVisible) {
+    <div class="md:hidden flex flex-col space-y-2 px-4 pb-4">
+      <a href="/" routerLink="/" routerLinkActive="font-bold underline">Home</a>
+      <a href="/about" routerLink="/about" routerLinkActive="font-bold underline">About</a>
+      <a href="/service" routerLink="/service" routerLinkActive="font-bold underline">Services</a>
+      <a href="/contact" routerLink="/contact" routerLinkActive="font-bold underline">Contact</a>
+      <a href="/blog" routerLink="/blog" routerLinkActive="font-bold underline">Blogs</a>
+      <a href="/dashboard" routerLink="/dashboard" routerLinkActive="font-bold underline">Admin</a>
+      <a href="/login"
+         class="mt-2 py-2 px-4 text-center bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300">
+        Sign In
+      </a>
+    </div>
+  }
 </div>
 
-<!-- Spacer -->
+<!-- Spacer to avoid content being hidden behind fixed navbar -->
 <div class="h-24"></div>
