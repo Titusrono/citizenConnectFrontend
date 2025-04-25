@@ -1,47 +1,46 @@
 <div class="bg-white text-black fixed top-0 w-full z-50 shadow-md">
-  <header class="container mx-auto flex flex-wrap items-center justify-between p-4 relative">
+  <div class="container mx-auto flex items-center justify-between p-4">
     <!-- Logo -->
-    <div class="text-2xl font-bold flex-shrink-0">
-      Citizen Connect
-    </div>
+    <div class="text-2xl font-bold">Citizen Connect</div>
 
-    <!-- Sign In Button -->
-    <div class="w-full text-right mb-2">
-      <a href="/login" class="inline-block py-2 px-6 bg-white text-black font-semibold rounded hover:bg-gray-100 transition">
-        Sign In
-      </a>
-    </div>
+    <!-- Hamburger Icon (Mobile only) -->
+    <!-- <button (click)="toggleMenu()" class="md:hidden text-3xl focus:outline-none">
+      &#9776;
+    </button> -->
 
-    <!-- Navigation -->
-    <nav class="flex flex-wrap justify-center w-full md:w-auto space-x-4 md:space-x-6 text-center">
-      <a href="/" class="nav-link">Home</a>
-      <a href="/about" class="nav-link">About</a>
-      <a href="/service" class="nav-link">Services</a>
-      <a href="/contact" class="nav-link">Contact</a>
-      <a href="/blog" class="nav-link">Blogs</a>
-      <a href="/dashboard" class="nav-link">Admin</a>
-      <a href="/moderator" class="nav-link">Moderator</a>
-      <a href="/petition" class="nav-link">Petition</a>
-      <a href="/realtimereport" class="nav-link">Real-Time report</a>
-      <a href="/streaminglive" class="nav-link">Live Stream</a>
-      <a href="/votingdasboard" class="nav-link">Voting</a>
-    </nav>
-  </header>
+    <!-- Desktop Menu -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a href="/" routerLink="/" routerLinkActive="font-bold underline">Home</a>
+      <a href="/about" routerLink="/about" routerLinkActive="font-bold underline">About</a>
+      <a href="/service" routerLink="/service" routerLinkActive="font-bold underline">Services</a>
+      <a href="/contact" routerLink="/contact" routerLinkActive="font-bold underline">Contact</a>
+      <a href="/blog" routerLink="/blog" routerLinkActive="font-bold underline">Blogs</a>
+      <a href="/dashboard" routerLink="/dashboard" routerLinkActive="font-bold underline">Admin</a>
+      <!-- <a href="/moderator" routerLink="/moderator" routerLinkActive="font-bold underline">Moderator</a>
+      <a href="/petition" routerLink="/petition" routerLinkActive="font-bold underline">Petition</a>
+      <a href="/realtimereport" routerLink="/realtimereport" routerLinkActive="font-bold underline">Real-Time</a>
+      <a href="/streaminglive" routerLink="/streaminglive" routerLinkActive="font-bold underline">Live Stream</a>
+      <a href="/votingdasboard" routerLink="/votingdasboard" routerLinkActive="font-bold underline">Voting</a> -->
+      <a href="/login" class="py-2 px-4 bg-white text-black border rounded hover:bg-gray-100">Sign In</a>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div #mobileMenu class="md:hidden hidden flex-col space-y-2 px-4 pb-4">
+    <a href="/" routerLink="/" routerLinkActive="font-bold underline">Home</a>
+    <a href="/about" routerLink="/about" routerLinkActive="font-bold underline">About</a>
+    <a href="/service" routerLink="/service" routerLinkActive="font-bold underline">Services</a>
+    <a href="/contact" routerLink="/contact" routerLinkActive="font-bold underline">Contact</a>
+    <a href="/blog" routerLink="/blog" routerLinkActive="font-bold underline">Blogs</a>
+    <a href="/dashboard" routerLink="/dashboard" routerLinkActive="font-bold underline">Admin</a>
+    <!-- <a href="/moderator" routerLink="/moderator" routerLinkActive="font-bold underline">Moderator</a>
+    <a href="/petition" routerLink="/petition" routerLinkActive="font-bold underline">Petition</a>
+    <a href="/realtimereport" routerLink="/realtimereport" routerLinkActive="font-bold underline">Real-Time</a>
+    <a href="/streaminglive" routerLink="/streaminglive" routerLinkActive="font-bold underline">Live Stream</a>
+    <a href="/votingdasboard" routerLink="/votingdasboard" routerLinkActive="font-bold underline">Voting</a> -->
+    <a href="/login" class="py-2 px-4 bg-white text-black border rounded hover:bg-gray-100">Sign In</a>
+  </div>
 </div>
 
-<!-- Spacer to prevent content from hiding behind fixed header -->
-<div class="h-20"></div>
-
-<script>
-  // Get current page URL and highlight the active link
-  document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".nav-link");
-    const currentPath = window.location.pathname;
-
-    links.forEach(link => {
-      if (link.getAttribute("href") === currentPath) {
-        link.classList.add("active");
-      }
-    });
-  });
-</script>
+<!-- Spacer -->
+<div class="h-24"></div>
