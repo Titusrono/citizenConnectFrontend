@@ -10,28 +10,37 @@
     <!-- Dashboard Content -->
     <div class="container mx-auto flex flex-col md:flex-row mt-6">
       <!-- Sidebar -->
-      <aside class="w-full md:w-1/4 bg-white shadow rounded-lg p-4 mb-6 md:mb-0">
-        <ul>
-          <li class="mb-4">
-            <a href="/dashboard" class="text-blue-600 font-semibold hover:underline">Dashboard</a>
-          </li>
-          <li class="mb-4">
-            <a href="/moderator" class="text-blue-600 font-semibold hover:underline">Moderator</a>
-          </li>
-          <li class="mb-4">
-            <a href="/petition" class="text-blue-600 font-semibold hover:underline">Petition</a>
-          </li>
-          <li class="mb-4">
-            <a href="/realtimereport" class="text-blue-600 font-semibold hover:underline">Reports-real-time</a>
-          </li>
-          <li class="mb-4">
-            <a href="/streaminglive" class="text-blue-600 font-semibold hover:underline">Live-straem</a>
-          </li>
-          <li class="mb-4">
-            <a href="/votingdasboard" class="text-blue-600 font-semibold hover:underline">Voting-Dashboard</a>
-          </li>
-        </ul>
-      </aside>
+      <!-- Dashboard sidebar -->
+<div class="flex">
+  <!-- Sidebar -->
+  <div class="w-full bg-gray-100 p-4">
+    <ul class="flex flex-wrap gap-4 justify-center"> <!-- 👈🏽 Flex row with center alignment -->
+      <li>
+        <a routerLink="/dashboard" routerLinkActive="font-bold underline" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/moderator" routerLinkActive="font-bold underline">Moderator</a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/petition" routerLinkActive="font-bold underline">Petition</a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/realtimereport" routerLinkActive="font-bold underline">Reports-real-time</a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/streaminglive" routerLinkActive="font-bold underline">Live-stream</a>
+      </li>
+      <li>
+        <a routerLink="/dashboard/votingdashboard" routerLinkActive="font-bold underline">Voting-Dashboard</a>
+      </li>
+    </ul>
+  </div>
+  <!-- Page content for child routes -->
+  <main class="flex-1 p-4">
+    <router-outlet></router-outlet> 
+  </main>
+</div>
+
   
       <!-- Main Content -->
       <main class="w-full md:w-3/4 bg-white shadow rounded-lg p-6">

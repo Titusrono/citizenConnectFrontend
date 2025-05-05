@@ -6,16 +6,16 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { ResetpasswordComponent } from './auth/resetpassword/resetpassword.component';
 import { PagenotfoundComponent } from './shared/pagenotfound/pagenotfound.component';
-import { RealtimereportComponent } from './components/realtimereport/realtimereport.component';
 import { PetitionComponent } from './components/petition/petition.component';
 import { AboutComponent } from './components/about/about.component';
 import { ServiceComponent } from './components/service/service.component';
-import { BlogComponent } from './components/blog/blog.component';
 import { ModeratorComponent } from './admin/moderator/moderator.component';
-import { StreamingliveComponent } from './components/streaminglive/streaminglive.component';
-import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
 import { PrivacyComponent } from './components/privacy/privacy.component';
 import { TermsComponent } from './components/terms/terms.component';
+import { RealtimereportComponent } from './components/realtimereport/realtimereport.component';
+import { StreamingliveComponent } from './components/streaminglive/streaminglive.component';
+import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
+import { BlogComponent } from './components/blog/blog.component';
 
 export const routes: Routes = [
     {path:'', 'title':'Home', component: HomeComponent},
@@ -23,17 +23,21 @@ export const routes: Routes = [
     {path:'about', 'title':'About', component: AboutComponent},
     {path:'service', 'title':'Services', component: ServiceComponent},
     {path:'dashboard', 'title':'Dashboard', component: DashboardComponent},
+    {path:'dashboard',    children: [
+            { path: '', component: DashboardComponent }, // default child (Dashboard main)
+            { path: 'moderator', component: ModeratorComponent },
+            { path: 'petition', component: PetitionComponent },
+            { path: 'realtimereport', component: RealtimereportComponent },
+            { path: 'streaminglive', component: StreamingliveComponent },
+            { path: 'votingdashboard', component: VotingdasboardComponent },
+          ]
+    },
     {path:'login', 'title':'Login', component: LoginComponent},
     {path:'signup', 'title':'Signup', component: SignupComponent},
     {path:'resetpassword', 'title':'Reset password', component: ResetpasswordComponent},
-    {path:'realtimereport', 'title':'Real-time report', component: RealtimereportComponent},
-    {path:'petition', 'title':'Petition', component: PetitionComponent},
-    {path:'blog', 'title':'Blog', component: BlogComponent},
-    {path:'moderator', 'title':'Moderator panel', component: ModeratorComponent},
-    {path:'streaminglive', 'title':'Live Streaming', component: StreamingliveComponent},
-    {path:'votingdasboard', 'title':'Voting Page', component: VotingdasboardComponent},
     {path:'privacy', 'title':'Privacy',component:PrivacyComponent},
     {path:'terms', 'title':'Terms', component:TermsComponent},
+    {path:'blog','title':'Blog',component:BlogComponent},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 

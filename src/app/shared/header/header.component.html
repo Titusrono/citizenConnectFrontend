@@ -1,9 +1,10 @@
-<div class="bg-blue-600 text-black fixed top-0 w-full z-50 shadow-md">
+<!-- Sticky Navbar -->
+<nav class="bg-blue-600 text-black w-full z-50 shadow-md sticky top-0">
   <div class="container mx-auto flex items-center justify-between p-4">
     <!-- Logo -->
     <div class="text-2xl font-bold">Citizen Connect</div>
 
-    <!-- Hamburger Icon (Mobile) -->
+    <!-- Hamburger Icon (Always Visible on Mobile) -->
     <button class="md:hidden focus:outline-none" (click)="toggleMobileMenu()">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -28,7 +29,7 @@
 
   <!-- Mobile Menu -->
   @if (mobileMenuVisible) {
-    <div class="md:hidden flex flex-col space-y-2 px-4 pb-4">
+    <div class="md:hidden flex flex-col space-y-2 px-4 pb-4 bg-blue-500">
       <a href="/" routerLink="/" routerLinkActive="font-bold underline">Home</a>
       <a href="/about" routerLink="/about" routerLinkActive="font-bold underline">About</a>
       <a href="/service" routerLink="/service" routerLinkActive="font-bold underline">Services</a>
@@ -41,7 +42,5 @@
       </a>
     </div>
   }
-</div>
+</nav>
 
-<!-- Spacer to avoid content being hidden behind fixed navbar -->
-<div class="h-24"></div>
