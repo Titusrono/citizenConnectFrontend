@@ -4,24 +4,54 @@
   <!-- Petition Creation Form -->
   <section class="bg-white shadow-md rounded-lg p-6 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Create a New Petition</h2>
-    <form>
+
+    <!-- ✅ FormGroup binding moved here -->
+    <form [formGroup]="petitionForm" (ngSubmit)="onSubmit()">
       <div class="mb-4">
         <label for="petitionTitle" class="block text-gray-700">Title</label>
-        <input type="text" id="petitionTitle" name="petitionTitle" placeholder="Enter petition title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input 
+          type="text" 
+          id="petitionTitle" 
+          formControlName="title" 
+          placeholder="Enter petition title" 
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
+
       <div class="mb-4">
         <label for="petitionDescription" class="block text-gray-700">Description</label>
-        <textarea id="petitionDescription" name="petitionDescription" rows="4" placeholder="Describe the petition" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+        <textarea 
+          id="petitionDescription" 
+          formControlName="description" 
+          rows="4" 
+          placeholder="Describe the petition" 
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </textarea>
       </div>
+
       <div class="mb-4">
         <label for="targetAuthority" class="block text-gray-700">Target Authority</label>
-        <input type="text" id="targetAuthority" name="targetAuthority" placeholder="Enter target authority" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input 
+          type="text" 
+          id="targetAuthority" 
+          formControlName="targetAuthority" 
+          placeholder="Enter target authority" 
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
+
       <div class="mb-4">
         <label for="supportingDocs" class="block text-gray-700">Supporting Documents</label>
-        <input type="file" id="supportingDocs" name="supportingDocs" accept=".pdf, .doc, .docx, image/*" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        <input 
+          type="file" 
+          id="supportingDocs" 
+          (change)="onFileChange($event)" 
+          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
-      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">Submit Petition</button>
+
+      <button 
+        type="submit" 
+        class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+        Submit Petition
+      </button>
     </form>
   </section>
 
@@ -29,7 +59,11 @@
   <section class="bg-white shadow-md rounded-lg p-6 mb-6">
     <h2 class="text-2xl font-semibold text-gray-800 mb-4">Petitions</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-      <input type="text" placeholder="Search petitions..." class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      <input 
+        type="text" 
+        placeholder="Search petitions..." 
+        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
+
       <div class="flex flex-wrap gap-2">
         <select class="w-full sm:w-auto px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
           <option value="">Newest</option>
@@ -48,6 +82,7 @@
       </div>
     </div>
   </section>
+
   <div class="flex justify-center my-4">
     <button 
       routerLink="/dashboard" 
@@ -55,5 +90,4 @@
       ← Back to Dashboard
     </button>
   </div>
-  
 </div>
