@@ -5,14 +5,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-petition',
-  standalone: true, // 👈🏽 Make it standalone
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule], // 👈🏽 Import Forms + HTTP
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule],
   templateUrl: './petition.component.html',
   styleUrls: ['./petition.component.scss']
 })
 export class PetitionComponent {
   petitionForm: FormGroup;
   selectedFile: File | null = null;
+  successMessage: string = '';  // Message to show on success
+  errorMessage: string = '';  // Message to show on error
+  showSuccessMessage: boolean = false;  // Control visibility of success message
+  showErrorMessage: boolean = false;  // Control visibility of error message
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.petitionForm = this.fb.group({
@@ -39,16 +43,28 @@ export class PetitionComponent {
 
       this.http.post('http://localhost:3000/petitions', formData).subscribe(
         (res) => {
-          alert('Petition Submitted!');
+          this.successMessage = 'Petition Successfully Submitted!';
+          this.showSuccessMessage = true;
           this.petitionForm.reset();
+          setTimeout(() => {
+            this.showSuccessMessage = false;  // Hide after 3 seconds
+          }, 3000);
         },
         (err) => {
           console.error(err);
-          alert('Submission Failed!');
+          this.errorMessage = 'Submission Failed! Please try again.';
+          this.showErrorMessage = true;
+          setTimeout(() => {
+            this.showErrorMessage = false;  // Hide after 3 seconds
+          }, 3000);
         }
       );
     } else {
-      alert('Please fill in the required fields!');
+      this.errorMessage = 'Please fill in the required fields!';
+      this.showErrorMessage = true;
+      setTimeout(() => {
+        this.showErrorMessage = false;  // Hide after 3 seconds
+      }, 3000);
     }
   }
 }

@@ -9,26 +9,22 @@
     </p>
 
     <!-- Independent Sections -->
-    <div 
-      class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
+    <div class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
       <h3 class="text-xl font-semibold text-blue-700 mb-2">1️⃣ Raise Awareness</h3>
       <p class="text-gray-700">Bring attention to critical issues and make your cause known to a wider audience. The more people who know about it, the stronger your petition becomes.</p>
     </div>
 
-    <div 
-      class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
+    <div class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
       <h3 class="text-xl font-semibold text-blue-700 mb-2">2️⃣ Mobilize Support</h3>
       <p class="text-gray-700">Gather signatures and endorsements from fellow citizens who share your vision. A petition with widespread support is more likely to attract attention from decision-makers.</p>
     </div>
 
-    <div 
-      class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
+    <div class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
       <h3 class="text-xl font-semibold text-blue-700 mb-2">3️⃣ Reach Authorities</h3>
       <p class="text-gray-700">Directly send your petition to the authorities who can take action, ensuring that your concerns reach the right people for meaningful change.</p>
     </div>
 
-    <div 
-      class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
+    <div class="bg-white border border-blue-100 rounded-lg p-6 shadow-sm hover:shadow-md transition hover:bg-blue-100 cursor-pointer mb-6">
       <h3 class="text-xl font-semibold text-blue-700 mb-2">4️⃣ Track Progress</h3>
       <p class="text-gray-700">Monitor your petition's progress and see how your actions are driving change. Stay informed about any responses or actions taken by the authorities.</p>
     </div>
@@ -37,6 +33,16 @@
       Please proceed to fill out the details below to create your petition. Make sure the title and description are clear and compelling, so others will feel motivated to support your cause.
     </p>
   </section>
+
+  <!-- Success Message (Dynamic) -->
+  <div *ngIf="showSuccessMessage" class="bg-green-100 text-green-800 p-4 rounded mb-4 shadow-lg transition-all duration-300">
+    <strong>Success:</strong> Petition Successfully Submitted!
+  </div>
+
+  <!-- Error Message (Dynamic) -->
+  <div *ngIf="showErrorMessage" class="bg-red-100 text-red-800 p-4 rounded mb-4 shadow-lg transition-all duration-300">
+    <strong>Error:</strong> Submission Failed! Please try again.
+  </div>
 
   <!-- Petition Creation Form -->
   <section class="bg-white shadow-md rounded-lg p-6 mb-6">
