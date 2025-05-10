@@ -17,6 +17,7 @@ import { StreamingliveComponent } from './components/streaminglive/streaminglive
 import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { LogoutComponent } from './auth/logout/logout.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
     {path:'', 'title':'Home', component: HomeComponent},
@@ -40,6 +41,7 @@ export const routes: Routes = [
     {path:'privacy', 'title':'Privacy',component:PrivacyComponent},
     {path:'terms', 'title':'Terms', component:TermsComponent},
     {path:'blog','title':'Blog',component:BlogComponent},
+    {path:'admin-dashboard','title':'admin-dashboard',component:AdminDashboardComponent},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 
