@@ -1,87 +1,99 @@
 <div class="min-h-screen bg-gray-100">
-    <!-- Dashboard Header -->
-    <header class="bg-blue-600 text-white p-4 shadow-md">
-      <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-2xl font-bold">Dashboard</h1>
-        <a href="logout.html" class="hover:text-gray-300">Logout</a>
-      </div>
-    </header>
-  
-    <!-- Dashboard Content -->
-    <div class="container mx-auto flex flex-col md:flex-row mt-6">
-      <!-- Sidebar -->
-      <!-- Dashboard sidebar -->
-<div class="flex">
-  <!-- Sidebar -->
-  <div class="w-full bg-gray-100 p-4">
-    <ul class="flex flex-wrap gap-4 justify-center"> <!-- 👈🏽 Flex row with center alignment -->
-      <li>
-        <a routerLink="/dashboard" routerLinkActive="font-bold underline" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-      </li>
-      <li>
-        <a routerLink="/dashboard/moderator" routerLinkActive="font-bold underline">Moderator</a>
-      </li>
-      <li>
-        <a routerLink="/dashboard/petition" routerLinkActive="font-bold underline">Petition</a>
-      </li>
-      <li>
-        <a routerLink="/dashboard/realtimereport" routerLinkActive="font-bold underline">Reports-incident</a>
-      </li>
-      <li>
-        <a routerLink="/dashboard/streaminglive" routerLinkActive="font-bold underline">LiveStream</a>
-      </li>
-      <li>
-        <a routerLink="/dashboard/votingdashboard" routerLinkActive="font-bold underline">Vote</a>
-      </li>
-    </ul>
-  </div>
-  <!-- Page content for child routes -->
-  <main class="flex-1 p-4">
-    <router-outlet></router-outlet> 
-  </main>
-</div>
+  <!-- Dashboard Header -->
+  <header class="bg-blue-600 text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Dashboard</h1>
+      <a href="logout.html" class="hover:text-gray-300">Logout</a>
+    </div>
+  </header>
 
-  
-      <!-- Main Content -->
-      <main class="w-full md:w-3/4 bg-white shadow rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-blue-600 mb-4">Welcome, [User Name]!</h2>
-        
-        <!-- Profile Update Form -->
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold mb-2">Personal Details</h3>
-          <form>
-            <div class="mb-4">
-              <label class="block text-gray-700">Full Name</label>
-              <input type="text" value="" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-            </div>
-            <div class="mb-4">
-              <label class="block text-gray-700">Email</label>
-              <input type="email" value="" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-            </div>
-            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
-              Update Profile
-            </button>
-          </form>
+  <!-- Persistent Children Modules Links -->
+  <nav class="bg-white shadow-sm border-b">
+    <div class="container mx-auto px-4 py-3 overflow-x-auto">
+      <ul class="flex space-x-4 whitespace-nowrap">
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="text-blue-600 border-b-2 border-blue-600 font-semibold"
+             [routerLinkActiveOptions]="{ exact: true }"
+             class="text-gray-600 hover:text-blue-600 pb-2 transition duration-200">
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard/moderator" routerLinkActive="text-blue-600 border-b-2 border-blue-600 font-semibold"
+             class="text-gray-600 hover:text-blue-600 pb-2 transition duration-200">
+            Moderator
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard/petition" routerLinkActive="text-blue-600 border-b-2 border-blue-600 font-semibold"
+             class="text-gray-600 hover:text-blue-600 pb-2 transition duration-200">
+            Petition
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard/realtimereport" routerLinkActive="text-blue-600 border-b-2 border-blue-600 font-semibold"
+             class="text-gray-600 hover:text-blue-600 pb-2 transition duration-200">
+            Reports
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard/streaminglive" routerLinkActive="text-blue-600 border-b-2 border-blue-600 font-semibold"
+             class="text-gray-600 hover:text-blue-600 pb-2 transition duration-200">
+            LiveStream
+          </a>
+        </li>
+        <li>
+          <a routerLink="/dashboard/votingdashboard" routerLinkActive="text-blue-600 border-b-2 border-blue-600 font-semibold"
+             class="text-gray-600 hover:text-blue-600 pb-2 transition duration-200">
+            Vote
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Dynamic Content Area -->
+  <div class="container mx-auto mt-6 p-4 bg-white shadow rounded-lg">
+    <!-- Child Modules load here -->
+    <router-outlet></router-outlet>
+
+    <!-- Static Dashboard Content -->
+    <h2 class="text-2xl font-bold text-blue-600 mb-4">Welcome, [User Name]!</h2>
+    
+    <!-- Profile Update Form -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2">Personal Details</h3>
+      <form>
+        <div class="mb-4">
+          <label class="block text-gray-700">Full Name</label>
+          <input type="text" value="" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
-  
-        <!-- Notifications Section -->
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold mb-2">Recent Notifications</h3>
-          <ul class="space-y-2">
-            <li class="bg-gray-100 p-3 rounded-lg">Your issue report has been updated.</li>
-            <li class="bg-gray-100 p-3 rounded-lg">New petition signed for community project.</li>
-            <li class="bg-gray-100 p-3 rounded-lg">Upcoming virtual town hall meeting scheduled.</li>
-          </ul>
+        <div class="mb-4">
+          <label class="block text-gray-700">Email</label>
+          <input type="email" value="" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
         </div>
-  
-        <!-- Activity Tracker Section -->
-        <div>
-          <h3 class="text-xl font-semibold mb-2">Activity Tracker</h3>
-          <p class="text-gray-600">
-            Recent activities will appear here (e.g., issues reported, petitions signed, votes cast).
-          </p>
-        </div>
-      </main>
+        <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+          Update Profile
+        </button>
+      </form>
+    </div>
+
+    <!-- Notifications Section -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2">Recent Notifications</h3>
+      <ul class="space-y-2">
+        <li class="bg-gray-100 p-3 rounded-lg">Your issue report has been updated.</li>
+        <li class="bg-gray-100 p-3 rounded-lg">New petition signed for community project.</li>
+        <li class="bg-gray-100 p-3 rounded-lg">Upcoming virtual town hall meeting scheduled.</li>
+      </ul>
+    </div>
+
+    <!-- Activity Tracker Section -->
+    <div>
+      <h3 class="text-xl font-semibold mb-2">Activity Tracker</h3>
+      <p class="text-gray-600">
+        Recent activities will appear here (e.g., issues reported, petitions signed, votes cast).
+      </p>
     </div>
   </div>
-  
+</div>

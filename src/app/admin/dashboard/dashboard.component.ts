@@ -5,7 +5,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'; //
 @Component({
   selector: 'app-dashboard',
   standalone: true, // 👈🏽 Mark it as standalone
-  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet], // 👈🏽 Import everything needed
+  imports: [CommonModule, RouterLink,RouterOutlet, RouterLinkActive], // 👈🏽 Import everything needed
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'] // 👈🏽 Typo fixed here: styleUrls not styleUrl
 })
