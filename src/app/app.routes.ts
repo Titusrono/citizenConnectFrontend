@@ -16,6 +16,7 @@ import { RealtimereportComponent } from './components/realtimereport/realtimerep
 import { StreamingliveComponent } from './components/streaminglive/streaminglive.component';
 import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 export const routes: Routes = [
     {path:'', 'title':'Home', component: HomeComponent},
@@ -35,6 +36,7 @@ export const routes: Routes = [
     {path:'login', 'title':'Login', component: LoginComponent},
     {path:'signup', 'title':'Signup', component: SignupComponent},
     {path:'resetpassword', 'title':'Reset password', component: ResetpasswordComponent},
+    {path:'logout', 'title':'Logout', component: LogoutComponent},
     {path:'privacy', 'title':'Privacy',component:PrivacyComponent},
     {path:'terms', 'title':'Terms', component:TermsComponent},
     {path:'blog','title':'Blog',component:BlogComponent},
