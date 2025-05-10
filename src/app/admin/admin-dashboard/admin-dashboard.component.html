@@ -1,5 +1,4 @@
 <div class="max-w-screen-lg mx-auto p-10">
-
   <h1 class="text-3xl font-bold text-blue-600 mb-6">Admin Petition Dashboard</h1>
 
   <!-- Success Message -->
@@ -27,13 +26,15 @@
         <td class="p-2 border">{{ petition.description }}</td>
         <td class="p-2 border">{{ petition.targetAuthority }}</td>
         <td class="p-2 border">{{ petition.status || 'Pending' }}</td>
-        <td class="p-2 border space-x-2">
+        <td class="p-2 border space-x-4 flex justify-start">
+          <!-- Approve Button -->
           <button (click)="approvePetition(petition._id)"
-            class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">
+            class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
             Approve
           </button>
+          <!-- Delete Button -->
           <button (click)="deletePetition(petition._id)"
-            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
             Delete
           </button>
         </td>
@@ -45,5 +46,4 @@
   <div *ngIf="!loading && !petitions.length" class="text-gray-500">
     No petitions found.
   </div>
-
 </div>
