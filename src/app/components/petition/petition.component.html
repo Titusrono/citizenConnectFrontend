@@ -71,14 +71,16 @@
       </div>
 
       <div class="mb-4">
-        <label for="targetAuthority" class="block text-gray-700">Target Authority</label>
-        <input 
-          type="text" 
-          id="targetAuthority" 
-          formControlName="targetAuthority" 
-          placeholder="Enter target authority" 
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" />
-      </div>
+  <label for="targetAuthority" class="block text-gray-700">Target Authority</label>
+  <select 
+    id="targetAuthority" 
+    formControlName="targetAuthority" 
+    class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+    <option value="" disabled selected>Select Target Authority</option>
+    <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
+  </select>
+</div>
+
 
       <div class="mb-4">
         <label for="supportingDocs" class="block text-gray-700">Supporting Documents</label>

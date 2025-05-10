@@ -8,5 +8,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './realtimereport.component.scss'
 })
 export class RealtimereportComponent {
+onSubmit() {
+throw new Error('Method not implemented.');
+}
 
 }

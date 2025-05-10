@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,36 +10,52 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-logout() {
-throw new Error('Method not implemented.');
-}
-// For managing the visibility of the mobile menu
-toggleProfile($event: MouseEvent) {
-throw new Error('Method not implemented.');
-}
-isProfileOpen: any;
-toggleTheme() {
-throw new Error('Method not implemented.');
-}
-  // For managing the visibility of the dropdown
+  // State for dropdown and menus
   dropdownVisible = false;
-
-  // For managing the visibility of the mobile menu
   mobileMenuVisible = false;
-isDark: any;
+  mobileAdminMenuVisible = false;
 
-  // Toggle function for the dropdown visibility
+  isProfileOpen = false;
+  isDark = false;
+
+  constructor(private router: Router) { }
+
+  // Toggle Admin dropdown (Desktop)
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
   }
 
-  // Close the dropdown (called when link is clicked)
+  // Close dropdown on link click
   closeDropdown() {
     this.dropdownVisible = false;
   }
 
-  // Toggle function for the mobile menu visibility
+  // Toggle mobile menu
   toggleMobileMenu() {
     this.mobileMenuVisible = !this.mobileMenuVisible;
+  }
+
+  // Toggle Admin dropdown inside mobile menu
+  toggleMobileAdminMenu() {
+    this.mobileAdminMenuVisible = !this.mobileAdminMenuVisible;
+  }
+
+  // Toggle user profile dropdown
+  toggleProfile(event: MouseEvent) {
+    event.stopPropagation();
+    this.isProfileOpen = !this.isProfileOpen;
+  }
+
+  // Logout user
+  logout() {
+    // You can also clear user session/token here if applicable
+    // Example: localStorage.clear();
+    this.router.navigate(['/logout']);
+  }
+
+  // Optional: Toggle Dark/Light theme
+  toggleTheme() {
+    this.isDark = !this.isDark;
+    document.documentElement.classList.toggle('dark', this.isDark);
   }
 }

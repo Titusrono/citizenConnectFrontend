@@ -18,11 +18,20 @@ export class PetitionComponent {
   showSuccessMessage: boolean = false;  // Control visibility of success message
   showErrorMessage: boolean = false;  // Control visibility of error message
 
+  // Authorities array for dropdown
+  authorities: string[] = [
+    'Government',
+    'Local Council',
+    'Education Department',
+    'Environmental Agency',
+    'Healthcare Authority'
+  ];
+
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.petitionForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      targetAuthority: [''],
+      targetAuthority: ['', Validators.required], // Now required
       supportingDocs: ['']
     });
   }
@@ -47,7 +56,7 @@ export class PetitionComponent {
           this.showSuccessMessage = true;
           this.petitionForm.reset();
           setTimeout(() => {
-            this.showSuccessMessage = false;  // Hide after 3 seconds
+            this.showSuccessMessage = false;
           }, 3000);
         },
         (err) => {
@@ -55,7 +64,7 @@ export class PetitionComponent {
           this.errorMessage = 'Submission Failed! Please try again.';
           this.showErrorMessage = true;
           setTimeout(() => {
-            this.showErrorMessage = false;  // Hide after 3 seconds
+            this.showErrorMessage = false;
           }, 3000);
         }
       );
@@ -63,7 +72,7 @@ export class PetitionComponent {
       this.errorMessage = 'Please fill in the required fields!';
       this.showErrorMessage = true;
       setTimeout(() => {
-        this.showErrorMessage = false;  // Hide after 3 seconds
+        this.showErrorMessage = false;
       }, 3000);
     }
   }
