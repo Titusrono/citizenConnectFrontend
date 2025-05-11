@@ -40,6 +40,12 @@ export class HeaderComponent {
     this.mobileAdminMenuVisible = !this.mobileAdminMenuVisible;
   }
 
+  // NEW: Close mobile menu (on link click)
+  closeMobileMenu() {
+    this.mobileMenuVisible = false;
+    this.mobileAdminMenuVisible = false; // also close admin dropdown inside mobile menu
+  }
+
   // Toggle user profile dropdown
   toggleProfile(event: MouseEvent) {
     event.stopPropagation();
