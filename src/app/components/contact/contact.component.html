@@ -1,65 +1,135 @@
-<div class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="container mx-auto px-6 lg:px-20 py-12">
-      
-      <h2 class="text-4xl font-bold text-blue-600 text-center">Contact Us</h2>
-      <p class="text-gray-600 text-center mt-2">
-        Have questions or suggestions? Reach out to us!
-      </p>
-  
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
-  
-        <!-- Contact Form -->
-        <div class="bg-white p-6 shadow-lg rounded-xl">
-          <h3 class="text-2xl font-semibold text-blue-600 mb-4">Send Us a Message</h3>
-          <form>
-            <div class="mb-4">
-              <label class="block text-gray-700 font-semibold">Your Name</label>
-              <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-            </div>
-  
-            <div class="mb-4">
-              <label class="block text-gray-700 font-semibold">Your Email</label>
-              <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-            </div>
-  
-            <div class="mb-4">
-              <label class="block text-gray-700 font-semibold">Message</label>
-              <textarea class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400" rows="4"></textarea>
-            </div>
-  
-            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition">
-              Send Message
-            </button>
-          </form>
-        </div>
-  
-        <!-- Contact Info -->
-        <div class="bg-white p-6 shadow-lg rounded-xl">
-          <h3 class="text-2xl font-semibold text-blue-600 mb-4">Get in Touch</h3>
-          <p class="text-gray-600 mb-4">Feel free to contact us through any of the following ways:</p>
-  
-          <div class="space-y-4">
-            <div class="flex items-center space-x-4">
-              <i class="fas fa-phone-alt text-blue-600 text-xl"></i>
-              <span class="text-gray-700">+123 456 7890</span>
-            </div>
-  
-            <div class="flex items-center space-x-4">
-              <i class="fas fa-envelope text-blue-600 text-xl"></i>
-              <span class="text-gray-700">info&#64;citizenconnect.com</span>
-            </div>
-  
-            <div class="flex items-center space-x-4">
-              <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
-              <span class="text-gray-700">123 Main Street, City, Country</span>
-            </div>
+<div class="bg-gray-100 min-h-screen flex items-center justify-center relative">
+  <!-- ✅ Popup Notification -->
+  <div id="popup" class="hidden fixed top-5 right-5 bg-green-100 text-green-700 border border-green-300 px-4 py-3 rounded-lg shadow-lg z-50 transition transform duration-300 ease-out">
+    ✅ Submission successful! Thank you.
+  </div>
+
+  <div class="container mx-auto px-6 lg:px-20 py-12">
+    <h2 class="text-4xl font-bold text-blue-600 text-center">Contact Us</h2>
+    <p class="text-gray-600 text-center mt-2">Have questions or suggestions? Reach out to us!</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-8">
+
+      <!-- Contact Form -->
+      <div class="bg-white p-6 shadow-lg rounded-xl">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-4">Send Us a Message</h3>
+  <form action="https://api.web3forms.com/submit" method="POST" id="form">
+  <input type="hidden" name="access_key" value="d29c8c26-41c4-4e33-ba9f-c6b577b06f80" />
+  <input type="hidden" name="subject" value="New Submission from Web3Forms" />
+  <input type="checkbox" name="botcheck" style="display: none;" />
+
+  <!-- Full Name -->
+  <div class="mb-6">
+    <label for="name" class="block mb-2 text-sm font-semibold text-gray-700">Full Name</label>
+    <input type="text" name="name" id="name" placeholder="Name" required
+      class="w-full px-4 py-3 placeholder-gray-500 border border-gray-300 rounded-lg bg-white text-black focus:ring focus:ring-indigo-200 focus:border-indigo-500" />
+  </div>
+
+  <!-- Email -->
+  <div class="mb-6">
+    <label for="email" class="block mb-2 text-sm font-semibold text-gray-700">Email Address</label>
+    <input type="email" name="email" id="email" placeholder="Your Email" required
+      class="w-full px-4 py-3 placeholder-gray-500 border border-gray-300 rounded-lg bg-white text-black focus:ring focus:ring-indigo-200 focus:border-indigo-500" />
+  </div>
+
+  <!-- Phone -->
+  <div class="mb-6">
+    <label for="phone" class="block mb-2 text-sm font-semibold text-gray-700">Phone Number</label>
+    <input type="text" name="phone" id="phone" placeholder="Your Phone Number" required
+      class="w-full px-4 py-3 placeholder-gray-500 border border-gray-300 rounded-lg bg-white text-black focus:ring focus:ring-indigo-200 focus:border-indigo-500" />
+  </div>
+
+  <!-- Message -->
+  <div class="mb-6">
+    <label for="message" class="block mb-2 text-sm font-semibold text-gray-700">Your Message</label>
+    <textarea rows="5" name="message" id="message" placeholder="Your Message" required
+      class="w-full px-4 py-3 placeholder-gray-500 border border-gray-300 rounded-lg bg-white text-black focus:ring focus:ring-indigo-200 focus:border-indigo-500"></textarea>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mb-6">
+    <button type="submit"
+      class="w-full px-4 py-3 text-white bg-indigo-500 rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300">
+      Send Message
+    </button>
+  </div>
+</form>
+
+
+        <!-- ✅ Script -->
+        <script>
+          const form = document.getElementById('form');
+          const popup = document.getElementById('popup');
+
+          form.addEventListener('submit', async function (e) {
+            e.preventDefault(); // Stay on the same page (NO redirect)
+
+            const formData = new FormData(form);
+
+            try {
+              const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+              });
+
+              if (response.ok) {
+                showPopup("✅ Submission successful! Thank you.");
+                form.reset();
+              } else {
+                showPopup("❌ Oops! Something went wrong.", true);
+              }
+            } catch (error) {
+              showPopup("❌ Error submitting the form.", true);
+            }
+          });
+
+          function showPopup(message, isError = false) {
+            popup.innerHTML = message;
+
+            // Set popup styles based on success or error
+            popup.className = `fixed top-5 right-5 px-4 py-3 rounded-lg shadow-lg z-50 transition transform duration-300 ease-out
+              ${isError ? 'bg-red-100 text-red-700 border border-red-300' : 'bg-green-100 text-green-700 border border-green-300'}`;
+
+            // Show popup
+            popup.classList.remove('hidden');
+            popup.classList.add('opacity-100', 'scale-100');
+
+            // Hide after 3 sec
+            setTimeout(() => {
+              popup.classList.remove('opacity-100', 'scale-100');
+              popup.classList.add('hidden');
+            }, 3000);
+          }
+        </script>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="bg-white p-6 shadow-lg rounded-xl">
+        <h3 class="text-2xl font-semibold text-blue-600 mb-4">Get in Touch</h3>
+        <p class="text-gray-600 mb-4">Feel free to contact us through any of the following ways:</p>
+
+        <div class="space-y-4">
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-phone-alt text-blue-600 text-xl"></i>
+            <span class="text-gray-700">+123 456 7890</span>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-envelope text-blue-600 text-xl"></i>
+            <span class="text-gray-700">info&#64;citizenconnect.com</span>
+          </div>
+
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-map-marker-alt text-blue-600 text-xl"></i>
+            <span class="text-gray-700">123 Main Street, City, Country</span>
           </div>
         </div>
-  
       </div>
+
     </div>
   </div>
-  
-  <!-- FontAwesome for Icons (Include this in your index.html if not already added) -->
-  <script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
-  
+</div>
+
+<!-- FontAwesome for Icons -->
+<script src="https://kit.fontawesome.com/YOUR_KIT_CODE.js" crossorigin="anonymous"></script>
