@@ -1,67 +1,63 @@
-<div class="min-h-screen bg-gray-50">
-  <!-- Main Content -->
-  <div class="container mx-auto mt-6 p-6 bg-white shadow rounded-lg">
-    <router-outlet></router-outlet>
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
 
-    <!-- Welcome -->
-    <h2 class="text-2xl font-bold text-blue-700 mb-4">Welcome back, [User Name] 👋</h2>
+  <!-- Reports Block -->
+  <a 
+    routerLink="/report-admin" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 transition block"
+  >
+    <h3 class="text-xl font-semibold mb-2">📊 Manage Reports</h3>
+    <p class="text-gray-600">View and delete submitted citizen reports.</p>
+  </a>
 
-    <!-- Profile -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold mb-3">Update Personal Details</h3>
-      <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-gray-700 mb-1">Full Name</label>
-          <input type="text" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-        </div>
-        <div>
-          <label class="block text-gray-700 mb-1">Email</label>
-          <input type="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-        </div>
-        <div class="md:col-span-2">
-          <button type="submit" class="bg-blue-700 text-white py-2 px-6 rounded-lg hover:bg-blue-800 transition">
-            Save Changes
-          </button>
-        </div>
-      </form>
-    </div>
+  <!-- Petitions Block -->
+  <a 
+    routerLink="/admin-dashboard" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 transition block"
+  >
+    <h3 class="text-xl font-semibold mb-2">📝 Manage Petitions</h3>
+    <p class="text-gray-600">Review and respond to citizen petitions.</p>
+  </a>
 
-    <!-- Notifications -->
-    <div class="mb-8">
-      <h3 class="text-xl font-semibold mb-3">Recent Notifications</h3>
-      <ul class="space-y-3">
-        <li class="bg-blue-50 p-4 rounded-lg border border-blue-100 text-blue-700">
-          ✅ Your issue report has been updated.
-        </li>
-        <li class="bg-green-50 p-4 rounded-lg border border-green-100 text-green-700">
-          📢 New petition signed for community project.
-        </li>
-        <li class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-yellow-700">
-          🗓️ Upcoming virtual town hall meeting scheduled.
-        </li>
-      </ul>
-    </div>
+  <!-- Users Block -->
+  <a 
+    routerLink="/admin/users" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 transition block"
+  >
+    <h3 class="text-xl font-semibold mb-2">👥 Manage Users</h3>
+    <p class="text-gray-600">View registered users and their activity.</p>
+  </a>
 
-    <!-- Activity Tracker -->
-    <div>
-      <h3 class="text-xl font-semibold mb-3">Activity Tracker</h3>
-      <p class="text-gray-600 mb-3">
-        Track your civic engagement at a glance:
-      </p>
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <li class="bg-gray-50 p-4 rounded-lg border text-center">
-          <p class="text-3xl font-bold text-blue-700">5</p>
-          <p class="text-gray-600 mt-1">Issues Reported</p>
-        </li>
-        <li class="bg-gray-50 p-4 rounded-lg border text-center">
-          <p class="text-3xl font-bold text-green-700">3</p>
-          <p class="text-gray-600 mt-1">Petitions Signed</p>
-        </li>
-        <li class="bg-gray-50 p-4 rounded-lg border text-center">
-          <p class="text-3xl font-bold text-purple-700">2</p>
-          <p class="text-gray-600 mt-1">Votes Cast</p>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+  <!-- Projects Block -->
+  <a 
+    routerLink="/admin/projects" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 transition block"
+  >
+    <h3 class="text-xl font-semibold mb-2">🏗️ Manage Projects</h3>
+    <p class="text-gray-600">Approve and monitor development projects.</p>
+  </a>
+
+  <!-- Votes Block -->
+  <a 
+    routerLink="/admin/votes" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 transition block"
+  >
+    <h3 class="text-xl font-semibold mb-2">🗳️ Manage Votes</h3>
+    <p class="text-gray-600">Oversee votes and citizen participation.</p>
+  </a>
+
+  <!-- Town Hall Streams Block -->
+  <a 
+    routerLink="/admin/townhall" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="bg-white shadow-md rounded-lg p-6 hover:bg-gray-100 transition block"
+  >
+    <h3 class="text-xl font-semibold mb-2">🎥 Manage Town Hall</h3>
+    <p class="text-gray-600">Stream and archive virtual town hall meetings.</p>
+  </a>
+
+</section>

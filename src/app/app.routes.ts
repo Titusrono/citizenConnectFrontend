@@ -18,6 +18,7 @@ import { VotingdasboardComponent } from './components/votingdasboard/votingdasbo
 import { BlogComponent } from './components/blog/blog.component';
 import { LogoutComponent } from './auth/logout/logout.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { ReportAdminComponent } from './admin/report-admin/report-admin.component';
 
 export const routes: Routes = [
     {path:'', 'title':'Home', component: HomeComponent},
@@ -42,6 +43,7 @@ export const routes: Routes = [
     {path:'terms', 'title':'Terms', component:TermsComponent},
     {path:'blog','title':'Blog',component:BlogComponent},
     {path:'admin-dashboard','title':'admin-dashboard',component:AdminDashboardComponent},
+    {path:'report-admin', 'title':'Report-Admin', component: ReportAdminComponent},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 
