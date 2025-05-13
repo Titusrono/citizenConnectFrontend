@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { RouterLink } from '@angular/router';
 
 interface SignupData {
   name: string;
@@ -14,7 +15,7 @@ interface SignupData {
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
