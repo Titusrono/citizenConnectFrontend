@@ -14,7 +14,7 @@ export interface CreateVoteCreateDto {
 })
 export class VoteCreateService {
   // Directly using localhost for the API URL
-  private apiUrl = 'http://localhost:3000/votecreate'; // Replace with your local backend URL
+  private apiUrl = 'http://localhost:3000/votecreates'; // Replace with your local backend URL
 
   constructor(private http: HttpClient) {}
 
