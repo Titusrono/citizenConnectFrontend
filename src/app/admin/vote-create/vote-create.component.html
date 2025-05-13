@@ -1,1 +1,70 @@
-<p>vote-create works!</p>
+<div class="container mx-auto p-10 max-w-2xl">
+  <h1 class="text-3xl font-bold text-blue-600 mb-6">Create New Voting Proposal</h1>
+
+  <form (ngSubmit)="createProposal()" #proposalForm="ngForm" class="bg-white shadow-md rounded-lg p-6 space-y-4">
+
+    <!-- Title -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">Title</label>
+      <input 
+        type="text" 
+        name="title" 
+        [(ngModel)]="proposal.title" 
+        required
+        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+    </div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">Description</label>
+      <textarea 
+        name="description" 
+        [(ngModel)]="proposal.description" 
+        rows="4" 
+        required
+        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"></textarea>
+    </div>
+
+    <!-- Eligibility -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">Eligibility</label>
+      <select 
+        name="eligibility" 
+        [(ngModel)]="proposal.eligibility" 
+        required
+        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+        <option value="">Select Eligibility</option>
+        <option value="All Registered Residents">All Registered Residents</option>
+        <option value="Registered Citizens">Registered Citizens Only</option>
+        <option value="Youth Members">Youth Members</option>
+      </select>
+    </div>
+
+    <!-- Voting End Date -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">Voting End Date</label>
+      <input 
+        type="date" 
+        name="votingEndDate" 
+        [(ngModel)]="proposal.votingEndDate" 
+        required
+        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300">
+    </div>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end">
+      <button 
+        type="submit" 
+        [disabled]="!proposalForm.valid"
+        class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+        Create Proposal
+      </button>
+    </div>
+
+  </form>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="mt-4 text-green-600 font-medium">
+    {{ successMessage }}
+  </div>
+</div>

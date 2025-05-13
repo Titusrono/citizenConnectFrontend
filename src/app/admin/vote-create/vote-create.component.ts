@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { CommonModule } from '@angular/common';
 
-@Component({
-  selector: 'app-vote-create',
-  imports: [],
-  templateUrl: './vote-create.component.html',
-  styleUrl: './vote-create.component.scss'
-})
-export class VoteCreateComponent {
-
-}
+@NgModule({
+  declarations: [],
+  imports: [CommonModule,BrowserModule, FormsModule, HttpClientModule],
+  providers: [],
+  bootstrap: [],
+})export class AppModule {}

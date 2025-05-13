@@ -20,6 +20,7 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ReportAdminComponent } from './admin/report-admin/report-admin.component';
 
+
 export const routes: Routes = [
     {path:'', 'title':'Home', component: HomeComponent},
     {path:'contact', 'title':'Contact', component: ContactComponent},
@@ -44,6 +45,7 @@ export const routes: Routes = [
     {path:'blog','title':'Blog',component:BlogComponent},
     {path:'admin-dashboard','title':'admin-dashboard',component:AdminDashboardComponent},
     {path:'report-admin', 'title':'Report-Admin', component: ReportAdminComponent},
+    //{path:'vote-create', 'title':'Vote Creation', component:},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 
