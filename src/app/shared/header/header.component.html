@@ -32,8 +32,14 @@
       <a routerLink="/blog" routerLinkActive="text-yellow-300 underline font-bold" 
          class="hover:text-yellow-300 transition duration-300">Blogs</a>
 
+      <a routerLink="/portal" routerLinkActive="text-yellow-300 underline font-bold" 
+         class="hover:text-yellow-300 transition duration-300">Portal</a>
+
+      <a routerLink="/dashboard" routerLinkActive="text-yellow-300 underline font-bold" 
+         class="hover:text-yellow-300 transition duration-300">Admin</a>
+
       <!-- Dropdown for Admin -->
-      <div class="relative">
+      <!-- <div class="relative">
         <button (click)="toggleDropdown()" class="flex items-center space-x-1 focus:outline-none hover:text-yellow-300 transition duration-300">
           <span>Admin</span>
           <svg [class.rotate-180]="dropdownVisible" class="w-4 h-4 transition-transform duration-300" fill="none"
@@ -41,10 +47,10 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M19 9l-7 7-7-7" />
           </svg>
-        </button>
+        </button> -->
 
         <!-- Dropdown Menu -->
-        <div *ngIf="dropdownVisible"
+        <!-- <div *ngIf="dropdownVisible"
           class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
           <a (click)="closeDropdown()" routerLink="/dashboard"
             routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Dashboard</a>
@@ -59,25 +65,21 @@
           <a (click)="closeDropdown()" routerLink="/dashboard/votingdashboard"
             routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Vote</a>
         </div>
-      </div>
+      </div> -->
 
       <!-- Avatar Icon -->
-      <a routerLink="/login" 
-         class="block w-10 h-10 rounded-full overflow-hidden border-2 border-white hover:border-yellow-300 transition duration-300 flex items-center justify-center bg-gray-100">
-        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-        </svg>
-      </a>
+      <!-- Login and Logout Buttons -->
+<div class="flex space-x-4">
+  <a routerLink="/login"
+     class="bg-white text-blue-600 font-semibold px-4 py-2 rounded hover:bg-yellow-300 transition duration-300">
+    Login
+  </a>
+  <a routerLink="/logout"
+     class="bg-white text-red-600 font-semibold px-4 py-2 rounded hover:bg-yellow-300 transition duration-300">
+    Logout
+  </a>
+</div>
 
-      <!-- Logout Icon -->
-      <a routerLink="/logout" 
-         class="block w-10 h-10 rounded-full overflow-hidden border-2 border-white hover:border-yellow-300 transition duration-300 flex items-center justify-center bg-gray-100">
-        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m0 0H5a2 2 0 00-2 2v10a2 2 0 002 2h8" />
-        </svg>
-      </a>
     </div>
   </div>
 
@@ -93,9 +95,13 @@
        class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Contact</a>
     <a routerLink="/blog" routerLinkActive="text-yellow-300 underline font-bold" 
        class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Blogs</a>
+    <a routerLink="/portal" routerLinkActive="text-yellow-300 underline font-bold" 
+       class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Portal</a>
+    <a routerLink="/dashboard" routerLinkActive="text-yellow-300 underline font-bold" 
+       class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Admin</a>
 
     <!-- Admin Dropdown for Mobile -->
-    <div>
+    <!-- <div>
       <button (click)="toggleMobileAdminMenu()" class="flex items-center space-x-1 focus:outline-none hover:text-yellow-300 transition duration-300">
         <span>Admin</span>
         <svg [class.rotate-180]="mobileAdminMenuVisible" class="w-4 h-4 transition-transform duration-300" fill="none"
@@ -112,31 +118,23 @@
         <a routerLink="/dashboard/streaminglive" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">LiveStream</a>
         <a routerLink="/dashboard/votingdashboard" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">Vote</a>
       </div>
-    </div>
+    </div> -->
 
     <!-- Avatar for mobile -->
     <!-- Horizontal Login & Logout Icons for mobile -->
-<div class="flex space-x-4 justify-center mt-4">
-  <!-- Login Icon -->
+<div class="flex flex-col space-y-2 mt-4">
   <a routerLink="/login" 
-     class="w-10 h-10 rounded-full overflow-hidden border-2 border-white hover:border-yellow-300 transition duration-300 flex items-center justify-center bg-gray-100" 
+     class="bg-white text-blue-600 font-semibold text-center px-4 py-2 rounded hover:bg-yellow-300 transition duration-300"
      (click)="closeMobileMenu()">
-    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-    </svg>
+    Login
   </a>
-
-  <!-- Logout Icon -->
   <a routerLink="/logout" 
-     class="w-10 h-10 rounded-full overflow-hidden border-2 border-white hover:border-yellow-300 transition duration-300 flex items-center justify-center bg-gray-100" 
+     class="bg-white text-red-600 font-semibold text-center px-4 py-2 rounded hover:bg-yellow-300 transition duration-300"
      (click)="closeMobileMenu()">
-    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1m0-10V5m0 0H5a2 2 0 00-2 2v10a2 2 0 002 2h8" />
-    </svg>
+    Logout
   </a>
 </div>
+
 
   </div>
 </nav>

@@ -21,6 +21,7 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { ReportAdminComponent } from './admin/report-admin/report-admin.component';
 import { VoteCreateComponent } from './admin/vote-create/vote-create.component';
 import { ProposalComponent } from './components/proposal/proposal.component';
+import { PortalComponent } from './citizen/portal/portal.component';
 
 
 export const routes: Routes = [
@@ -49,6 +50,7 @@ export const routes: Routes = [
     {path:'report-admin', 'title':'Report-Admin', component: ReportAdminComponent},
     {path:'vote-create', 'title':'Vote Creation', component:VoteCreateComponent},
     {path:'proposal','title':'Proposal',component:ProposalComponent},
+    {path:'portal','title':'Citizen-portal',component:PortalComponent},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 
