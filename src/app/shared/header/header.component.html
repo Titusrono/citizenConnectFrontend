@@ -1,10 +1,7 @@
-<!-- Sticky Navbar -->
 <nav class="bg-gradient-to-r from-blue-700 via-purple-600 to-pink-500 text-white w-full z-50 shadow-lg sticky top-0">
   <div class="container mx-auto flex items-center justify-between p-4">
-    <!-- Logo -->
     <div class="text-2xl font-bold">Citizen Connect</div>
 
-    <!-- Hamburger Icon (Always Visible on Mobile) -->
     <button class="md:hidden focus:outline-none" (click)="toggleMobileMenu()">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -12,9 +9,7 @@
       </svg>
     </button>
 
-    <!-- Desktop Menu -->
     <div class="hidden md:flex items-center space-x-6">
-      <!-- Home -->
       <a routerLink="/" 
          routerLinkActive="text-yellow-300 underline font-bold" 
          [routerLinkActiveOptions]="{ exact: true }" 
@@ -38,52 +33,19 @@
       <a routerLink="/dashboard" routerLinkActive="text-yellow-300 underline font-bold" 
          class="hover:text-yellow-300 transition duration-300">Admin</a>
 
-      <!-- Dropdown for Admin -->
-      <!-- <div class="relative">
-        <button (click)="toggleDropdown()" class="flex items-center space-x-1 focus:outline-none hover:text-yellow-300 transition duration-300">
-          <span>Admin</span>
-          <svg [class.rotate-180]="dropdownVisible" class="w-4 h-4 transition-transform duration-300" fill="none"
-            stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M19 9l-7 7-7-7" />
-          </svg>
-        </button> -->
-
-        <!-- Dropdown Menu -->
-        <!-- <div *ngIf="dropdownVisible"
-          class="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
-          <a (click)="closeDropdown()" routerLink="/dashboard"
-            routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Dashboard</a>
-          <a (click)="closeDropdown()" routerLink="/dashboard/moderator"
-            routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Moderator</a>
-          <a (click)="closeDropdown()" routerLink="/dashboard/petition"
-            routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Petition</a>
-          <a (click)="closeDropdown()" routerLink="/dashboard/realtimereport"
-            routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Reports</a>
-          <a (click)="closeDropdown()" routerLink="/dashboard/streaminglive"
-            routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">LiveStream</a>
-          <a (click)="closeDropdown()" routerLink="/dashboard/votingdashboard"
-            routerLinkActive="font-bold text-blue-600" class="block px-4 py-2 hover:bg-blue-100 transition">Vote</a>
-        </div>
-      </div> -->
-
-      <!-- Avatar Icon -->
-      <!-- Login and Logout Buttons -->
-<div class="flex space-x-4">
-  <a routerLink="/login"
-     class="bg-white text-blue-600 font-semibold px-4 py-2 rounded hover:bg-yellow-300 transition duration-300">
-    Login
-  </a>
-  <a routerLink="/logout"
-     class="bg-white text-red-600 font-semibold px-4 py-2 rounded hover:bg-yellow-300 transition duration-300">
-    Logout
-  </a>
-</div>
-
+      <div class="flex space-x-4">
+        <a routerLink="/login"
+           class="bg-white text-blue-600 font-semibold px-4 py-2 rounded hover:bg-yellow-300 transition duration-300">
+          Login
+        </a>
+        <!-- <a routerLink="/logout"
+           class="bg-white text-red-600 font-semibold px-4 py-2 rounded hover:bg-yellow-300 transition duration-300">
+          Logout
+        </a> -->
+      </div>
     </div>
   </div>
 
-  <!-- Mobile Menu -->
   <div *ngIf="mobileMenuVisible" class="md:hidden flex flex-col space-y-2 px-4 pb-4 bg-blue-500">
     <a routerLink="/" routerLinkActive="text-yellow-300 underline font-bold" [routerLinkActiveOptions]="{ exact: true }"
        class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Home</a>
@@ -100,41 +62,17 @@
     <a routerLink="/dashboard" routerLinkActive="text-yellow-300 underline font-bold" 
        class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Admin</a>
 
-    <!-- Admin Dropdown for Mobile -->
-    <!-- <div>
-      <button (click)="toggleMobileAdminMenu()" class="flex items-center space-x-1 focus:outline-none hover:text-yellow-300 transition duration-300">
-        <span>Admin</span>
-        <svg [class.rotate-180]="mobileAdminMenuVisible" class="w-4 h-4 transition-transform duration-300" fill="none"
-          stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-      <div *ngIf="mobileAdminMenuVisible" class="flex flex-col space-y-2 mt-2">
-        <a routerLink="/dashboard" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">Dashboard</a>
-        <a routerLink="/dashboard/moderator" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">Moderator</a>
-        <a routerLink="/dashboard/petition" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">Petition</a>
-        <a routerLink="/dashboard/realtimereport" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">Reports</a>
-        <a routerLink="/dashboard/streaminglive" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">LiveStream</a>
-        <a routerLink="/dashboard/votingdashboard" routerLinkActive="text-yellow-300 underline font-bold" class="hover:text-yellow-300 transition" (click)="closeMobileMenu()">Vote</a>
-      </div>
-    </div> -->
-
-    <!-- Avatar for mobile -->
-    <!-- Horizontal Login & Logout Icons for mobile -->
-<div class="flex flex-col space-y-2 mt-4">
-  <a routerLink="/login" 
-     class="bg-white text-blue-600 font-semibold text-center px-4 py-2 rounded hover:bg-yellow-300 transition duration-300"
-     (click)="closeMobileMenu()">
-    Login
-  </a>
-  <a routerLink="/logout" 
-     class="bg-white text-red-600 font-semibold text-center px-4 py-2 rounded hover:bg-yellow-300 transition duration-300"
-     (click)="closeMobileMenu()">
-    Logout
-  </a>
-</div>
-
-
+    <div class="flex flex-col space-y-2 mt-4">
+      <a routerLink="/login" 
+         class="bg-white text-blue-600 font-semibold text-center px-4 py-2 rounded hover:bg-yellow-300 transition duration-300"
+         (click)="closeMobileMenu()">
+        Login
+      </a>
+      <!-- <a routerLink="/logout" 
+         class="bg-white text-red-600 font-semibold text-center px-4 py-2 rounded hover:bg-yellow-300 transition duration-300"
+         (click)="closeMobileMenu()">
+        Logout
+      </a> -->
+    </div>
   </div>
 </nav>
