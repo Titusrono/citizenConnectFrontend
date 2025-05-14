@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
 import { RouterLink } from '@angular/router';
-
+import { UsersService } from '../../services/users.service';
 interface SignupData {
   name: string;
   email: string;
@@ -15,7 +14,7 @@ interface SignupData {
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
@@ -41,8 +40,7 @@ export class SignupComponent {
 
   isLoading: boolean = false;
 
-  constructor(private authService: AuthService) {}
-
+  constructor(@Inject(UsersService) private usersService: UsersService) {}
   onSubmit() {
     if (this.formData.password !== this.formData.confirmPassword) {
       alert('Passwords do not match!');
@@ -51,15 +49,15 @@ export class SignupComponent {
 
     this.isLoading = true;
 
-    // ✅ Send only valid backend fields
     const signupPayload = {
       name: this.formData.name,
       email: this.formData.email,
       password: this.formData.password,
+      confirmPassword: this.formData.confirmPassword,
       county: this.formData.county
     };
 
-    this.authService.signup(signupPayload).subscribe(
+    this.usersService.registerUser(signupPayload).subscribe(
       (response: any) => {
         alert('Account created successfully!');
         this.resetForm();
@@ -67,15 +65,11 @@ export class SignupComponent {
       },
       (error: any) => {
         this.isLoading = false;
-
-        // ✅ See actual backend error in console
         console.error('Backend Error Response:', error);
-
-        alert('Error creating account. Please try again.');
+        alert(error?.error?.message || 'Error creating account. Please try again.');
       }
     );
   }
-
   private resetForm() {
     this.formData = {
       name: '',
