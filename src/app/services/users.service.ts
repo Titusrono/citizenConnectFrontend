@@ -14,6 +14,9 @@ interface RegisterUserData {
   providedIn: 'root'
 })
 export class UsersService {
+  loginUser(arg0: { email: string; password: string; }) {
+    throw new Error('Method not implemented.');
+  }
   // ✅ This should match the NestJS controller path: @Controller('register')
   private apiUrl = 'http://localhost:3000/register';
 
