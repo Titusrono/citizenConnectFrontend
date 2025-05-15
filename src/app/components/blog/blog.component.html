@@ -1,114 +1,78 @@
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-  <h1 class="text-3xl font-bold text-blue-600 mb-6">News & Updates</h1>
+<div class="max-w-6xl mx-auto px-4 py-12">
+  <h1 class="text-4xl font-bold text-blue-700 mb-10 text-center">Citizen Connect: News & Updates</h1>
 
-  <!-- Search & Filter Section -->
-  <section class="bg-white shadow-md rounded-lg p-6 mb-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Find News</h2>
-
-    <div class="grid gap-4 md:grid-cols-3">
-      <input
-        type="text"
-        placeholder="Search articles..."
-        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-      />
-
-      <select
-        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="">All Categories</option>
-        <option value="governance">Governance</option>
-        <option value="policy">Policy Changes</option>
-        <option value="events">Community Events</option>
-      </select>
-
-      <select
-        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-      >
-        <option value="">Newest First</option>
-        <option value="oldest">Oldest First</option>
-      </select>
-    </div>
-  </section>
-
-  <!-- Blog Listing -->
-  <section class="bg-white shadow-md rounded-lg p-6 mb-8">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Latest Articles</h2>
-
-    <div class="space-y-6">
-      <!-- Article 1 -->
-      <div class="border rounded-lg p-5 hover:shadow-md transition duration-300">
-        <h3 class="text-xl font-bold text-gray-800">New Public Transport Initiative</h3>
-        <p class="text-sm text-gray-500">Published on: February 20, 2025</p>
-        <p class="text-gray-700 mt-2">
-          A new policy is being introduced to improve citywide public transport efficiency...
-        </p>
-        <div class="flex flex-wrap items-center justify-between mt-4 gap-2">
-          <a href="#articleDetail" class="text-blue-600 hover:underline">Read More</a>
-          <span class="px-3 py-1 bg-blue-600 text-white text-xs rounded-full">Policy</span>
-        </div>
-      </div>
-
-      <!-- Article 2 -->
-      <div class="border rounded-lg p-5 hover:shadow-md transition duration-300">
-        <h3 class="text-xl font-bold text-gray-800">Community Clean-Up Event</h3>
-        <p class="text-sm text-gray-500">Published on: February 15, 2025</p>
-        <p class="text-gray-700 mt-2">
-          Join us for a community clean-up drive this weekend to help make our city greener...
-        </p>
-        <div class="flex flex-wrap items-center justify-between mt-4 gap-2">
-          <a href="#articleDetail" class="text-blue-600 hover:underline">Read More</a>
-          <span class="px-3 py-1 bg-green-600 text-white text-xs rounded-full">Community Event</span>
-        </div>
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <!-- Card Template -->
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer hover:border-l-4 hover:border-blue-600"
+    >
+      <h2 class="text-xl font-semibold text-gray-800 group-hover:text-blue-600 transition">New Transport Policy</h2>
+      <p class="text-sm text-gray-500">🗓️ February 20, 2025</p>
+      <p class="text-gray-700 mt-2">City introduces modern buses to improve mobility and reduce pollution...</p>
+      <div class="flex justify-between items-center mt-4">
+        <a class="text-blue-600 hover:underline">Read More</a>
+        <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Policy</span>
       </div>
     </div>
-  </section>
 
-  <!-- Article Detail View -->
-  <section id="articleDetail" class="bg-white shadow-md rounded-lg p-6">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-4">Article Title</h2>
-    <p class="text-sm text-gray-500">
-      Published on: February 20, 2025 |
-      Category: <span class="text-blue-600">Policy</span>
-    </p>
-
-    <!-- Multimedia -->
-    <div class="w-full h-60 bg-gray-200 rounded-lg flex items-center justify-center mt-4">
-      <span class="text-gray-500">Image / Video Placeholder</span>
-    </div>
-
-    <!-- Article Content -->
-    <p class="text-gray-700 mt-4">
-      Full article content goes here. This section can include rich text, embedded media, and links to
-      related resources.
-    </p>
-
-    <!-- Comments -->
-    <div class="mt-8">
-      <h3 class="text-xl font-semibold text-gray-800 mb-3">Comments</h3>
-      <form class="mb-4">
-        <textarea
-          placeholder="Add your comment..."
-          rows="3"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-        ></textarea>
-        <button
-          type="submit"
-          class="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Submit Comment
-        </button>
-      </form>
-
-      <div class="space-y-4">
-        <div class="border p-4 rounded-lg">
-          <p class="text-gray-800 font-semibold">Jane Doe</p>
-          <p class="text-gray-600">This is great news! Looking forward to the changes.</p>
-        </div>
-        <div class="border p-4 rounded-lg">
-          <p class="text-gray-800 font-semibold">John Smith</p>
-          <p class="text-gray-600">Excited to join the upcoming clean-up event!</p>
-        </div>
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer hover:border-l-4 hover:border-green-600"
+    >
+      <h2 class="text-xl font-semibold text-gray-800 group-hover:text-green-600 transition">Community Clean-Up</h2>
+      <p class="text-sm text-gray-500">🗓️ February 15, 2025</p>
+      <p class="text-gray-700 mt-2">Citizens unite for a weekend clean-up event across districts...</p>
+      <div class="flex justify-between items-center mt-4">
+        <a class="text-blue-600 hover:underline">Read More</a>
+        <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Community</span>
       </div>
     </div>
-  </section>
+
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer hover:border-l-4 hover:border-yellow-600"
+    >
+      <h2 class="text-xl font-semibold text-gray-800 group-hover:text-yellow-600 transition">Youth Empowerment Program</h2>
+      <p class="text-sm text-gray-500">🗓️ March 5, 2025</p>
+      <p class="text-gray-700 mt-2">Workshops launched to train youth in digital skills and leadership...</p>
+      <div class="flex justify-between items-center mt-4">
+        <a class="text-blue-600 hover:underline">Read More</a>
+        <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Youth</span>
+      </div>
+    </div>
+
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer hover:border-l-4 hover:border-red-600"
+    >
+      <h2 class="text-xl font-semibold text-gray-800 group-hover:text-red-600 transition">Health Outreach in Rural Areas</h2>
+      <p class="text-sm text-gray-500">🗓️ March 10, 2025</p>
+      <p class="text-gray-700 mt-2">Mobile clinics bring free health checks and vaccines to remote communities...</p>
+      <div class="flex justify-between items-center mt-4">
+        <a class="text-blue-600 hover:underline">Read More</a>
+        <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded-full">Health</span>
+      </div>
+    </div>
+
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer hover:border-l-4 hover:border-purple-600"
+    >
+      <h2 class="text-xl font-semibold text-gray-800 group-hover:text-purple-600 transition">Virtual Town Hall Success</h2>
+      <p class="text-sm text-gray-500">🗓️ March 12, 2025</p>
+      <p class="text-gray-700 mt-2">Over 2,000 citizens joined the first virtual town hall to discuss public projects...</p>
+      <div class="flex justify-between items-center mt-4">
+        <a class="text-blue-600 hover:underline">Read More</a>
+        <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full">Engagement</span>
+      </div>
+    </div>
+
+    <div
+      class="bg-white rounded-xl shadow-lg p-6 transition-transform transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer hover:border-l-4 hover:border-teal-600"
+    >
+      <h2 class="text-xl font-semibold text-gray-800 group-hover:text-teal-600 transition">Waste Management Initiative</h2>
+      <p class="text-sm text-gray-500">🗓️ March 15, 2025</p>
+      <p class="text-gray-700 mt-2">A recycling program is now active to promote sustainability and jobs...</p>
+      <div class="flex justify-between items-center mt-4">
+        <a class="text-blue-600 hover:underline">Read More</a>
+        <span class="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded-full">Environment</span>
+      </div>
+    </div>
+  </div>
 </div>
