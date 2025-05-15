@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface RegisterUserData {
+export interface RegisterUserData {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string; // ✅ Add this field
+  confirmPassword: string;
   county: string;
 }
 
@@ -14,16 +14,35 @@ interface RegisterUserData {
   providedIn: 'root'
 })
 export class UsersService {
-  loginUser(arg0: { email: string; password: string; }) {
+  createUser(arg0: { name: any; email: any; password: any; county: any; }) {
     throw new Error('Method not implemented.');
   }
-  // ✅ This should match the NestJS controller path: @Controller('register')
-  private apiUrl = 'http://localhost:3000/register';
+  private apiUrl = 'http://localhost:3000/register'; // your NestJS controller path
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Now sends all required fields including confirmPassword
+  // Create/Register new user
   registerUser(userData: RegisterUserData): Observable<any> {
     return this.http.post(this.apiUrl, userData);
+  }
+
+  // Get all users
+  getUsers(): Observable<RegisterUserData[]> {
+    return this.http.get<RegisterUserData[]>(this.apiUrl);
+  }
+
+  // Update user by email (assuming email is unique identifier)
+  updateUser(email: string, userData: Partial<RegisterUserData>): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${email}`, userData);
+  }
+
+  // Delete user by email
+  deleteUser(email: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${email}`);
+  }
+
+  // Example login method placeholder (you can implement it properly later)
+  loginUser(credentials: { email: string; password: string }): Observable<any> {
+    return this.http.post('http://localhost:3000/login', credentials);
   }
 }

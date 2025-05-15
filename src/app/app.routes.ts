@@ -22,6 +22,7 @@ import { ReportAdminComponent } from './admin/report-admin/report-admin.componen
 import { VoteCreateComponent } from './admin/vote-create/vote-create.component';
 import { ProposalComponent } from './components/proposal/proposal.component';
 import { PortalComponent } from './citizen/portal/portal.component';
+import { SigncrudComponent } from './auth/signcrud/signcrud.component';
 
 
 export const routes: Routes = [
@@ -51,6 +52,7 @@ export const routes: Routes = [
     {path:'vote-create', 'title':'Vote Creation', component:VoteCreateComponent},
     {path:'proposal','title':'Proposal',component:ProposalComponent},
     {path:'portal','title':'Citizen-portal',component:PortalComponent},
+    {path:'signcrud', 'title':'Admin-sign-crud', component: SigncrudComponent},
     {path:'**', 'title':'404', component: PagenotfoundComponent}
 
 
