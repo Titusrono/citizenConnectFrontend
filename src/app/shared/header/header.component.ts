@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   // Perform logout
   logout() {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   // Toggle dark/light theme
