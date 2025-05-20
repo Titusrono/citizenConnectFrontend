@@ -1,50 +1,81 @@
 import { Component, Inject } from '@angular/core';
 import { LoginService } from '../../services/login.service';
-//import { LoginService } from '../services/login.service'; // Adjust the path as necessary
-//import { CreateLoginDto } from '../dto/create-login.dto'; // Adjust the path as necessary
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'] // Corrected to 'styleUrls'
+  styleUrls: ['./login.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink]
 })
 export class LoginComponent {
   loginDto: any = {
     email: '',
     password: ''
   };
-  loading: boolean = false; // For handling loading state
-  errorMessage: string = ''; // To show error message
-  successMessage: string = ''; // To show success message
+  loading: boolean = false;
+  errorMessage: string = '';
+  successMessage: string = '';
 
-  constructor(@Inject(LoginService) private loginService: LoginService) {}
-  // Handle login form submission
+  constructor(
+    @Inject(LoginService) private loginService: LoginService,
+    private router: Router
+  ) {}
+
   onLogin() {
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Call the login service method and handle the response
     this.loginService.login(this.loginDto).subscribe(
-      (response: { token: any; }) => {
+      (response: { token: string, role?: string }) => {
         this.loading = false;
         console.log('Login successful', response);
 
-        // Assuming response contains a JWT token, store it in localStorage
-        this.loginService.storeToken(response.token); // Store the token if available
+        // Store token in localStorage
+        this.loginService.storeToken(response.token);
+
+        // Optionally, store role separately (if returned)
+        if (response.role) {
+          localStorage.setItem('userRole', response.role);
+        } else {
+          // Decode role from token if not directly returned
+          const role = this.decodeRoleFromToken(response.token);
+          if (role) {
+            localStorage.setItem('userRole', role);
+          }
+        }
+
         this.successMessage = 'Login successful! Redirecting...';
 
-        // Optionally, redirect after success
+        // Redirect based on role
         setTimeout(() => {
-          // Redirect logic here (e.g., navigate to the dashboard)
-        }, 2000); // Redirect after 2 seconds
+          const role = localStorage.getItem('userRole');
+          if (role === 'admin') {
+            this.router.navigate(['/admin-dashboard']); // Adjust admin route
+          } else {
+            this.router.navigate(['/user-dashboard']);  // Adjust user route
+          }
+        }, 2000);
       },
-      (error: { error: { message: string; }; }) => {
+      (error: { error: { message: string } }) => {
         this.loading = false;
         console.error('Login failed', error);
-        // Show error message to user
         this.errorMessage = error?.error?.message || 'An error occurred during login. Please try again.';
       }
     );
+  }
+
+  // Decode JWT token to extract role
+  private decodeRoleFromToken(token: string): string | null {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.role || null;
+    } catch {
+      return null;
+    }
   }
 }
