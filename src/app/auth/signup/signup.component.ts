@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router'; // ✅ Added Router
 import { UsersService } from '../../services/users.service';
+
 interface SignupData {
   name: string;
   email: string;
@@ -39,8 +40,13 @@ export class SignupComponent {
   ];
 
   isLoading: boolean = false;
+  successMessage: string = ''; // ✅ Added success message variable
 
-  constructor(@Inject(UsersService) private usersService: UsersService) {}
+  constructor(
+    @Inject(UsersService) private usersService: UsersService,
+    private router: Router // ✅ Injected Router for redirection
+  ) {}
+
   onSubmit() {
     if (this.formData.password !== this.formData.confirmPassword) {
       alert('Passwords do not match!');
@@ -59,9 +65,15 @@ export class SignupComponent {
 
     this.usersService.registerUser(signupPayload).subscribe(
       (response: any) => {
-        alert('Account created successfully!');
-        this.resetForm();
         this.isLoading = false;
+        this.successMessage = 'Account created successfully! Redirecting to login...';
+        this.resetForm();
+
+        // ✅ Redirect after 3 seconds
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/login']);
+        }, 3000);
       },
       (error: any) => {
         this.isLoading = false;
@@ -70,6 +82,7 @@ export class SignupComponent {
       }
     );
   }
+
   private resetForm() {
     this.formData = {
       name: '',
