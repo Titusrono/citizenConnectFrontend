@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -9,16 +11,34 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
-  // State for dropdown and menus
+export class HeaderComponent implements OnInit, OnDestroy {
+  // UI States
   dropdownVisible = false;
   mobileMenuVisible = false;
   mobileAdminMenuVisible = false;
-
   isProfileOpen = false;
   isDark = false;
 
-  constructor(private router: Router) { }
+  isLoggedIn = false;
+  userRole: string | null = null;
+
+  private loginSub?: Subscription;
+
+  constructor(
+    private router: Router,
+    public authService: AuthService // public for template access
+  ) {}
+
+  ngOnInit() {
+    this.loginSub = this.authService.isLoggedIn().subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+      this.userRole = this.authService.getRole();
+    });
+  }
+
+  ngOnDestroy() {
+    this.loginSub?.unsubscribe();
+  }
 
   // Toggle Admin dropdown (Desktop)
   toggleDropdown() {
@@ -40,10 +60,10 @@ export class HeaderComponent {
     this.mobileAdminMenuVisible = !this.mobileAdminMenuVisible;
   }
 
-  // NEW: Close mobile menu (on link click)
+  // Close mobile menu
   closeMobileMenu() {
     this.mobileMenuVisible = false;
-    this.mobileAdminMenuVisible = false; // also close admin dropdown inside mobile menu
+    this.mobileAdminMenuVisible = false;
   }
 
   // Toggle user profile dropdown
@@ -52,14 +72,13 @@ export class HeaderComponent {
     this.isProfileOpen = !this.isProfileOpen;
   }
 
-  // Logout user
+  // Perform logout
   logout() {
-    // You can also clear user session/token here if applicable
-    // Example: localStorage.clear();
-    this.router.navigate(['/logout']);
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
-  // Optional: Toggle Dark/Light theme
+  // Toggle dark/light theme
   toggleTheme() {
     this.isDark = !this.isDark;
     document.documentElement.classList.toggle('dark', this.isDark);
