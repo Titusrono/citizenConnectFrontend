@@ -55,9 +55,9 @@ export class LoginComponent {
         setTimeout(() => {
           const role = localStorage.getItem('userRole');
           if (role === 'admin') {
-            this.router.navigate(['/admin-dashboard']); // Adjust admin route
+            this.router.navigate(['/dashboard']); // Adjust admin route
           } else {
-            this.router.navigate(['/user-dashboard']);  // Adjust user route
+            this.router.navigate(['/portal']);  // Adjust user route
           }
         }, 2000);
       },
