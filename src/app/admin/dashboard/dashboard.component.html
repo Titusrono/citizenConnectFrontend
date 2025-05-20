@@ -1,82 +1,75 @@
 <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-
+  
   <!-- Reports Block -->
   <a 
     routerLink="/report-admin" 
     routerLinkActive="ring-2 ring-blue-500"
-    class="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 hover:bg-gray-100 transition-all transform hover:scale-105 block text-center"
+    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
   >
-    <div class="mb-4 text-4xl text-blue-500">
-      📊
-    </div>
-    <h3 class="text-xl font-semibold mb-2">Manage Reports</h3>
-    <p class="text-gray-600">View and delete submitted citizen reports.</p>
+    <div class="mb-4 text-4xl text-blue-500 group-hover:scale-110 transition-transform">📊</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">Manage Reports</h3>
+    <p class="text-gray-600 mb-4">View and delete submitted citizen reports.</p>
+    <div class="text-sm text-blue-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
   <!-- Petitions Block -->
   <a 
     routerLink="/admin-dashboard" 
     routerLinkActive="ring-2 ring-blue-500"
-    class="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 hover:bg-gray-100 transition-all transform hover:scale-105 block text-center"
+    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
   >
-    <div class="mb-4 text-4xl text-green-500">
-      📝
-    </div>
-    <h3 class="text-xl font-semibold mb-2">Manage Petitions</h3>
-    <p class="text-gray-600">Review and respond to citizen petitions.</p>
+    <div class="mb-4 text-4xl text-green-500 group-hover:scale-110 transition-transform">📝</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition">Manage Petitions</h3>
+    <p class="text-gray-600 mb-4">Review and respond to citizen petitions.</p>
+    <div class="text-sm text-green-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
   <!-- Users Block -->
   <a 
     routerLink="/signcrud" 
     routerLinkActive="ring-2 ring-blue-500"
-    class="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 hover:bg-gray-100 transition-all transform hover:scale-105 block text-center"
+    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
   >
-    <div class="mb-4 text-4xl text-purple-500">
-      👥
-    </div>
-    <h3 class="text-xl font-semibold mb-2">Manage Users</h3>
-    <p class="text-gray-600">View registered users and their activity.</p>
+    <div class="mb-4 text-4xl text-purple-500 group-hover:scale-110 transition-transform">👥</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition">Manage Users</h3>
+    <p class="text-gray-600 mb-4">View registered users and their activity.</p>
+    <div class="text-sm text-purple-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
   <!-- Proposals Block -->
   <a 
-  routerLink="/signup" 
-  routerLinkActive="ring-2 ring-blue-500"
-  class="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 hover:bg-gray-100 transition-all transform hover:scale-105 block text-center"
->
-  <div class="mb-4 text-4xl text-yellow-500">
-    📩
-  </div>
-  <h3 class="text-xl font-semibold mb-2">Manage Accounts</h3>
-  <p class="text-gray-600">Review, track, and manage user accounts.</p>
-</a>
-
+    routerLink="/signup" 
+    routerLinkActive="ring-2 ring-blue-500"
+    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+  >
+    <div class="mb-4 text-4xl text-yellow-500 group-hover:scale-110 transition-transform">📩</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-yellow-600 transition">Manage Accounts</h3>
+    <p class="text-gray-600 mb-4">Review, track, and manage user accounts.</p>
+    <div class="text-sm text-yellow-600 font-medium group-hover:underline">Go to section →</div>
+  </a>
 
   <!-- Votes Block -->
   <a 
     routerLink="/vote-create" 
     routerLinkActive="ring-2 ring-blue-500"
-    class="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 hover:bg-gray-100 transition-all transform hover:scale-105 block text-center"
+    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500"
   >
-    <div class="mb-4 text-4xl text-red-500">
-      🗳️
-    </div>
-    <h3 class="text-xl font-semibold mb-2">Manage Votes</h3>
-    <p class="text-gray-600">Oversee votes and citizen participation.</p>
+    <div class="mb-4 text-4xl text-red-500 group-hover:scale-110 transition-transform">🗳️</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition">Manage Votes</h3>
+    <p class="text-gray-600 mb-4">Oversee votes and citizen participation.</p>
+    <div class="text-sm text-red-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
   <!-- Town Hall Streams Block -->
   <a 
     routerLink="/admin/townhall" 
     routerLinkActive="ring-2 ring-blue-500"
-    class="bg-white shadow-lg hover:shadow-xl rounded-lg p-6 hover:bg-gray-100 transition-all transform hover:scale-105 block text-center"
+    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
   >
-    <div class="mb-4 text-4xl text-orange-500">
-      🎥
-    </div>
-    <h3 class="text-xl font-semibold mb-2">Manage Town Hall</h3>
-    <p class="text-gray-600">Stream and archive virtual town hall meetings.</p>
+    <div class="mb-4 text-4xl text-orange-500 group-hover:scale-110 transition-transform">🎥</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition">Manage Town Hall</h3>
+    <p class="text-gray-600 mb-4">Stream and archive virtual town hall meetings.</p>
+    <div class="text-sm text-orange-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
 </section>
