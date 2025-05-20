@@ -24,12 +24,21 @@ export class AuthService {
   // Login: store token and role, then notify observers of login state
   login(token: string, role?: string): void {
     localStorage.setItem('token', token);
+
+    // Decode role from token if not provided
+    if (!role) {
+      const decodedRole = this.decodeRoleFromToken(token);
+      if (decodedRole) {
+        role = decodedRole;
+      }
+    }
+
     if (role) {
       localStorage.setItem('userRole', role);
     }
+
     this.loggedIn.next(true);
   }
-
   // Logout: remove token and role, update login state and redirect
   logout(): void {
     localStorage.removeItem('token');
@@ -56,5 +65,16 @@ export class AuthService {
   // Helper to check if logged-in user is a regular user
   isUser(): boolean {
     return this.getRole() === 'user';
+  }
+
+  // Decode JWT to extract role (used as fallback)
+  private decodeRoleFromToken(token: string): string | null {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload?.role || null;
+    } catch (e) {
+      console.error('Failed to decode token:', e);
+      return null;
+    }
   }
 }

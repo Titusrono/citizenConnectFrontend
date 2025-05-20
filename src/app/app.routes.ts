@@ -26,19 +26,19 @@ import { VotingdasboardComponent } from "./components/votingdasboard/votingdasbo
 import { PagenotfoundComponent } from "./shared/pagenotfound/pagenotfound.component";
 
 export const routes: Routes = [
-  // Public routes (accessible to anyone)
+  // 🌐 Public routes
   { path: '', title: 'Home', component: HomeComponent },
   { path: 'contact', title: 'Contact', component: ContactComponent },
   { path: 'about', title: 'About', component: AboutComponent },
   { path: 'service', title: 'Services', component: ServiceComponent },
   { path: 'login', title: 'Login', component: LoginComponent },
   { path: 'signup', title: 'Signup', component: SignupComponent },
-  { path: 'resetpassword', title: 'Reset password', component: ResetpasswordComponent },
-  { path: 'privacy', title: 'Privacy', component: PrivacyComponent },
-  { path: 'terms', title: 'Terms', component: TermsComponent },
+  { path: 'resetpassword', title: 'Reset Password', component: ResetpasswordComponent },
+  { path: 'privacy', title: 'Privacy Policy', component: PrivacyComponent },
+  { path: 'terms', title: 'Terms & Conditions', component: TermsComponent },
   { path: 'blog', title: 'Blog', component: BlogComponent },
 
-  // User routes (requires login + role 'user' or 'admin')
+  // 👥 Authenticated user/admin shared routes
   {
     path: 'dashboard',
     canActivate: [AuthGuard],
@@ -52,14 +52,12 @@ export const routes: Routes = [
       { path: 'votingdashboard', component: VotingdasboardComponent },
     ]
   },
-
   {
     path: 'proposal',
     component: ProposalComponent,
     canActivate: [AuthGuard],
     data: { roles: ['user', 'admin'] }
   },
-
   {
     path: 'portal',
     component: PortalComponent,
@@ -67,7 +65,7 @@ export const routes: Routes = [
     data: { roles: ['user', 'admin'] }
   },
 
-  // Admin routes (requires login + role 'admin')
+  // 🛡️ Admin-only routes
   {
     path: 'admin-dashboard',
     component: AdminDashboardComponent,
@@ -93,8 +91,9 @@ export const routes: Routes = [
     data: { roles: ['admin'] }
   },
 
+  // 🔓 Logout (no guard needed)
   { path: 'logout', title: 'Logout', component: LogoutComponent },
 
-  // Wildcard for 404
-  { path: '**', title: '404', component: PagenotfoundComponent }
+  // ❌ Fallback route for unknown paths
+  { path: '**', title: '404 - Page Not Found', component: PagenotfoundComponent }
 ];
