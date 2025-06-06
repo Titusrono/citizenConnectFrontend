@@ -83,4 +83,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isDark = !this.isDark;
     document.documentElement.classList.toggle('dark', this.isDark);
   }
+  
 }
