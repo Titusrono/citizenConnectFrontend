@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LogoutComponent } from './logout.component';
+import { GoogleCallbackComponent } from './google-callback.component';
 
-describe('LogoutComponent', () => {
-  let component: LogoutComponent;
-  let fixture: ComponentFixture<LogoutComponent>;
+describe('GoogleCallbackComponent', () => {
+  let component: GoogleCallbackComponent;
+  let fixture: ComponentFixture<GoogleCallbackComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LogoutComponent]
+      imports: [GoogleCallbackComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LogoutComponent);
+    fixture = TestBed.createComponent(GoogleCallbackComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

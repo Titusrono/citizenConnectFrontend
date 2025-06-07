@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '../../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -26,13 +26,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    public authService: AuthService // public for template access
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.loginSub = this.authService.isLoggedIn().subscribe((loggedIn) => {
+    // Subscribe to login status changes
+    this.loginSub = this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
       this.userRole = this.authService.getRole();
+
+      // Optional: If user logs out, close menus to avoid stale UI
+      if (!loggedIn) {
+        this.closeMobileMenu();
+        this.closeDropdown();
+        this.isProfileOpen = false;
+      }
     });
   }
 
@@ -45,43 +53,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dropdownVisible = !this.dropdownVisible;
   }
 
-  // Close dropdown on link click
   closeDropdown() {
     this.dropdownVisible = false;
   }
 
-  // Toggle mobile menu
   toggleMobileMenu() {
     this.mobileMenuVisible = !this.mobileMenuVisible;
   }
 
-  // Toggle Admin dropdown inside mobile menu
   toggleMobileAdminMenu() {
     this.mobileAdminMenuVisible = !this.mobileAdminMenuVisible;
   }
 
-  // Close mobile menu
   closeMobileMenu() {
     this.mobileMenuVisible = false;
     this.mobileAdminMenuVisible = false;
   }
 
-  // Toggle user profile dropdown
   toggleProfile(event: MouseEvent) {
     event.stopPropagation();
     this.isProfileOpen = !this.isProfileOpen;
   }
 
-  // Perform logout
   logout() {
     this.authService.logout();
     this.router.navigate(['/']);
   }
 
-  // Toggle dark/light theme
   toggleTheme() {
     this.isDark = !this.isDark;
     document.documentElement.classList.toggle('dark', this.isDark);
   }
-  
+
+  // Optional: Close dropdowns when clicking outside
+  @HostListener('document:click')
+  onDocumentClick() {
+    this.closeDropdown();
+    this.isProfileOpen = false;
+  }
 }

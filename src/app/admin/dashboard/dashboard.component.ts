@@ -5,11 +5,14 @@ import {  RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'; /
 @Component({
   selector: 'app-dashboard',
   standalone: true, // 👈🏽 Mark it as standalone
-  imports: [CommonModule, RouterLink,RouterLinkActive], // 👈🏽 Import everything needed
+  imports: [CommonModule, RouterLink,RouterLinkActive,RouterOutlet], // 👈🏽 Import everything needed
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'] // 👈🏽 Typo fixed here: styleUrls not styleUrl
 })
 export class DashboardComponent {
+isHomeRoute(): any {
+throw new Error('Method not implemented.');
+}
 
 }
 

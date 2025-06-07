@@ -1,75 +1,69 @@
-<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
-  
+<!-- Show cards only on dashboard root -->
+<section *ngIf="isHomeRoute()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+
   <!-- Reports Block -->
   <a 
-    routerLink="/report-admin" 
+    routerLink="/dashboard/realtimereport"
     routerLinkActive="ring-2 ring-blue-500"
     class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
   >
     <div class="mb-4 text-4xl text-blue-500 group-hover:scale-110 transition-transform">📊</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">Manage Reports</h3>
-    <p class="text-gray-600 mb-4">View and delete submitted citizen reports.</p>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">Real-time Reports</h3>
+    <p class="text-gray-600 mb-4">View submitted citizen reports in real-time.</p>
     <div class="text-sm text-blue-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
   <!-- Petitions Block -->
   <a 
-    routerLink="/admin-dashboard" 
+    routerLink="/dashboard/petition"
     routerLinkActive="ring-2 ring-blue-500"
     class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
   >
     <div class="mb-4 text-4xl text-green-500 group-hover:scale-110 transition-transform">📝</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition">Manage Petitions</h3>
-    <p class="text-gray-600 mb-4">Review and respond to citizen petitions.</p>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition">Petitions</h3>
+    <p class="text-gray-600 mb-4">Submit or support petitions affecting your area.</p>
     <div class="text-sm text-green-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
-  <!-- Users Block -->
+  <!-- Moderator Block -->
   <a 
-    routerLink="/signcrud" 
+    routerLink="/dashboard/moderator"
     routerLinkActive="ring-2 ring-blue-500"
     class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
   >
     <div class="mb-4 text-4xl text-purple-500 group-hover:scale-110 transition-transform">👥</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition">Manage Users</h3>
-    <p class="text-gray-600 mb-4">View registered users and their activity.</p>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition">Moderator Panel</h3>
+    <p class="text-gray-600 mb-4">Moderate user-generated content and reports.</p>
     <div class="text-sm text-purple-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
-  <!-- Proposals Block -->
+  <!-- Voting Dashboard Block -->
   <a 
-    routerLink="/signup" 
+    routerLink="/dashboard/votingdashboard"
     routerLinkActive="ring-2 ring-blue-500"
     class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
   >
-    <div class="mb-4 text-4xl text-yellow-500 group-hover:scale-110 transition-transform">📩</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-yellow-600 transition">Manage Accounts</h3>
-    <p class="text-gray-600 mb-4">Review, track, and manage user accounts.</p>
+    <div class="mb-4 text-4xl text-yellow-500 group-hover:scale-110 transition-transform">🗳️</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-yellow-600 transition">Voting Dashboard</h3>
+    <p class="text-gray-600 mb-4">Create, view, and participate in community votes.</p>
     <div class="text-sm text-yellow-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
-  <!-- Votes Block -->
+  <!-- Live Streaming Block -->
   <a 
-    routerLink="/vote-create" 
-    routerLinkActive="ring-2 ring-blue-500"
-    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-red-500"
-  >
-    <div class="mb-4 text-4xl text-red-500 group-hover:scale-110 transition-transform">🗳️</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition">Manage Votes</h3>
-    <p class="text-gray-600 mb-4">Oversee votes and citizen participation.</p>
-    <div class="text-sm text-red-600 font-medium group-hover:underline">Go to section →</div>
-  </a>
-
-  <!-- Town Hall Streams Block -->
-  <a 
-    routerLink="/admin/townhall" 
+    routerLink="/dashboard/streaminglive"
     routerLinkActive="ring-2 ring-blue-500"
     class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
   >
     <div class="mb-4 text-4xl text-orange-500 group-hover:scale-110 transition-transform">🎥</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition">Manage Town Hall</h3>
-    <p class="text-gray-600 mb-4">Stream and archive virtual town hall meetings.</p>
+    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition">Town Hall Live</h3>
+    <p class="text-gray-600 mb-4">Watch live town hall streams and community events.</p>
     <div class="text-sm text-orange-600 font-medium group-hover:underline">Go to section →</div>
   </a>
 
 </section>
+
+<!-- Always show this router outlet so child routes load -->
+<div class="p-6">
+  <router-outlet></router-outlet>
+</div>

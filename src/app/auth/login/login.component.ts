@@ -1,84 +1,59 @@
-import { Component, Inject } from '@angular/core';
-import { LoginService } from '../../services/login.service';
-//import { AuthService } from '../../services/auth.service';  // <-- Import AuthService
+import { Component } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
+import { AuthService } from '../../core/auth/auth.service';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { RouterLink } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, RouterLink]
+  imports: [CommonModule, FormsModule, RouterLink, HttpClientModule],
 })
 export class LoginComponent {
-  loginDto: any = {
-    email: '',
-    password: ''
-  };
-  loading: boolean = false;
-  errorMessage: string = '';
-  successMessage: string = '';
+  email: string = '';
+  password: string = '';
+  errorMessage: string | null = null;
 
   constructor(
-    @Inject(LoginService) private loginService: LoginService,
-    private authService: AuthService,           // <-- Inject AuthService
+    private authService: AuthService,
     private router: Router
   ) {}
 
-  onLogin() {
-    this.loading = true;
-    this.errorMessage = '';
-    this.successMessage = '';
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      this.errorMessage = 'Please fill all fields correctly.';
+      return;
+    }
 
-    this.loginService.login(this.loginDto).subscribe(
-      (response: { token: string; role?: string }) => {
-        this.loading = false;
+    this.errorMessage = null;
 
-        if (!response || !response.token) {
-          this.errorMessage = 'Invalid response from server.';
-          return;
-        }
+    this.authService.login({ email: this.email, password: this.password }).subscribe({
+      next: () => {
+        // Alert success (optional)
+        window.alert('✅ Login successful!');
 
-        // Decode role from token if not provided
-        let role = response.role;
-        if (!role) {
-          role = this.decodeRoleFromToken(response.token) || undefined;
-        }
+        // Get user role after login
+        const role = this.authService.getRole();
 
-        // Store token & role using AuthService
-        this.authService.login(response.token, role);
-
-        this.successMessage = 'Login successful! Redirecting...';
-
-        // Redirect immediately based on role
+        // Redirect based on role
         if (role === 'admin') {
           this.router.navigate(['/dashboard']);
         } else if (role === 'user') {
           this.router.navigate(['/portal']);
         } else {
-          this.router.navigate(['/']); // fallback route
+          this.router.navigate(['/']);
         }
       },
-      (error: any) => {
-        this.loading = false;
-        console.error('Login failed:', error);
-        this.errorMessage = error?.error?.message || 'An error occurred during login. Please try again.';
-      }
-    );
+      error: (err) => {
+        this.errorMessage = err.error?.message || '❌ Login failed. Please try again.';
+      },
+    });
   }
 
-  // Decode JWT to extract role
-  private decodeRoleFromToken(token: string): string | null {
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      return payload?.role || null;
-    } catch (e) {
-      console.error('Token decode failed:', e);
-      return null;
-    }
+  loginWithGoogle() {
+    window.location.href = `${this.authService.googleAuthUrl}`;
   }
 }
