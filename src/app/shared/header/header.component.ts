@@ -30,12 +30,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Subscribe to login status changes
-    this.loginSub = this.authService.isLoggedIn().subscribe((loggedIn: boolean) => {
+    // ✅ Subscribe to authState$ observable
+    this.loginSub = this.authService.authState$.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
       this.userRole = this.authService.getRole();
 
-      // Optional: If user logs out, close menus to avoid stale UI
+      // Close menus if logged out
       if (!loggedIn) {
         this.closeMobileMenu();
         this.closeDropdown();
@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     document.documentElement.classList.toggle('dark', this.isDark);
   }
 
-  // Optional: Close dropdowns when clicking outside
+  // Close dropdowns when clicking outside
   @HostListener('document:click')
   onDocumentClick() {
     this.closeDropdown();

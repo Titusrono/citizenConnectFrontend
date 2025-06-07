@@ -1,46 +1,39 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 
-// 📦 Public Components
-import { HomeComponent } from "./components/home/home.component";
-import { ContactComponent } from "./components/contact/contact.component";
-import { AboutComponent } from "./components/about/about.component";
-import { ServiceComponent } from "./components/service/service.component";
-import { BlogComponent } from "./components/blog/blog.component";
-import { PrivacyComponent } from "./components/privacy/privacy.component";
-import { TermsComponent } from "./components/terms/terms.component";
+// Components imports (as you have them)...
 
-// 🔐 Auth Components
-import { LoginComponent } from "./auth/login/login.component";
-import { RegisterComponent } from "./auth/register/register.component";
-import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
-import { ResetPasswordComponent } from "./auth/reset-password/reset-password.component";
-import { UpdatePasswordComponent } from "./auth/update-password/update-password.component";
-import { GoogleCallbackComponent } from "./auth/google-callback/google-callback.component";
-
-// 🧑‍💼 Authenticated (User/Admin) Components
-import { DashboardComponent } from "./admin/dashboard/dashboard.component";
-import { ModeratorComponent } from "./admin/moderator/moderator.component";
-import { PetitionComponent } from "./components/petition/petition.component";
-import { RealtimereportComponent } from "./components/realtimereport/realtimereport.component";
-import { StreamingliveComponent } from "./components/streaminglive/streaminglive.component";
-import { VotingdasboardComponent } from "./components/votingdasboard/votingdasboard.component";
-import { ProposalComponent } from "./components/proposal/proposal.component";
-import { PortalComponent } from "./citizen/portal/portal.component";
-
-// 🛡️ Admin-only Components
-import { AdminDashboardComponent } from "./admin/admin-dashboard/admin-dashboard.component";
-import { ReportAdminComponent } from "./admin/report-admin/report-admin.component";
-import { VoteCreateComponent } from "./admin/vote-create/vote-create.component";
-
-// ❌ Shared/Fallback
-import { PagenotfoundComponent } from "./shared/pagenotfound/pagenotfound.component";
-
-// 🔒 Guards
-import { AuthGuard } from "./auth.guard";
+// Guards imports
+import { AuthGuard } from './auth.guard';
+//import { RoleGuard } from './role.guard';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { ModeratorComponent } from './admin/moderator/moderator.component';
+import { ReportAdminComponent } from './admin/report-admin/report-admin.component';
+import { VoteCreateComponent } from './admin/vote-create/vote-create.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { GoogleCallbackComponent } from './auth/google-callback/google-callback.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './auth/update-password/update-password.component';
+import { PortalComponent } from './citizen/portal/portal.component';
+import { AboutComponent } from './components/about/about.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { HomeComponent } from './components/home/home.component';
+import { PetitionComponent } from './components/petition/petition.component';
+import { PrivacyComponent } from './components/privacy/privacy.component';
+import { ProposalComponent } from './components/proposal/proposal.component';
+import { RealtimereportComponent } from './components/realtimereport/realtimereport.component';
+import { ServiceComponent } from './components/service/service.component';
+import { StreamingliveComponent } from './components/streaminglive/streaminglive.component';
+import { TermsComponent } from './components/terms/terms.component';
+import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
+import { PagenotfoundComponent } from './shared/pagenotfound/pagenotfound.component';
+import { RoleGuard } from './core/auth/role.guard';
 
 export const routes: Routes = [
-
-  // 🌐 Public Routes
+  // Public routes
   { path: '', title: 'Home', component: HomeComponent },
   { path: 'about', title: 'About', component: AboutComponent },
   { path: 'service', title: 'Services', component: ServiceComponent },
@@ -49,7 +42,7 @@ export const routes: Routes = [
   { path: 'privacy', title: 'Privacy Policy', component: PrivacyComponent },
   { path: 'terms', title: 'Terms & Conditions', component: TermsComponent },
 
-  // 🔐 Auth Routes
+  // Auth routes (no guards)
   { path: 'login', title: 'Login', component: LoginComponent },
   { path: 'register', title: 'Register', component: RegisterComponent },
   { path: 'forgot-password', title: 'Forgot Password', component: ForgotPasswordComponent },
@@ -57,13 +50,13 @@ export const routes: Routes = [
   { path: 'update-password', title: 'Update Password', component: UpdatePasswordComponent },
   { path: 'google-callback', title: 'Google Login', component: GoogleCallbackComponent },
 
-  // 👥 Authenticated (User/Admin) Shared Routes
+  // Authenticated (user or admin) shared routes
   {
     path: 'dashboard',
     title: 'User Dashboard',
-    canActivate: [AuthGuard],
-    component:DashboardComponent,
+    canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['user', 'admin'] },
+    component: DashboardComponent,
     children: [
       { path: 'moderator', component: ModeratorComponent },
       { path: 'petition', component: PetitionComponent },
@@ -75,35 +68,31 @@ export const routes: Routes = [
   {
     path: 'proposal',
     title: 'Proposals',
-    component: ProposalComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['user', 'admin'] },
+    component: ProposalComponent,
   },
   {
     path: 'portal',
     title: 'Citizen Portal',
-    component: PortalComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
     data: { roles: ['user', 'admin'] },
+    component: PortalComponent,
   },
 
-  // 🛡️ Admin-only Routes
+  // Admin-only routes — restrict to admin only
   {
-    path: 'admin',
+    path: 'admin-dashboard',
     title: 'Admin Panel',
-    canActivate: [AuthGuard],
-    data: { roles: ['admin'] },
+    canActivate: [AuthGuard, RoleGuard],
+    data: { roles: ['admin'] },  // only admin allowed here
+    component: AdminDashboardComponent,
     children: [
-      { path: '', component: AdminDashboardComponent },
       { path: 'report-admin', component: ReportAdminComponent },
       { path: 'vote-create', component: VoteCreateComponent },
     ],
   },
 
-  // ❌ Catch-all for Unknown Routes
-  {
-    path: '**',
-    title: '404 - Page Not Found',
-    component: PagenotfoundComponent,
-  },
+  // Catch-all 404
+  { path: '**', title: '404 - Page Not Found', component: PagenotfoundComponent },
 ];
