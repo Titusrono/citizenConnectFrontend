@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // 👈🏽 Needed for *ngIf, *ngFor, etc.
-import {  RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'; // 👈🏽 Needed for routing
+import { CommonModule } from '@angular/common'; 
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router'; 
 
 @Component({
   selector: 'app-dashboard',
-  standalone: true, // 👈🏽 Mark it as standalone
-  imports: [CommonModule, RouterLink,RouterLinkActive,RouterOutlet], // 👈🏽 Import everything needed
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss'] // 👈🏽 Typo fixed here: styleUrls not styleUrl
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-isHomeRoute(): any {
-throw new Error('Method not implemented.');
+  constructor(private router: Router) {}
+
+  isHomeRoute(): boolean {
+    // Check if the current URL is exactly /dashboard or /dashboard/
+    return this.router.url === '/dashboard' || this.router.url === '/dashboard/';
+  }
 }
-
-}
-
-

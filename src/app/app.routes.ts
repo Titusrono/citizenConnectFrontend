@@ -1,10 +1,6 @@
 import { Routes } from '@angular/router';
 
 // Components imports (as you have them)...
-
-// Guards imports
-import { AuthGuard } from './auth.guard';
-//import { RoleGuard } from './role.guard';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ModeratorComponent } from './admin/moderator/moderator.component';
@@ -30,7 +26,6 @@ import { StreamingliveComponent } from './components/streaminglive/streaminglive
 import { TermsComponent } from './components/terms/terms.component';
 import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
 import { PagenotfoundComponent } from './shared/pagenotfound/pagenotfound.component';
-import { RoleGuard } from './core/auth/role.guard';
 
 export const routes: Routes = [
   // Public routes
@@ -50,12 +45,10 @@ export const routes: Routes = [
   { path: 'update-password', title: 'Update Password', component: UpdatePasswordComponent },
   { path: 'google-callback', title: 'Google Login', component: GoogleCallbackComponent },
 
-  // Authenticated (user or admin) shared routes
+  // Authenticated (user or admin) shared routes (no guards)
   {
     path: 'dashboard',
     title: 'User Dashboard',
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['user', 'admin'] },
     component: DashboardComponent,
     children: [
       { path: 'moderator', component: ModeratorComponent },
@@ -68,24 +61,18 @@ export const routes: Routes = [
   {
     path: 'proposal',
     title: 'Proposals',
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['user', 'admin'] },
     component: ProposalComponent,
   },
   {
     path: 'portal',
     title: 'Citizen Portal',
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['user', 'admin'] },
     component: PortalComponent,
   },
 
-  // Admin-only routes — restrict to admin only
+  // Admin-only routes — no guards now (accessible by anyone)
   {
     path: 'admin-dashboard',
     title: 'Admin Panel',
-    canActivate: [AuthGuard, RoleGuard],
-    data: { roles: ['admin'] },  // only admin allowed here
     component: AdminDashboardComponent,
     children: [
       { path: 'report-admin', component: ReportAdminComponent },
