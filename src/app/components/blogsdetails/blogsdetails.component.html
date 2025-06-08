@@ -1,0 +1,24 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+  <ng-container *ngIf="loading">
+    <p class="text-center text-gray-500 text-lg">Loading blog article...</p>
+  </ng-container>
+
+  <ng-container *ngIf="error">
+    <p class="text-center text-red-600 text-lg">{{ error }}</p>
+  </ng-container>
+
+  <ng-container *ngIf="blog && !loading">
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ blog.title }}</h1>
+    
+    <p class="text-sm text-gray-500 mb-6">
+      <span>Category: </span>
+      <span class="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-semibold">{{ blog.category }}</span>
+    </p>
+
+    <p class="text-gray-700 text-lg leading-relaxed whitespace-pre-line mb-6">
+      {{ blog.summary }}
+    </p>
+
+    <p class="text-sm text-gray-400 italic">Published on: {{ blog.date | date:'longDate' }}</p>
+  </ng-container>
+</div>

@@ -1,9 +1,7 @@
 import { Routes } from "@angular/router";
 import { DashboardComponent } from "./admin/dashboard/dashboard.component";
 import { ModeratorComponent } from "./admin/dashboard/moderator/moderator.component";
-//import { ReportAdminComponent } from "./admin/report-admin/report-admin.component";
 import { VoteCreateComponent } from "./admin/dashboard/vote-create/vote-create.component";
-import { AuthGuard } from "./auth.guard";
 import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
 import { GoogleCallbackComponent } from "./auth/google-callback/google-callback.component";
 import { LoginComponent } from "./auth/login/login.component";
@@ -15,19 +13,21 @@ import { AboutComponent } from "./components/about/about.component";
 import { BlogComponent } from "./components/blog/blog.component";
 import { ContactComponent } from "./components/contact/contact.component";
 import { HomeComponent } from "./components/home/home.component";
-import { PetitionComponent } from "./components/petition/petition.component";
+import { PetitionComponent } from "./citizen/portal/petition/petition.component";
 import { PrivacyComponent } from "./components/privacy/privacy.component";
-import { ProposalComponent } from "./components/proposal/proposal.component";
-import { RealtimereportComponent } from "./components/realtimereport/realtimereport.component";
+import { ProposalComponent } from "./citizen/portal/proposal/proposal.component";
+import { RealtimereportComponent } from "./citizen/portal/realtimereport/realtimereport.component";
 import { ServiceComponent } from "./components/service/service.component";
-import { StreamingliveComponent } from "./components/streaminglive/streaminglive.component";
+import { StreamingliveComponent } from "./citizen/portal/streaminglive/streaminglive.component";
 import { TermsComponent } from "./components/terms/terms.component";
-import { VotingdasboardComponent } from "./components/votingdasboard/votingdasboard.component";
+import { VotingdasboardComponent } from "./citizen/portal/votingdasboard/votingdasboard.component";
 import { PagenotfoundComponent } from "./shared/pagenotfound/pagenotfound.component";
 import { UnauthorizedComponent } from "./shared/unauthorized/unauthorized.component";
 import { ProfileComponent } from "./auth/profile/profile.component";
 import { ReportAdminComponent } from "./admin/dashboard/report-admin/report-admin.component";
 import { UsersregComponent } from "./admin/dashboard/usersreg/usersreg.component";
+import { BlogAdminComponent } from "./admin/dashboard/blog-admin/blog-admin.component";
+import { BlogsdetailsComponent } from "./components/blogsdetails/blogsdetails.component";
 
 export const routes: Routes = [
   // Public routes
@@ -37,6 +37,8 @@ export const routes: Routes = [
   { path: 'blog', title: 'Blog', component: BlogComponent },
   { path: 'contact', title: 'Contact', component: ContactComponent },
   { path: 'privacy', title: 'Privacy Policy', component: PrivacyComponent },
+  { path: 'blogsdetails/:id', component: BlogsdetailsComponent },
+
   { path: 'terms', title: 'Terms & Conditions', component: TermsComponent },
 
   // Auth routes
@@ -62,6 +64,7 @@ export const routes: Routes = [
       { path: 'report-admin', component: ReportAdminComponent },
       { path: 'vote-create', component: VoteCreateComponent },
       {path: 'usersreg', title: 'Users Register', component:UsersregComponent},
+      {path:'blog_admin', title:'Admin Blog', component:BlogAdminComponent},
       {path:'profile', title:'Profile', component:ProfileComponent},
     ],
   },
@@ -75,7 +78,6 @@ export const routes: Routes = [
           { path: 'proposal', component: ProposalComponent },
           { path: 'streaminglive', component: StreamingliveComponent },
           { path: 'feedback', component: VotingdasboardComponent },
-          { path: 'initiatives', component: VotingdasboardComponent }, // replace with real component if different
           {path:'profile', title:'Profile', component:ProfileComponent},
         ],
       },

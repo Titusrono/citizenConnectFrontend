@@ -12,10 +12,11 @@ import { RouterLink } from '@angular/router';
 })
 export class RealtimereportComponent implements OnInit {
   issues: any[] = [];
+  location: string = ''; // For binding and autofill
   private readonly apiBaseUrl = 'http://localhost:3000';
 
   ngOnInit() {
-    this.fetchIssues(); // Fetch existing issues on load
+    this.fetchIssues();
   }
 
   onSubmit(event: Event) {
@@ -23,6 +24,9 @@ export class RealtimereportComponent implements OnInit {
 
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
+
+    // If location input is bound via ngModel, we sync it into the form manually
+    formData.set('location', this.location);
 
     fetch(`${this.apiBaseUrl}/report`, {
       method: 'POST',
@@ -32,7 +36,8 @@ export class RealtimereportComponent implements OnInit {
         if (response.ok) {
           this.showPopup("✅ Issue reported successfully!");
           form.reset();
-          this.fetchIssues(); // Refresh list after submission
+          this.location = ''; // Reset bound field too
+          this.fetchIssues();
         } else {
           this.showPopup("❌ Failed to report the issue.", true);
         }
@@ -53,6 +58,34 @@ export class RealtimereportComponent implements OnInit {
       })
       .catch(() => {
         console.error('Error fetching issues.');
+      });
+  }
+
+  fetchLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          this.reverseGeocode(latitude, longitude);
+        },
+        (error) => {
+          this.showPopup("❌ Unable to retrieve location.", true);
+        }
+      );
+    } else {
+      this.showPopup("❌ Geolocation not supported in this browser.", true);
+    }
+  }
+
+  reverseGeocode(lat: number, lon: number) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        this.location = data.display_name || `${lat}, ${lon}`;
+      })
+      .catch(() => {
+        this.location = `${lat}, ${lon}`;
       });
   }
 

@@ -16,6 +16,7 @@ export class LoginComponent {
   email = '';
   password = '';
   errorMessage: string | null = null;
+  successMessage: string | null = null;
   loading = false;
 
   constructor(
@@ -30,19 +31,23 @@ export class LoginComponent {
     }
 
     this.errorMessage = null;
+    this.successMessage = null;
     this.loading = true;
 
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
         this.loading = false;
-        window.alert('✅ Login successful!');
+        this.successMessage = '✅ Login successful!';
+        setTimeout(() => {
+          this.successMessage = null;
+        }, 3000); // hide after 3 seconds
 
         const role = this.authService.getRole();
 
         if (role === 'admin') {
-          this.router.navigate(['/admin-dashboard']);  // <-- Fixed here
+          this.router.navigate(['/dashboard/moderator']);
         } else if (role === 'user') {
-          this.router.navigate(['/portal']);
+          this.router.navigate(['/portal/realtimereport']);
         } else {
           this.router.navigate(['/']);
         }
