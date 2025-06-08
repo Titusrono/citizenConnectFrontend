@@ -29,7 +29,7 @@
          class="hover:text-yellow-300 transition duration-300">Dashboard</a>
       <a *ngIf="isLoggedIn && userRole === 'admin'" routerLink="/dashboard" 
          routerLinkActive="text-yellow-300 underline font-bold"
-         class="hover:text-yellow-300 transition duration-300">Admin Dashboard</a>
+         class="hover:text-yellow-300 transition duration-300">Admin</a>
     </div>
 
     <!-- Right corner auth buttons (Desktop) -->
@@ -78,7 +78,7 @@
          routerLink="/portal" class="hover:text-yellow-300 transition duration-300" 
          (click)="closeMobileMenu()">Dashboard</a>
       <a *ngIf="isLoggedIn && userRole === 'admin'" routerLink="/dashboard"
-         class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Admin Dashboard</a>
+         class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Admin</a>
     </nav>
 
     <!-- Mobile Auth Buttons -->

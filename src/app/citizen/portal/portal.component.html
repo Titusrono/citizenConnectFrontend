@@ -1,74 +1,43 @@
-<div class="max-w-7xl mx-auto px-4 py-10">
-  <h2 class="text-3xl font-bold text-center text-green-700 mb-10">Citizen Connect Portal</h2>
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-50">
+  <!-- 📱 Mobile Horizontal Nav (Sticky & Static) -->
+  <nav
+    class="bg-white shadow-md p-4 flex flex-wrap gap-4 justify-start md:hidden sticky top-0 z-50"
+  >
+    <a routerLink="realtimereport" routerLinkActive="text-green-700" class="text-gray-600 hover:text-green-700">📢 Report Issue</a>
+    <a routerLink="petition" routerLinkActive="text-green-700" class="text-gray-600 hover:text-green-700">✍️ Petitions</a>
+    <a routerLink="proposal" routerLinkActive="text-green-700" class="text-gray-600 hover:text-green-700">🗳️ Vote on Projects</a>
+    <a routerLink="streaminglive" routerLinkActive="text-green-700" class="text-gray-600 hover:text-green-700">🎥 Virtual Hall</a>
+    <a routerLink="feedback" routerLinkActive="text-green-700" class="text-gray-600 hover:text-green-700">💬 Suggestions</a>
+    <a routerLink="initiatives" routerLinkActive="text-green-700" class="text-gray-600 hover:text-green-700">📈 Initiatives</a>
+  </nav>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-    
-    <!-- Reusable Card Component Example -->
-    <a routerLink="/dashboard/realtimereport" class="group block focus:outline-none focus:ring-2 focus:ring-green-600 rounded-xl transition">
-      <article class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 group-hover:shadow-2xl transform group-hover:-translate-y-1 transition duration-300">
-        <div class="text-4xl text-red-500 mb-4 group-hover:scale-110 transition-transform">📢</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-red-600 transition">Report an Issue</h3>
-        <p class="text-gray-600 mb-4">Submit local concerns to the community admins for quick resolution.</p>
-        <div class="text-sm text-red-600 font-semibold inline-flex items-center gap-1 group-hover:underline">
-          Go to page →
-        </div>
-      </article>
-    </a>
+  <!-- 💻 Desktop Sidebar -->
+  <aside
+    class="hidden md:flex md:flex-col w-64 bg-white shadow-md p-6 fixed top-0 left-0 h-screen z-40"
+  >
+    <h2 class="text-xl font-bold text-green-700 mb-6">Citizen Connect</h2>
+    <nav class="flex flex-col space-y-4 overflow-hidden">
+      <a routerLink="realtimereport" routerLinkActive="text-green-700" class="block text-gray-600 hover:text-green-700">📢 Report Issue</a>
+      <a routerLink="petition" routerLinkActive="text-green-700" class="block text-gray-600 hover:text-green-700">✍️ Petitions</a>
+      <a routerLink="proposal" routerLinkActive="text-green-700" class="block text-gray-600 hover:text-green-700">🗳️ Vote on Projects</a>
+      <a routerLink="streaminglive" routerLinkActive="text-green-700" class="block text-gray-600 hover:text-green-700">🎥 Virtual Hall</a>
+      <a routerLink="feedback" routerLinkActive="text-green-700" class="block text-gray-600 hover:text-green-700">💬 Suggestions</a>
+      <a routerLink="initiatives" routerLinkActive="text-green-700" class="block text-gray-600 hover:text-green-700">📈 Initiatives</a>
+    </nav>
+  </aside>
 
-    <a routerLink="/dashboard/petition" class="group block focus:outline-none focus:ring-2 focus:ring-green-600 rounded-xl transition">
-      <article class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 group-hover:shadow-2xl transform group-hover:-translate-y-1 transition duration-300">
-        <div class="text-4xl text-green-600 mb-4 group-hover:scale-110 transition-transform">✍️</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-700 transition">Petitions</h3>
-        <p class="text-gray-600 mb-4">Create or support petitions on key community matters.</p>
-        <div class="text-sm text-green-700 font-semibold inline-flex items-center gap-1 group-hover:underline">
-          Go to page →
-        </div>
-      </article>
-    </a>
+  <!-- 🧱 Main Content Area -->
+  <div class="flex-1 flex flex-col md:ml-64">
+    <!-- Optional Banner -->
+    <div class="bg-green-50 p-4 text-green-800 border-b border-green-200 min-h-[40px] sticky top-16 md:static z-10">
+      <p class="text-sm">
+        Stay connected and empowered—report, vote, and engage with your community in real time.
+      </p>
+    </div>
 
-    <a routerLink="/proposal" class="group block focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-xl transition">
-      <article class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 group-hover:shadow-2xl transform group-hover:-translate-y-1 transition duration-300">
-        <div class="text-4xl text-blue-500 mb-4 group-hover:scale-110 transition-transform">🗳️</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">Vote on Projects</h3>
-        <p class="text-gray-600 mb-4">Participate in voting for proposed development projects.</p>
-        <div class="text-sm text-blue-600 font-semibold inline-flex items-center gap-1 group-hover:underline">
-          Go to page →
-        </div>
-      </article>
-    </a>
-
-    <a routerLink="/dashboard/streaminglive" class="group block focus:outline-none focus:ring-2 focus:ring-purple-600 rounded-xl transition">
-      <article class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 group-hover:shadow-2xl transform group-hover:-translate-y-1 transition duration-300">
-        <div class="text-4xl text-purple-600 mb-4 group-hover:scale-110 transition-transform">🎥</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition">Virtual Town Hall</h3>
-        <p class="text-gray-600 mb-4">Join live sessions and stay informed on decisions affecting your area.</p>
-        <div class="text-sm text-purple-600 font-semibold inline-flex items-center gap-1 group-hover:underline">
-          Go to page →
-        </div>
-      </article>
-    </a>
-
-    <a routerLink="/feedback" class="group block focus:outline-none focus:ring-2 focus:ring-yellow-500 rounded-xl transition">
-      <article class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 group-hover:shadow-2xl transform group-hover:-translate-y-1 transition duration-300">
-        <div class="text-4xl text-yellow-500 mb-4 group-hover:scale-110 transition-transform">💬</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-yellow-600 transition">Suggestions</h3>
-        <p class="text-gray-600 mb-4">Share your ideas to help improve community engagement.</p>
-        <div class="text-sm text-yellow-600 font-semibold inline-flex items-center gap-1 group-hover:underline">
-          Go to page →
-        </div>
-      </article>
-    </a>
-
-    <a routerLink="/initiatives" class="group block focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-xl transition">
-      <article class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200 group-hover:shadow-2xl transform group-hover:-translate-y-1 transition duration-300">
-        <div class="text-4xl text-indigo-500 mb-4 group-hover:scale-110 transition-transform">📈</div>
-        <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-indigo-600 transition">Ongoing Initiatives</h3>
-        <p class="text-gray-600 mb-4">Explore the progress and results of ongoing citizen-led initiatives.</p>
-        <div class="text-sm text-indigo-600 font-semibold inline-flex items-center gap-1 group-hover:underline">
-          Go to page →
-        </div>
-      </article>
-    </a>
-
+    <!-- Dynamic Routed Content -->
+    <main class="p-6 flex-1 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>

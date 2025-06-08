@@ -11,15 +11,18 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean | UrlTree> {
     const expectedRoles: string[] = route.data['roles'] || [];
 
-    // Step 1: Try frontend role first
+    // If no roles specified, allow access (or change per your policy)
+    if (expectedRoles.length === 0) {
+      return of(true);
+    }
+
     return this.authService.getRoleStream().pipe(
       take(1),
       switchMap(role => {
         if (role && expectedRoles.includes(role)) {
           return of(true);
         }
-
-        // Step 2: Fallback to backend if role is null or invalid
+        // Fallback to backend user fetch
         return this.authService.getCurrentUser().pipe(
           map(user => {
             if (user && expectedRoles.includes(user.role)) {

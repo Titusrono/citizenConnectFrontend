@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-portal',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, RouterOutlet],
   standalone: true,
   templateUrl: './portal.component.html',
-  styleUrl: './portal.component.scss'
+  styleUrls: ['./portal.component.scss'],  // fixed typo from styleUrl to styleUrls
 })
 export class PortalComponent {
+  sidebarOpen = false;
 
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 }

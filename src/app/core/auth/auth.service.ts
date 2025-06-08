@@ -9,24 +9,25 @@ interface LoginResponse {
   access_token: string;
 }
 
+interface JwtPayload {
+  exp?: number;
+  role?: string;
+  [key: string]: any;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'access_token';
-  private apiUrl = 'http://localhost:3000/auth'; // Update to your backend URL
+  private readonly apiUrl = 'http://localhost:3000/auth'; // Backend base URL
+  private readonly googleAuthUrl = `${this.apiUrl}/google`;
 
-  // BehaviorSubject to track current user role reactively
-  private currentUserRole = new BehaviorSubject<string | null>(null);
+  private currentUserRole$ = new BehaviorSubject<string | null>(null);
+  private authState$ = new BehaviorSubject<boolean>(false);
+  public readonly authStateObservable$ = this.authState$.asObservable();
 
-  // BehaviorSubject to track authentication state reactively
-  private authState = new BehaviorSubject<boolean>(false);
-  public authState$ = this.authState.asObservable();
-
-  // Store token expiry timeout ID so it can be cleared on logout
   private tokenExpiryTimeoutId: any;
-
-  googleAuthUrl = `${this.apiUrl}/google`; // Google OAuth URL
 
   constructor(
     private http: HttpClient,
@@ -34,21 +35,18 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      // On app load in browser, check token validity and update auth state & role
       const valid = this.hasValidToken();
-      this.authState.next(valid);
+      this.authState$.next(valid);
 
       if (valid) {
         const role = this.getUserRole();
-        this.currentUserRole.next(role);
+        this.currentUserRole$.next(role);
 
-        // Setup auto logout timer based on token expiry time
         const token = this.getToken();
-        if (token) {
-          const decoded = this.decodeToken(token);
-          if (decoded?.exp) {
-            this.setTokenExpiryTimeout(decoded.exp);
-          }
+        const decoded = token ? this.decodeToken(token) : null;
+
+        if (decoded?.exp) {
+          this.setTokenExpiryTimeout(decoded.exp);
         }
       }
     }
@@ -59,87 +57,87 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, credentials);
   }
 
-  /** Login user and save token */
+  /** Login user and store token */
   login(credentials: { email: string; password: string }): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(res => this.setToken(res.access_token))
     );
   }
 
-  /** Update password after login */
+  /** Update password while logged in */
   updatePassword(data: { currentPassword: string; newPassword: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/update-password`, data);
   }
 
-  /** Reset password with token */
+  /** Reset password with token sent to email */
   resetPassword(data: { token: string; newPassword: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
 
-  /** Get current logged-in user info */
+  /** Fetch current logged-in user details */
   getCurrentUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/me`);
   }
 
-  /** Initiate Google OAuth login by redirecting browser */
+  /** Start Google OAuth login flow */
   googleLogin(): void {
     window.location.href = this.googleAuthUrl;
   }
 
-  /** Logout user, clear token and auth state */
+  /** Log out user and reset state */
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.TOKEN_KEY);
     }
-    this.currentUserRole.next(null);
-    this.authState.next(false);
+    this.currentUserRole$.next(null);
+    this.authState$.next(false);
     this.clearTokenExpiryTimeout();
     this.router.navigate(['/']);
   }
 
-  /** Observable for login status */
+  /** Returns observable login state */
   isLoggedIn(): Observable<boolean> {
-    return this.authState.asObservable();
+    return this.authState$.asObservable();
   }
 
   /** Get token from localStorage */
   getToken(): string | null {
-    if (!isPlatformBrowser(this.platformId)) return null;
-    return localStorage.getItem(this.TOKEN_KEY);
+    return isPlatformBrowser(this.platformId) ? localStorage.getItem(this.TOKEN_KEY) : null;
   }
 
-  /** Save token, update role & auth state, and set token expiry auto-logout */
+  /** Set token and initialize session state */
   setToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.setItem(this.TOKEN_KEY, token);
     }
+
     const decoded = this.decodeToken(token);
-    this.currentUserRole.next(decoded?.role ?? null);
-    this.authState.next(true);
+    this.currentUserRole$.next(decoded?.role ?? null);
+    this.authState$.next(true);
+
     if (decoded?.exp) {
       this.setTokenExpiryTimeout(decoded.exp);
     }
   }
 
-  /** Get current user role synchronously */
+  /** Synchronously get current role */
   getRole(): string | null {
-    return this.currentUserRole.value;
+    return this.currentUserRole$.value;
   }
 
-  /** Extract user role from decoded token */
+  /** Decode and return role from JWT */
   getUserRole(): string | null {
     const token = this.getToken();
-    if (!token) return null;
-    return this.decodeToken(token)?.role ?? null;
+    return token ? this.decodeToken(token)?.role ?? null : null;
   }
 
-  /** Observable stream for user role changes */
+  /** Observable for role stream */
   getRoleStream(): Observable<string | null> {
-    return this.currentUserRole.asObservable();
+    return this.currentUserRole$.asObservable();
   }
 
-  /** Decode JWT token payload safely */
-  private decodeToken(token: string): any {
+  /** Decode JWT payload safely */
+  private decodeToken(token: string): JwtPayload | null {
     try {
       const payload = token.split('.')[1];
       return JSON.parse(atob(payload));
@@ -148,18 +146,18 @@ export class AuthService {
     }
   }
 
-  /** Check if a valid (not expired) token exists */
+  /** Check if stored token is valid */
   private hasValidToken(): boolean {
     const token = this.getToken();
-    if (!token) return false;
-    const decoded = this.decodeToken(token);
-    if (!decoded || !decoded.exp) return false;
+    const decoded = token ? this.decodeToken(token) : null;
+
+    if (!decoded?.exp) return false;
 
     const now = Math.floor(Date.now() / 1000);
     return decoded.exp > now;
   }
 
-  /** Setup auto logout timer based on token expiry */
+  /** Set auto-logout based on token expiry */
   private setTokenExpiryTimeout(expiryUnix: number): void {
     const now = Math.floor(Date.now() / 1000);
     const expiresInMs = (expiryUnix - now) * 1000;
@@ -176,7 +174,7 @@ export class AuthService {
     }, expiresInMs);
   }
 
-  /** Clear any existing token expiry timeout */
+  /** Clear existing token expiry timer */
   private clearTokenExpiryTimeout(): void {
     if (this.tokenExpiryTimeoutId) {
       clearTimeout(this.tokenExpiryTimeoutId);

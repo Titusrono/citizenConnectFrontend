@@ -30,8 +30,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // ✅ Subscribe to authState$ observable
-    this.loginSub = this.authService.authState$.subscribe((loggedIn: boolean) => {
+    // ✅ Subscribe to the exposed public observable
+    this.loginSub = this.authService.authStateObservable$.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
       this.userRole = this.authService.getRole();
 
