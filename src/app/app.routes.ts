@@ -56,7 +56,9 @@ export const routes: Routes = [
     component: DashboardComponent,
     children: [
       { path: 'moderator', component: ModeratorComponent },
-     
+      { path: 'report-admin', component: ReportAdminComponent },
+      { path: 'vote-create', component: VoteCreateComponent },
+      {path: 'admin-dashboard', title: 'Admin Panel', component:DashboardComponent},
     ],
   },
    {
@@ -72,18 +74,6 @@ export const routes: Routes = [
           { path: 'initiatives', component: VotingdasboardComponent }, // replace with real component if different
         ],
       },
-
-  // Admin routes
-  {
-    path: 'admin-dashboard',
-    title: 'Admin Panel',
-    // canActivate: [AuthGuard],
-    component: AdminDashboardComponent,
-    children: [
-      { path: 'report-admin', component: ReportAdminComponent },
-      { path: 'vote-create', component: VoteCreateComponent },
-    ],
-  },
 
   // Fallback
   { path: '**', title: '404 - Page Not Found', component: PagenotfoundComponent },

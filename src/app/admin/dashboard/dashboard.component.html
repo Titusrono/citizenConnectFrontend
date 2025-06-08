@@ -1,69 +1,39 @@
-<!-- Show cards only on dashboard root -->
-<section *ngIf="isHomeRoute()" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+<!-- Full Page Flex Layout -->
+<div class="flex flex-col md:flex-row h-screen">
 
-  <!-- Reports Block -->
-  <a 
-    routerLink="/dashboard/realtimereport"
-    routerLinkActive="ring-2 ring-blue-500"
-    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-  >
-    <div class="mb-4 text-4xl text-blue-500 group-hover:scale-110 transition-transform">📊</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition">Real-time Reports</h3>
-    <p class="text-gray-600 mb-4">View submitted citizen reports in real-time.</p>
-    <div class="text-sm text-blue-600 font-medium group-hover:underline">Go to section →</div>
-  </a>
+  <!-- Sidebar (Static on Desktop, Responsive on Mobile) -->
+  <div class="w-full md:w-64 bg-gray-50 p-3 border-b md:border-b-0 md:border-r border-gray-200">
+    <nav class="flex flex-wrap md:flex-col justify-around md:justify-start items-center gap-4 md:gap-2">
 
-  <!-- Petitions Block -->
-  <a 
-    routerLink="/dashboard/petition"
-    routerLinkActive="ring-2 ring-blue-500"
-    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
-  >
-    <div class="mb-4 text-4xl text-green-500 group-hover:scale-110 transition-transform">📝</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-green-600 transition">Petitions</h3>
-    <p class="text-gray-600 mb-4">Submit or support petitions affecting your area.</p>
-    <div class="text-sm text-green-600 font-medium group-hover:underline">Go to section →</div>
-  </a>
+      <a routerLink="/dashboard/moderator" routerLinkActive="bg-gray-100"
+         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
+        <span class="text-xl text-purple-500">👥</span>
+        <span>Moderator</span>
+      </a>
 
-  <!-- Moderator Block -->
-  <a 
-    routerLink="/dashboard/moderator"
-    routerLinkActive="ring-2 ring-blue-500"
-    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500"
-  >
-    <div class="mb-4 text-4xl text-purple-500 group-hover:scale-110 transition-transform">👥</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition">Moderator Panel</h3>
-    <p class="text-gray-600 mb-4">Moderate user-generated content and reports.</p>
-    <div class="text-sm text-purple-600 font-medium group-hover:underline">Go to section →</div>
-  </a>
+      <a routerLink="/dashboard/report-admin" routerLinkActive="bg-gray-100"
+         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
+        <span class="text-xl text-rose-500">📑</span>
+        <span>Report Admin</span>
+      </a>
 
-  <!-- Voting Dashboard Block -->
-  <a 
-    routerLink="/dashboard/votingdashboard"
-    routerLinkActive="ring-2 ring-blue-500"
-    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-  >
-    <div class="mb-4 text-4xl text-yellow-500 group-hover:scale-110 transition-transform">🗳️</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-yellow-600 transition">Voting Dashboard</h3>
-    <p class="text-gray-600 mb-4">Create, view, and participate in community votes.</p>
-    <div class="text-sm text-yellow-600 font-medium group-hover:underline">Go to section →</div>
-  </a>
+      <a routerLink="/dashboard/vote-create" routerLinkActive="bg-gray-100"
+         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
+        <span class="text-xl text-indigo-500">🧠</span>
+        <span>Vote Create</span>
+      </a>
 
-  <!-- Live Streaming Block -->
-  <a 
-    routerLink="/dashboard/streaminglive"
-    routerLinkActive="ring-2 ring-blue-500"
-    class="group block bg-white shadow-lg rounded-xl p-6 text-center transition-all transform hover:scale-105 hover:shadow-2xl hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-orange-500"
-  >
-    <div class="mb-4 text-4xl text-orange-500 group-hover:scale-110 transition-transform">🎥</div>
-    <h3 class="text-xl font-bold text-gray-800 mb-2 group-hover:text-orange-600 transition">Town Hall Live</h3>
-    <p class="text-gray-600 mb-4">Watch live town hall streams and community events.</p>
-    <div class="text-sm text-orange-600 font-medium group-hover:underline">Go to section →</div>
-  </a>
+      <a routerLink="/dashboard/admin-dashboard" routerLinkActive="bg-gray-100"
+         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
+        <span class="text-xl text-gray-700">🛠️</span>
+        <span>Admin Panel</span>
+      </a>
 
-</section>
+    </nav>
+  </div>
 
-<!-- Always show this router outlet so child routes load -->
-<div class="p-6">
-  <router-outlet></router-outlet>
+  <!-- Main Content Area -->
+  <div class="flex-grow overflow-y-auto p-4">
+    <router-outlet></router-outlet>
+  </div>
 </div>

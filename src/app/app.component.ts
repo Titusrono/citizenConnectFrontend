@@ -21,8 +21,8 @@ export class AppComponent implements OnInit {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
-        // Hide footer on '/portal' and any child routes like '/portal/...'
-        this.showFooter = !event.urlAfterRedirects.startsWith('/portal');
+        const url = event.urlAfterRedirects;
+        this.showFooter = !(url.startsWith('/portal') || url.startsWith('/dashboard'));
       });
   }
 }
