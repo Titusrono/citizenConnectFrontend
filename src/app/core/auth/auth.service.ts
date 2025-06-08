@@ -1,8 +1,8 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, BehaviorSubject, Subscription, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
 
 interface LoginResponse {
@@ -13,16 +13,17 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth'; // Adjust to your backend URL
+  private readonly TOKEN_KEY = 'access_token';
+  private apiUrl = 'http://localhost:3000/auth'; // Update to your backend URL
 
-  // User role as BehaviorSubject for reactive updates
+  // BehaviorSubject to track current user role reactively
   private currentUserRole = new BehaviorSubject<string | null>(null);
 
-  // Authenticated state observable
+  // BehaviorSubject to track authentication state reactively
   private authState = new BehaviorSubject<boolean>(false);
   public authState$ = this.authState.asObservable();
 
-  // Store token expiration timeout ID for clearing on logout
+  // Store token expiry timeout ID so it can be cleared on logout
   private tokenExpiryTimeoutId: any;
 
   googleAuthUrl = `${this.apiUrl}/google`; // Google OAuth URL
@@ -33,7 +34,7 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      // On browser load, check for valid token and update auth state and role
+      // On app load in browser, check token validity and update auth state & role
       const valid = this.hasValidToken();
       this.authState.next(valid);
 
@@ -41,7 +42,7 @@ export class AuthService {
         const role = this.getUserRole();
         this.currentUserRole.next(role);
 
-        // Setup auto logout timer based on token expiry
+        // Setup auto logout timer based on token expiry time
         const token = this.getToken();
         if (token) {
           const decoded = this.decodeToken(token);
@@ -53,65 +54,42 @@ export class AuthService {
     }
   }
 
-  /**
-   * Register new user
-   */
+  /** Register a new user */
   register(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, credentials)
-      // Optionally add catchError here to handle registration errors
-      ;
+    return this.http.post(`${this.apiUrl}/register`, credentials);
   }
 
-  /**
-   * Login user and set token
-   */
+  /** Login user and save token */
   login(credentials: { email: string; password: string }): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials).pipe(
-      tap((res) => {
-        this.setToken(res.access_token);
-      }),
-      // Uncomment below to handle login errors explicitly
-      // catchError(err => {
-      //   console.error('Login failed', err);
-      //   return throwError(() => new Error('Login failed'));
-      // })
+      tap(res => this.setToken(res.access_token))
     );
   }
 
-  /**
-   * Update password after login
-   */
+  /** Update password after login */
   updatePassword(data: { currentPassword: string; newPassword: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/update-password`, data);
   }
 
-  /**
-   * Reset password with token
-   */
+  /** Reset password with token */
   resetPassword(data: { token: string; newPassword: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/reset-password`, data);
   }
 
-  /**
-   * Get current user info from backend
-   */
+  /** Get current logged-in user info */
   getCurrentUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/me`);
   }
 
-  /**
-   * Initiate Google OAuth login redirect
-   */
+  /** Initiate Google OAuth login by redirecting browser */
   googleLogin(): void {
     window.location.href = this.googleAuthUrl;
   }
 
-  /**
-   * Logout user and clear stored data
-   */
+  /** Logout user, clear token and auth state */
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem(this.TOKEN_KEY);
     }
     this.currentUserRole.next(null);
     this.authState.next(false);
@@ -119,66 +97,48 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  /**
-   * Observable to check if user is logged in
-   */
+  /** Observable for login status */
   isLoggedIn(): Observable<boolean> {
     return this.authState.asObservable();
   }
 
-  /**
-   * Get stored token from localStorage
-   */
+  /** Get token from localStorage */
   getToken(): string | null {
-    if (!isPlatformBrowser(this.platformId)) {
-      return null;
-    }
-    return localStorage.getItem('access_token');
+    if (!isPlatformBrowser(this.platformId)) return null;
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  /**
-   * Save token, update role and auth state, and set expiry timeout
-   */
+  /** Save token, update role & auth state, and set token expiry auto-logout */
   setToken(token: string): void {
     if (isPlatformBrowser(this.platformId)) {
-      localStorage.setItem('access_token', token);
+      localStorage.setItem(this.TOKEN_KEY, token);
     }
     const decoded = this.decodeToken(token);
     this.currentUserRole.next(decoded?.role ?? null);
     this.authState.next(true);
-
-    // Setup auto logout timer
     if (decoded?.exp) {
       this.setTokenExpiryTimeout(decoded.exp);
     }
   }
 
-  /**
-   * Get cached user role from BehaviorSubject
-   */
+  /** Get current user role synchronously */
   getRole(): string | null {
     return this.currentUserRole.value;
   }
 
-  /**
-   * Extract user role from decoded token (reads from localStorage token)
-   */
+  /** Extract user role from decoded token */
   getUserRole(): string | null {
     const token = this.getToken();
     if (!token) return null;
     return this.decodeToken(token)?.role ?? null;
   }
 
-  /**
-   * Observable for user role changes
-   */
+  /** Observable stream for user role changes */
   getRoleStream(): Observable<string | null> {
     return this.currentUserRole.asObservable();
   }
 
-  /**
-   * Decode JWT token payload safely
-   */
+  /** Decode JWT token payload safely */
   private decodeToken(token: string): any {
     try {
       const payload = token.split('.')[1];
@@ -188,9 +148,7 @@ export class AuthService {
     }
   }
 
-  /**
-   * Check if token exists and is not expired
-   */
+  /** Check if a valid (not expired) token exists */
   private hasValidToken(): boolean {
     const token = this.getToken();
     if (!token) return false;
@@ -201,9 +159,7 @@ export class AuthService {
     return decoded.exp > now;
   }
 
-  /**
-   * Setup timeout to auto logout user when token expires
-   */
+  /** Setup auto logout timer based on token expiry */
   private setTokenExpiryTimeout(expiryUnix: number): void {
     const now = Math.floor(Date.now() / 1000);
     const expiresInMs = (expiryUnix - now) * 1000;
@@ -213,16 +169,14 @@ export class AuthService {
       return;
     }
 
-    this.clearTokenExpiryTimeout(); // clear any existing timers
+    this.clearTokenExpiryTimeout();
 
     this.tokenExpiryTimeoutId = setTimeout(() => {
       this.logout();
     }, expiresInMs);
   }
 
-  /**
-   * Clear any existing token expiry timeout
-   */
+  /** Clear any existing token expiry timeout */
   private clearTokenExpiryTimeout(): void {
     if (this.tokenExpiryTimeoutId) {
       clearTimeout(this.tokenExpiryTimeoutId);
@@ -230,30 +184,3 @@ export class AuthService {
     }
   }
 }
-
-/**
- * OPTIONAL: HTTP Interceptor example to add token to requests
- * Create a separate file auth.interceptor.ts and provide in your app.module.ts
- *
- * import { Injectable } from '@angular/core';
- * import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
- * import { Observable } from 'rxjs';
- *
- * @Injectable()
- * export class AuthInterceptor implements HttpInterceptor {
- *   constructor(private authService: AuthService) {}
- *
- *   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
- *     const token = this.authService.getToken();
- *     if (token) {
- *       req = req.clone({
- *         setHeaders: {
- *           Authorization: `Bearer ${token}`,
- *         },
- *       });
- *     }
- *     return next.handle(req);
- *   }
- * }
- */
-

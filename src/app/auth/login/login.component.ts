@@ -13,9 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [CommonModule, FormsModule, RouterLink, HttpClientModule],
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  email = '';
+  password = '';
   errorMessage: string | null = null;
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -29,16 +30,15 @@ export class LoginComponent {
     }
 
     this.errorMessage = null;
+    this.loading = true;
 
     this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
-        // Alert success (optional)
+        this.loading = false;
         window.alert('✅ Login successful!');
 
-        // Get user role after login
         const role = this.authService.getRole();
 
-        // Redirect based on role
         if (role === 'admin') {
           this.router.navigate(['/dashboard']);
         } else if (role === 'user') {
@@ -48,12 +48,13 @@ export class LoginComponent {
         }
       },
       error: (err) => {
+        this.loading = false;
         this.errorMessage = err.error?.message || '❌ Login failed. Please try again.';
       },
     });
   }
 
   loginWithGoogle() {
-    window.location.href = `${this.authService.googleAuthUrl}`;
+    this.authService.googleLogin();
   }
 }

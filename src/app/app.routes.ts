@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-// Components imports (as you have them)...
+// Components imports
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { ModeratorComponent } from './admin/moderator/moderator.component';
@@ -27,6 +27,10 @@ import { TermsComponent } from './components/terms/terms.component';
 import { VotingdasboardComponent } from './components/votingdasboard/votingdasboard.component';
 import { PagenotfoundComponent } from './shared/pagenotfound/pagenotfound.component';
 
+// Guards imports
+import { AuthGuard } from './auth.guard';
+import { RoleGuard } from './core/auth/role.guard';
+
 export const routes: Routes = [
   // Public routes
   { path: '', title: 'Home', component: HomeComponent },
@@ -45,10 +49,11 @@ export const routes: Routes = [
   { path: 'update-password', title: 'Update Password', component: UpdatePasswordComponent },
   { path: 'google-callback', title: 'Google Login', component: GoogleCallbackComponent },
 
-  // Authenticated (user or admin) shared routes (no guards)
+  // Authenticated (user or admin) shared routes
   {
     path: 'dashboard',
     title: 'User Dashboard',
+    //canActivate: [AuthGuard],
     component: DashboardComponent,
     children: [
       { path: 'moderator', component: ModeratorComponent },
@@ -61,18 +66,21 @@ export const routes: Routes = [
   {
     path: 'proposal',
     title: 'Proposals',
+    //canActivate: [AuthGuard],
     component: ProposalComponent,
   },
   {
     path: 'portal',
     title: 'Citizen Portal',
+    //canActivate: [AuthGuard],
     component: PortalComponent,
   },
 
-  // Admin-only routes — no guards now (accessible by anyone)
+  // Admin-only routes
   {
     path: 'admin-dashboard',
     title: 'Admin Panel',
+    //canActivate: [AuthGuard],
     component: AdminDashboardComponent,
     children: [
       { path: 'report-admin', component: ReportAdminComponent },

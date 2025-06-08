@@ -2,126 +2,133 @@
   <div class="w-full max-w-sm p-4 bg-white rounded-lg shadow-md">
     <h2 class="text-xl font-semibold mb-4 text-center">Register</h2>
 
-    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+
+      <!-- Username -->
       <div class="mb-3">
         <label for="username" class="block text-sm font-medium mb-1">Username</label>
         <input
           type="text"
           id="username"
-          name="username"
-          [(ngModel)]="username"
-          #usernameInput="ngModel"
-          required
+          formControlName="username"
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          [class.border-red-500]="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)"
+          placeholder="Enter your username"
         />
-        <div *ngIf="usernameInput.invalid && (usernameInput.dirty || usernameInput.touched)" class="text-red-500 text-xs mt-1">
-          Please enter a username.
-        </div>
       </div>
 
+      <!-- Phone Number -->
       <div class="mb-3">
         <label for="phone_no" class="block text-sm font-medium mb-1">Phone Number</label>
         <input
           type="text"
           id="phone_no"
-          name="phone_no"
-          [(ngModel)]="phone_no"
-          #phoneInput="ngModel"
-          required
-          pattern="^[0-9+()-\\s]*$"
+          formControlName="phone_no"
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          [class.border-red-500]="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)"
+          placeholder="+254712345678"
         />
-        <div *ngIf="phoneInput.invalid && (phoneInput.dirty || phoneInput.touched)" class="text-red-500 text-xs mt-1">
-          Please enter a valid phone number.
-        </div>
       </div>
 
+      <!-- Email -->
       <div class="mb-3">
         <label for="email" class="block text-sm font-medium mb-1">Email</label>
         <input
           type="email"
           id="email"
-          name="email"
-          [(ngModel)]="email"
-          #emailInput="ngModel"
-          required
-          email
+          formControlName="email"
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          [class.border-red-500]="emailInput.invalid && (emailInput.dirty || emailInput.touched)"
+          placeholder="example@email.com"
         />
-        <div *ngIf="emailInput.invalid && (emailInput.dirty || emailInput.touched)" class="text-red-500 text-xs mt-1">
-          Please enter a valid email.
-        </div>
       </div>
 
-      <div class="mb-3">
+      <!-- Password -->
+      <div class="mb-3 relative">
         <label for="password" class="block text-sm font-medium mb-1">Password</label>
         <input
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           id="password"
-          name="password"
-          [(ngModel)]="password"
-          #passwordInput="ngModel"
-          required
-          minlength="6"
+          formControlName="password"
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          [class.border-red-500]="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)"
+          placeholder="Enter your password"
         />
-        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)" class="text-red-500 text-xs mt-1">
-          Password must be at least 6 characters.
-        </div>
+        <button
+          type="button"
+          (click)="showPassword = !showPassword"
+          class="absolute top-7 right-2 text-xs text-indigo-600"
+        >
+          {{ showPassword ? 'Hide' : 'Show' }}
+        </button>
       </div>
 
-      <div class="mb-4">
+      <!-- Confirm Password -->
+      <div class="mb-3 relative">
         <label for="confirmPassword" class="block text-sm font-medium mb-1">Confirm Password</label>
         <input
-          type="password"
+          [type]="showConfirmPassword ? 'text' : 'password'"
           id="confirmPassword"
-          name="confirmPassword"
-          [(ngModel)]="confirmPassword"
-          #confirmPasswordInput="ngModel"
-          required
+          formControlName="confirmPassword"
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          [class.border-red-500]="
-            confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched) || password !== confirmPassword
-          "
+          placeholder="Re-enter your password"
         />
-        <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)" class="text-red-500 text-xs mt-1">
-          Please confirm your password.
-        </div>
-        <div *ngIf="password !== confirmPassword && confirmPasswordInput.dirty" class="text-red-500 text-xs mt-1">
-          Passwords do not match.
-        </div>
+        <button
+          type="button"
+          (click)="showConfirmPassword = !showConfirmPassword"
+          class="absolute top-7 right-2 text-xs text-indigo-600"
+        >
+          {{ showConfirmPassword ? 'Hide' : 'Show' }}
+        </button>
       </div>
 
+      <!-- Sub-county Selection -->
+      <div class="mb-3">
+        <label for="subCounty" class="block text-sm font-medium mb-1">Sub-county</label>
+        <select
+          id="subCounty"
+          formControlName="subCounty"
+          (change)="updateWards()"
+          class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="" disabled>Select Sub-county</option>
+          <option *ngFor="let sub of subCounties" [value]="sub.name">{{ sub.name }}</option>
+        </select>
+      </div>
+
+      <!-- Ward Selection -->
+      <div class="mb-3" *ngIf="wards.length > 0">
+        <label for="ward" class="block text-sm font-medium mb-1">Ward</label>
+        <select
+          id="ward"
+          formControlName="ward"
+          class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          <option value="" disabled>Select Ward</option>
+          <option *ngFor="let ward of wards" [value]="ward">{{ ward }}</option>
+        </select>
+      </div>
+
+      <!-- Error Message -->
       <div *ngIf="errorMessage" class="mb-3 text-red-600 text-sm text-center font-semibold">
         {{ errorMessage }}
       </div>
 
+      <!-- Validation Debug Messages -->
+      <div class="text-xs text-red-500 mt-2 mb-3 text-center">
+        <p *ngIf="registerForm.invalid">Please fill in all fields correctly.</p>
+        <p *ngIf="registerForm.value.password !== registerForm.value.confirmPassword">Passwords do not match.</p>
+      </div>
+
+      <!-- Submit Button -->
       <button
         type="submit"
-        [disabled]="registerForm.invalid || password !== confirmPassword"
+        [disabled]="registerForm.invalid || registerForm.value.password !== registerForm.value.confirmPassword"
         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-1.5 text-sm rounded transition"
       >
         Register
       </button>
+
+      <p class="mt-4 text-center text-xs text-gray-600">
+        Already have an account?
+        <a routerLink="/login" class="text-indigo-600 hover:underline">Login</a>
+      </p>
     </form>
-
-    <div class="my-4 text-center text-gray-500 text-sm">or</div>
-
-    <button
-      (click)="loginWithGoogle()"
-      class="w-full flex items-center justify-center border border-gray-300 hover:bg-gray-100 py-1.5 rounded text-sm"
-    >
-      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo" class="w-4 h-4 mr-2" />
-      Register with Google
-    </button>
-
-    <p class="mt-4 text-center text-xs text-gray-600">
-      Already have an account?
-      <a routerLink="/login" class="text-indigo-600 hover:underline">Login</a>
-    </p>
   </div>
 </div>

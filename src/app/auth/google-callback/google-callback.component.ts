@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../core/auth/auth.service'; // adjust path as needed
 
 @Component({
   selector: 'app-google-callback',
@@ -12,6 +13,7 @@ export class GoogleCallbackComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -25,10 +27,11 @@ export class GoogleCallbackComponent implements OnInit {
 
         if (isPlatformBrowser(this.platformId)) {
           try {
-            localStorage.setItem('access_token', token);
+            this.authService.setToken(token); // Use AuthService method to save token & update state
+            // Replace alert with a nicer UI if possible
             alert('✅ Login successful! Redirecting...');
           } catch (e) {
-            console.error('❌ Error saving token to localStorage:', e);
+            console.error('❌ Error setting token in AuthService:', e);
             alert('⚠️ Unable to store login session.');
           }
         } else {
