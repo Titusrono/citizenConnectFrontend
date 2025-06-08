@@ -109,7 +109,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.register(payload).subscribe({
       next: () => {
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/login']);
       },
       error: (err: { error: { message: string } }) => {
         this.errorMessage = err.error?.message || 'Registration failed. Please try again.';

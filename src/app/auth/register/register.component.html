@@ -14,6 +14,11 @@
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           placeholder="Enter your username"
         />
+        <div *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.touched || registerForm.get('username')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('username')?.errors?.['required']">Username is required.</div>
+          <div *ngIf="registerForm.get('username')?.errors?.['minlength']">Username must be at least 3 characters.</div>
+          <div *ngIf="registerForm.get('username')?.errors?.['pattern']">Username can only contain letters and spaces.</div>
+        </div>
       </div>
 
       <!-- Phone Number -->
@@ -26,6 +31,10 @@
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           placeholder="+254712345678"
         />
+        <div *ngIf="registerForm.get('phone_no')?.invalid && (registerForm.get('phone_no')?.touched || registerForm.get('phone_no')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('phone_no')?.errors?.['required']">Phone number is required.</div>
+          <div *ngIf="registerForm.get('phone_no')?.errors?.['pattern']">Enter a valid phone number.</div>
+        </div>
       </div>
 
       <!-- Email -->
@@ -38,6 +47,10 @@
           class="w-full px-2 py-1.5 border rounded text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           placeholder="example@email.com"
         />
+        <div *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">Enter a valid email.</div>
+        </div>
       </div>
 
       <!-- Password -->
@@ -57,6 +70,11 @@
         >
           {{ showPassword ? 'Hide' : 'Show' }}
         </button>
+        <div *ngIf="registerForm.get('password')?.invalid && (registerForm.get('password')?.touched || registerForm.get('password')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</div>
+          <div *ngIf="registerForm.get('password')?.errors?.['pattern']">Password must contain letters and numbers.</div>
+        </div>
       </div>
 
       <!-- Confirm Password -->
@@ -76,6 +94,13 @@
         >
           {{ showConfirmPassword ? 'Hide' : 'Show' }}
         </button>
+        <div *ngIf="registerForm.get('confirmPassword')?.invalid && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</div>
+        </div>
+        <!-- Password mismatch error -->
+        <div *ngIf="registerForm.errors?.['passwordMismatch'] && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)" class="text-red-600 text-xs mt-1">
+          Passwords do not match.
+        </div>
       </div>
 
       <!-- Sub-county Selection -->
@@ -90,6 +115,9 @@
           <option value="" disabled>Select Sub-county</option>
           <option *ngFor="let sub of subCounties" [value]="sub.name">{{ sub.name }}</option>
         </select>
+        <div *ngIf="registerForm.get('subCounty')?.invalid && (registerForm.get('subCounty')?.touched || registerForm.get('subCounty')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('subCounty')?.errors?.['required']">Sub-county is required.</div>
+        </div>
       </div>
 
       <!-- Ward Selection -->
@@ -103,6 +131,9 @@
           <option value="" disabled>Select Ward</option>
           <option *ngFor="let ward of wards" [value]="ward">{{ ward }}</option>
         </select>
+        <div *ngIf="registerForm.get('ward')?.invalid && (registerForm.get('ward')?.touched || registerForm.get('ward')?.dirty)" class="text-red-600 text-xs mt-1">
+          <div *ngIf="registerForm.get('ward')?.errors?.['required']">Ward is required.</div>
+        </div>
       </div>
 
       <!-- Error Message -->
@@ -110,16 +141,10 @@
         {{ errorMessage }}
       </div>
 
-      <!-- Validation Debug Messages -->
-      <div class="text-xs text-red-500 mt-2 mb-3 text-center">
-        <p *ngIf="registerForm.invalid">Please fill in all fields correctly.</p>
-        <p *ngIf="registerForm.value.password !== registerForm.value.confirmPassword">Passwords do not match.</p>
-      </div>
-
       <!-- Submit Button -->
       <button
         type="submit"
-        [disabled]="registerForm.invalid || registerForm.value.password !== registerForm.value.confirmPassword"
+        [disabled]="registerForm.invalid"
         class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-1.5 text-sm rounded transition"
       >
         Register

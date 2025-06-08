@@ -23,7 +23,8 @@
          class="hover:text-yellow-300 transition duration-300">Contact</a>
       <a routerLink="/blog" routerLinkActive="text-yellow-300 underline font-bold"
          class="hover:text-yellow-300 transition duration-300">Blogs</a>
-      <a *ngIf="isLoggedIn && userRole === 'user'" routerLink="/portal" 
+      <a *ngIf="isLoggedIn && (userRole === 'user' || userRole === 'admin')" 
+         routerLink="/portal" 
          routerLinkActive="text-yellow-300 underline font-bold"
          class="hover:text-yellow-300 transition duration-300">Dashboard</a>
       <a *ngIf="isLoggedIn && userRole === 'admin'" routerLink="/dashboard" 
@@ -73,8 +74,9 @@
          class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Contact</a>
       <a routerLink="/blog" routerLinkActive="text-yellow-300 underline font-bold"
          class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Blogs</a>
-      <a *ngIf="isLoggedIn && userRole === 'user'" routerLink="/portal"
-         class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Dashboard</a>
+      <a *ngIf="isLoggedIn && (userRole === 'user' || userRole === 'admin')" 
+         routerLink="/portal" class="hover:text-yellow-300 transition duration-300" 
+         (click)="closeMobileMenu()">Dashboard</a>
       <a *ngIf="isLoggedIn && userRole === 'admin'" routerLink="/dashboard"
          class="hover:text-yellow-300 transition duration-300" (click)="closeMobileMenu()">Admin Dashboard</a>
     </nav>
