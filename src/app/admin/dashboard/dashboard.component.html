@@ -1,39 +1,79 @@
-<!-- Full Page Flex Layout -->
-<div class="flex flex-col md:flex-row h-screen">
+<div class="min-h-screen flex flex-col md:flex-row bg-gray-50">
 
-  <!-- Sidebar (Static on Desktop, Responsive on Mobile) -->
-  <div class="w-full md:w-64 bg-gray-50 p-3 border-b md:border-b-0 md:border-r border-gray-200">
-    <nav class="flex flex-wrap md:flex-col justify-around md:justify-start items-center gap-4 md:gap-2">
+  <!-- 📱 Mobile Horizontal Nav -->
+  <nav class="bg-white shadow-md p-4 flex flex-wrap gap-4 justify-start md:hidden sticky top-0 z-50">
+    <a routerLink="moderator" routerLinkActive="text-purple-700" class="flex flex-col items-center text-gray-600 hover:text-purple-700">
+      <span class="text-xl">👥</span>
+      <span class="text-xs">Moderator</span>
+    </a>
+    <a routerLink="report-admin" routerLinkActive="text-rose-700" class="flex flex-col items-center text-gray-600 hover:text-rose-700">
+      <span class="text-xl">📑</span>
+      <span class="text-xs">Reports</span>
+    </a>
+    <a routerLink="vote-create" routerLinkActive="text-indigo-700" class="flex flex-col items-center text-gray-600 hover:text-indigo-700">
+      <span class="text-xl">🧠</span>
+      <span class="text-xs">Vote</span>
+    </a>
+    <a routerLink="usersreg" routerLinkActive="text-gray-800" class="flex flex-col items-center text-gray-600 hover:text-gray-800">
+      <span class="text-xl">🛠️</span>
+      <span class="text-xs">users</span>
+    </a>
+    <a routerLink="profile" class="ml-auto flex flex-col items-center text-gray-600 hover:text-purple-700">
+      <span class="text-xl">👤</span>
+      <span class="text-xs">Profile</span>
+    </a>
+  </nav>
 
-      <a routerLink="/dashboard/moderator" routerLinkActive="bg-gray-100"
-         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
-        <span class="text-xl text-purple-500">👥</span>
-        <span>Moderator</span>
+  <!-- 💻 Desktop Sidebar -->
+  <aside class="hidden md:flex md:flex-col w-64 bg-white shadow-md p-10 fixed top-0 left-0 h-screen z-40 justify-between">
+    <!-- Top Nav Section -->
+    <div>
+      <h2 class="text-xl font-bold text-purple-700 mb-6">Admin Panel</h2>
+      <nav class="flex flex-col space-y-4 overflow-hidden">
+        <a routerLink="moderator" routerLinkActive="text-purple-700" class="flex items-center gap-2 text-gray-600 hover:text-purple-700">
+          <span>👥</span>
+          <span>Moderator</span>
+        </a>
+        <a routerLink="report-admin" routerLinkActive="text-rose-700" class="flex items-center gap-2 text-gray-600 hover:text-rose-700">
+          <span>📑</span>
+          <span>Reports</span>
+        </a>
+        <a routerLink="vote-create" routerLinkActive="text-indigo-700" class="flex items-center gap-2 text-gray-600 hover:text-indigo-700">
+          <span>🧠</span>
+          <span>Vote Create</span>
+        </a>
+        <a routerLink="usersreg" routerLinkActive="text-gray-800" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+          <span>🛠️</span>
+          <span>users</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Bottom Profile Link -->
+    <div class="pt-6 border-t border-gray-200">
+      <a
+        routerLink="profile"
+        class="flex items-center gap-3 text-gray-600 hover:text-purple-700 transition"
+        title="Manage Profile"
+      >
+        <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center text-xl hover:bg-purple-200 transition">
+          👤
+        </div>
+        <span class="font-medium">My Profile</span>
       </a>
+    </div>
+  </aside>
 
-      <a routerLink="/dashboard/report-admin" routerLinkActive="bg-gray-100"
-         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
-        <span class="text-xl text-rose-500">📑</span>
-        <span>Report Admin</span>
-      </a>
+  <!-- 🧱 Main Content Area -->
+  <div class="flex-1 flex flex-col md:ml-64">
+    <!-- Optional Banner or Info -->
+    <div class="bg-purple-50 p-4 text-purple-800 border-b border-purple-200 min-h-[40px] sticky top-16 md:static z-10">
+      <p class="text-sm">Manage platform settings and tools for moderators, voting, reports and admin panels.</p>
+    </div>
 
-      <a routerLink="/dashboard/vote-create" routerLinkActive="bg-gray-100"
-         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
-        <span class="text-xl text-indigo-500">🧠</span>
-        <span>Vote Create</span>
-      </a>
-
-      <a routerLink="/dashboard/admin-dashboard" routerLinkActive="bg-gray-100"
-         class="flex flex-col items-center p-2 rounded-lg text-sm hover:bg-gray-100">
-        <span class="text-xl text-gray-700">🛠️</span>
-        <span>Admin Panel</span>
-      </a>
-
-    </nav>
-  </div>
-
-  <!-- Main Content Area -->
-  <div class="flex-grow overflow-y-auto p-4">
-    <router-outlet></router-outlet>
+    <!-- Routed Components Render Here -->
+    <main class="p-6 flex-1 overflow-y-auto">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>

@@ -1,9 +1,8 @@
 import { Routes } from "@angular/router";
-import { AdminDashboardComponent } from "./admin/admin-dashboard/admin-dashboard.component";
 import { DashboardComponent } from "./admin/dashboard/dashboard.component";
-import { ModeratorComponent } from "./admin/moderator/moderator.component";
-import { ReportAdminComponent } from "./admin/report-admin/report-admin.component";
-import { VoteCreateComponent } from "./admin/vote-create/vote-create.component";
+import { ModeratorComponent } from "./admin/dashboard/moderator/moderator.component";
+//import { ReportAdminComponent } from "./admin/report-admin/report-admin.component";
+import { VoteCreateComponent } from "./admin/dashboard/vote-create/vote-create.component";
 import { AuthGuard } from "./auth.guard";
 import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
 import { GoogleCallbackComponent } from "./auth/google-callback/google-callback.component";
@@ -26,6 +25,9 @@ import { TermsComponent } from "./components/terms/terms.component";
 import { VotingdasboardComponent } from "./components/votingdasboard/votingdasboard.component";
 import { PagenotfoundComponent } from "./shared/pagenotfound/pagenotfound.component";
 import { UnauthorizedComponent } from "./shared/unauthorized/unauthorized.component";
+import { ProfileComponent } from "./auth/profile/profile.component";
+import { ReportAdminComponent } from "./admin/dashboard/report-admin/report-admin.component";
+import { UsersregComponent } from "./admin/dashboard/usersreg/usersreg.component";
 
 export const routes: Routes = [
   // Public routes
@@ -44,6 +46,7 @@ export const routes: Routes = [
   { path: 'reset-password', title: 'Reset Password', component: ResetPasswordComponent },
   { path: 'update-password', title: 'Update Password', component: UpdatePasswordComponent },
   { path: 'google-callback', title: 'Google Login', component: GoogleCallbackComponent },
+  {path:'profile', title:'Profile', component:ProfileComponent},
 
   // Unauthorized route
   { path: 'unauthorized', title: 'Unauthorized', component: UnauthorizedComponent },
@@ -58,7 +61,8 @@ export const routes: Routes = [
       { path: 'moderator', component: ModeratorComponent },
       { path: 'report-admin', component: ReportAdminComponent },
       { path: 'vote-create', component: VoteCreateComponent },
-      {path: 'admin-dashboard', title: 'Admin Panel', component:DashboardComponent},
+      {path: 'usersreg', title: 'Users Register', component:UsersregComponent},
+      {path:'profile', title:'Profile', component:ProfileComponent},
     ],
   },
    {
@@ -72,6 +76,7 @@ export const routes: Routes = [
           { path: 'streaminglive', component: StreamingliveComponent },
           { path: 'feedback', component: VotingdasboardComponent },
           { path: 'initiatives', component: VotingdasboardComponent }, // replace with real component if different
+          {path:'profile', title:'Profile', component:ProfileComponent},
         ],
       },
 
