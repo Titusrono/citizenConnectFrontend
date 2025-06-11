@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-moderator',
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './moderator.component.html',
   styleUrl: './moderator.component.scss'
 })

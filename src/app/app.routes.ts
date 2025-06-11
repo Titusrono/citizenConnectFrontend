@@ -20,7 +20,7 @@ import { RealtimereportComponent } from "./citizen/portal/realtimereport/realtim
 import { ServiceComponent } from "./components/service/service.component";
 import { StreamingliveComponent } from "./citizen/portal/streaminglive/streaminglive.component";
 import { TermsComponent } from "./components/terms/terms.component";
-import { VotingdasboardComponent } from "./citizen/portal/votingdasboard/votingdasboard.component";
+//import { VotingdasboardComponent } from "./citizen/portal/votingdasboard/votingdasboard.component";
 import { PagenotfoundComponent } from "./shared/pagenotfound/pagenotfound.component";
 import { UnauthorizedComponent } from "./shared/unauthorized/unauthorized.component";
 import { ProfileComponent } from "./auth/profile/profile.component";
@@ -28,6 +28,10 @@ import { ReportAdminComponent } from "./admin/dashboard/report-admin/report-admi
 import { UsersregComponent } from "./admin/dashboard/usersreg/usersreg.component";
 import { BlogAdminComponent } from "./admin/dashboard/blog-admin/blog-admin.component";
 import { BlogsdetailsComponent } from "./components/blogsdetails/blogsdetails.component";
+import { VirtualCreateComponent } from "./admin/dashboard/virtual-create/virtual-create.component";
+import { RoleGuard } from "./core/auth/role.guard";
+import { AuthGuard } from "./core/auth/auth.guard";
+import { AuthService } from "./core/auth/auth.service";
 
 export const routes: Routes = [
   // Public routes
@@ -58,11 +62,13 @@ export const routes: Routes = [
     path: 'dashboard',
     title: 'User Dashboard',
     // canActivate: [AuthGuard],
+    canActivate: [RoleGuard,AuthGuard],
     component: DashboardComponent,
     children: [
       { path: 'moderator', component: ModeratorComponent },
       { path: 'report-admin', component: ReportAdminComponent },
       { path: 'vote-create', component: VoteCreateComponent },
+      { path: 'virtual-create', component: VirtualCreateComponent },
       {path: 'usersreg', title: 'Users Register', component:UsersregComponent},
       {path:'blog_admin', title:'Admin Blog', component:BlogAdminComponent},
       {path:'profile', title:'Profile', component:ProfileComponent},
@@ -71,13 +77,14 @@ export const routes: Routes = [
    {
         path: 'portal',
         component: PortalComponent,
+        canActivate: [RoleGuard,AuthGuard],
         children: [
           { path: '', redirectTo: 'realtimereport', pathMatch: 'full' },
           { path: 'realtimereport', component: RealtimereportComponent },
           { path: 'petition', component: PetitionComponent },
           { path: 'proposal', component: ProposalComponent },
           { path: 'streaminglive', component: StreamingliveComponent },
-          { path: 'feedback', component: VotingdasboardComponent },
+          //{ path: 'voting', component: VotingdasboardComponent },
           {path:'profile', title:'Profile', component:ProfileComponent},
         ],
       },

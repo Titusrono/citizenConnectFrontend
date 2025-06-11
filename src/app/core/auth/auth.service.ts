@@ -89,6 +89,8 @@ export class AuthService {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(this.TOKEN_KEY);
     }
+    localStorage.clear()
+
     this.currentUserRole$.next(null);
     this.authState$.next(false);
     this.clearTokenExpiryTimeout();

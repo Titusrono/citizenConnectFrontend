@@ -1,12 +1,37 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { VirtualMeet, VirtualService } from '../../../services/virtual.service';
+import { CommonModule } from '@angular/common';
+//import { VirtualService, VirtualMeet } from '../services/virtual.service';
 
 @Component({
   selector: 'app-streaminglive',
-  imports: [RouterLink],
   templateUrl: './streaminglive.component.html',
-  styleUrl: './streaminglive.component.scss'
+  imports:[CommonModule],
+  styleUrls: ['./streaminglive.component.css']
 })
-export class StreamingliveComponent {
+export class StreamingliveComponent implements OnInit {
+  meetings: VirtualMeet[] = [];
+  loading = false;
+  error = '';
 
+  constructor(private virtualService: VirtualService) {}
+
+  ngOnInit(): void {
+    this.fetchMeetings();
+  }
+
+  fetchMeetings() {
+    this.loading = true;
+    this.error = '';
+    this.virtualService.getAllMeetings().subscribe({
+      next: (data: VirtualMeet[]) => {
+        this.meetings = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Failed to load meetings.';
+        this.loading = false;
+      }
+    });
+  }
 }

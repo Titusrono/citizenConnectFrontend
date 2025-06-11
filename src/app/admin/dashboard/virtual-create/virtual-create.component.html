@@ -1,0 +1,126 @@
+<div class="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-10">
+
+  <h1 class="text-2xl font-bold mb-6">Manage Virtual Meetings</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4 mb-10">
+    <!-- Title -->
+    <div>
+      <label class="block font-semibold mb-1">Title</label>
+      <input formControlName="title" class="w-full border rounded px-3 py-2" />
+      <p class="text-red-600 text-sm mt-1" *ngIf="form.get('title')?.touched && form.get('title')?.invalid">
+        Title is required.
+      </p>
+    </div>
+
+    <!-- Agenda -->
+    <div>
+      <label class="block font-semibold mb-1">Agenda</label>
+      <textarea formControlName="agenda" rows="3" class="w-full border rounded px-3 py-2"></textarea>
+      <p class="text-red-600 text-sm mt-1" *ngIf="form.get('agenda')?.touched && form.get('agenda')?.invalid">
+        Agenda is required.
+      </p>
+    </div>
+
+    <!-- Date -->
+    <div>
+      <label class="block font-semibold mb-1">Date & Time</label>
+      <input type="datetime-local" formControlName="date" class="w-full border rounded px-3 py-2" />
+      <p class="text-red-600 text-sm mt-1" *ngIf="form.get('date')?.touched && form.get('date')?.invalid">
+        Date and time are required.
+      </p>
+    </div>
+
+    <!-- Meet Link -->
+    <div>
+      <label class="block font-semibold mb-1">Meet Link</label>
+      <input formControlName="meetLink" class="w-full border rounded px-3 py-2" />
+      <p class="text-red-600 text-sm mt-1" *ngIf="form.get('meetLink')?.touched && form.get('meetLink')?.invalid">
+        A valid meeting link is required (must start with http:// or https://).
+      </p>
+    </div>
+
+    <!-- Recording Link -->
+    <div>
+  <label class="block font-semibold mb-1">Recording Link (optional)</label>
+  <input formControlName="recordingLink" class="w-full border rounded px-3 py-2" />
+  <p
+    class="text-red-600 text-sm mt-1"
+    *ngIf="
+      form.get('recordingLink')?.touched &&
+      form.get('recordingLink')?.value &&
+      form.get('recordingLink')?.invalid
+    "
+  >
+    Must be a valid URL starting with http:// or https://.
+  </p>
+</div>
+
+
+    <!-- Is Live -->
+    <div class="flex items-center space-x-2">
+      <input type="checkbox" formControlName="isLive" id="isLive" />
+      <label for="isLive" class="font-semibold">Is Live Now</label>
+    </div>
+
+    <!-- Buttons -->
+    <div class="flex space-x-4">
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+      >
+        {{ editingId ? 'Update' : 'Create' }}
+      </button>
+
+      <button type="button" (click)="resetForm()" class="px-4 py-2 border rounded hover:bg-gray-100">
+        Reset
+      </button>
+    </div>
+
+    <p *ngIf="error" class="text-red-600 mt-2">{{ error }}</p>
+  </form>
+
+  <!-- Meeting List -->
+  <h2 class="text-xl font-semibold mb-4">Existing Meetings</h2>
+
+  <div *ngIf="loading" class="text-center text-gray-500">Loading meetings...</div>
+  <div *ngIf="!loading && meetings.length === 0" class="text-center text-gray-500">No meetings found.</div>
+
+  <ul *ngIf="!loading && meetings.length > 0" class="space-y-4">
+    <li
+      *ngFor="let meet of meetings"
+      class="p-4 border rounded hover:shadow-lg transition flex justify-between items-start"
+    >
+      <div>
+        <h3 class="text-lg font-semibold text-blue-600">{{ meet.title }}</h3>
+        <p class="text-gray-700">{{ meet.agenda }}</p>
+        <p class="text-sm text-gray-500">Date: {{ meet.date | date:'medium' }}</p>
+        <a
+          [href]="meet.meetLink"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-blue-600 hover:underline"
+        >
+          Join Meeting
+        </a>
+        <p *ngIf="meet.isLive" class="text-green-600 font-semibold">Live Now</p>
+      </div>
+      <div class="flex space-x-2">
+        <button
+          (click)="edit(meet)"
+          class="text-yellow-600 hover:text-yellow-800 font-semibold"
+          title="Edit"
+        >
+          Edit
+        </button>
+        <button
+          (click)="delete(meet._id)"
+          class="text-red-600 hover:text-red-800 font-semibold"
+          title="Delete"
+        >
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

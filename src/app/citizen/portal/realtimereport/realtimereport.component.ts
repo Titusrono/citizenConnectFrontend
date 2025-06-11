@@ -13,10 +13,15 @@ import { RouterLink } from '@angular/router';
 export class RealtimereportComponent implements OnInit {
   issues: any[] = [];
   location: string = ''; // For binding and autofill
+  showForm = false;      // <-- Add this boolean for toggling form visibility
   private readonly apiBaseUrl = 'http://localhost:3000';
 
   ngOnInit() {
     this.fetchIssues();
+  }
+
+  toggleForm() {
+    this.showForm = !this.showForm;
   }
 
   onSubmit(event: Event) {
@@ -38,6 +43,9 @@ export class RealtimereportComponent implements OnInit {
           form.reset();
           this.location = ''; // Reset bound field too
           this.fetchIssues();
+
+          // Optionally hide the form after successful submission
+          this.showForm = false;
         } else {
           this.showPopup("❌ Failed to report the issue.", true);
         }
