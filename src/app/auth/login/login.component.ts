@@ -26,7 +26,8 @@ export class LoginComponent {
 
   onSubmit(form: NgForm) {
     if (form.invalid) {
-      this.errorMessage = 'Please fill all fields correctly.';
+      this.errorMessage = '⚠️ Please fill all fields correctly.';
+      this.autoDismissError();
       return;
     }
 
@@ -40,10 +41,9 @@ export class LoginComponent {
         this.successMessage = '✅ Login successful!';
         setTimeout(() => {
           this.successMessage = null;
-        }, 3000); // hide after 3 seconds
+        }, 3000); // auto dismiss success after 3s
 
         const role = this.authService.getRole();
-
         if (role === 'admin') {
           this.router.navigate(['/dashboard/moderator']);
         } else if (role === 'user') {
@@ -55,11 +55,18 @@ export class LoginComponent {
       error: (err) => {
         this.loading = false;
         this.errorMessage = err.error?.message || '❌ Login failed. Please try again.';
+        this.autoDismissError();
       },
     });
   }
 
   loginWithGoogle() {
     this.authService.googleLogin();
+  }
+
+  private autoDismissError() {
+    setTimeout(() => {
+      this.errorMessage = null;
+    }, 3000); // auto dismiss error after 3s
   }
 }

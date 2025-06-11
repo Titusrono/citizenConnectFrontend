@@ -1,14 +1,27 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
-import { AuthService } from '../../core/auth/auth.service'; // adjust path as needed
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AuthService } from '../../core/auth/auth.service';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-google-callback',
   templateUrl: './google-callback.component.html',
+  imports:[CommonModule,FormsModule, ReactiveFormsModule],
   styleUrls: ['./google-callback.component.scss']
 })
 export class GoogleCallbackComponent implements OnInit {
+onSubmit(_t23: NgForm) {
+throw new Error('Method not implemented.');
+}
+loginWithGoogle() {
+throw new Error('Method not implemented.');
+}
+successMessage: any;
+errorMessage: any;
+googleRedirecting: any;
+email: any;
+password: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,38 +31,39 @@ export class GoogleCallbackComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const token = params['token'];
-      const returnUrl = params['returnUrl']?.trim() || '/dashboard';
+    this.route.queryParams.subscribe({
+      next: (params) => {
+        const token = params['token'];
+        const returnUrl = params['returnUrl']?.trim() || '/dashboard';
 
-      if (token) {
-        console.log('✅ Google token received:', token);
+        if (token) {
+          console.log('✅ Google token received:', token);
 
-        if (isPlatformBrowser(this.platformId)) {
-          try {
-            this.authService.setToken(token); // Use AuthService method to save token & update state
-            // Replace alert with a nicer UI if possible
-            alert('✅ Login successful! Redirecting...');
-          } catch (e) {
-            console.error('❌ Error setting token in AuthService:', e);
-            alert('⚠️ Unable to store login session.');
+          if (isPlatformBrowser(this.platformId)) {
+            try {
+              this.authService.setToken(token); // Save token in localStorage
+              console.log('🔐 Token stored successfully');
+            } catch (error) {
+              console.error('❌ Error saving token:', error);
+              this.router.navigate(['/login'], { queryParams: { error: 'storage' } });
+              return;
+            }
+          } else {
+            console.warn('⚠️ Platform not browser, skipping token storage.');
           }
-        } else {
-          console.warn('⚠️ localStorage not available, skipping token storage.');
-        }
 
-        setTimeout(() => {
-          console.log(`🔁 Redirecting to ${returnUrl}...`);
-          this.router.navigateByUrl(returnUrl);
-        }, 100);
-      } else {
-        alert('❌ No token found. Login failed.');
-        this.router.navigate(['/login']);
+          setTimeout(() => {
+            this.router.navigateByUrl(returnUrl);
+          }, 500); // small delay for UX
+        } else {
+          console.warn('❌ No token found.');
+          this.router.navigate(['/login'], { queryParams: { error: 'notoken' } });
+        }
+      },
+      error: (err) => {
+        console.error('❌ Error handling Google callback:', err);
+        this.router.navigate(['/login'], { queryParams: { error: 'callback' } });
       }
-    }, error => {
-      console.error('❌ Error reading query params:', error);
-      alert('❌ Unexpected error occurred during login.');
-      this.router.navigate(['/login']);
     });
   }
 }
