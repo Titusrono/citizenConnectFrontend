@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./streaminglive.component.css']
 })
 export class StreamingliveComponent implements OnInit {
-  meetings: VirtualMeet[] = [];
-  filteredMeetings: VirtualMeet[] = [];
+  meetings: (VirtualMeet & { isUpcoming: boolean; isPast: boolean; isLive: boolean })[] = [];
+  filteredMeetings: typeof this.meetings = [];
   loading = false;
   error = '';
   filterType: 'all' | 'upcoming' | 'past' | 'live' = 'all';
@@ -24,13 +24,25 @@ export class StreamingliveComponent implements OnInit {
   fetchMeetings() {
     this.loading = true;
     this.error = '';
+    const now = new Date();
+
     this.virtualService.getAllMeetings().subscribe({
       next: (data: VirtualMeet[]) => {
-        this.meetings = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        this.meetings = data
+          .map(meet => {
+            const meetDate = new Date(meet.date);
+            return {
+              ...meet,
+              isUpcoming: meetDate > now && !(meet.isLive ?? false),
+              isPast: meetDate < now && !(meet.isLive ?? false),
+              isLive: meet.isLive ?? false
+            };
+          })
+          .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
         this.applyFilter(this.filterType);
         this.loading = false;
-      },
-      error: () => {
+      },      error: () => {
         this.error = 'Failed to load meetings.';
         this.loading = false;
       }
@@ -39,14 +51,12 @@ export class StreamingliveComponent implements OnInit {
 
   applyFilter(type: 'all' | 'upcoming' | 'past' | 'live') {
     this.filterType = type;
-    const now = new Date();
-
     switch (type) {
       case 'upcoming':
-        this.filteredMeetings = this.meetings.filter(meet => new Date(meet.date) > now && !meet.isLive);
+        this.filteredMeetings = this.meetings.filter(meet => meet.isUpcoming);
         break;
       case 'past':
-        this.filteredMeetings = this.meetings.filter(meet => new Date(meet.date) < now && !meet.isLive);
+        this.filteredMeetings = this.meetings.filter(meet => meet.isPast);
         break;
       case 'live':
         this.filteredMeetings = this.meetings.filter(meet => meet.isLive);
@@ -56,5 +66,25 @@ export class StreamingliveComponent implements OnInit {
         this.filteredMeetings = [...this.meetings];
         break;
     }
+  }
+
+  getStatus(meeting: VirtualMeet & { isUpcoming: boolean; isPast: boolean; isLive: boolean }): 'Upcoming' | 'Past' | 'Live' {
+    if (meeting.isLive) return 'Live';
+    if (meeting.isUpcoming) return 'Upcoming';
+    return 'Past';
+  }
+
+  getCountdown(meeting: VirtualMeet): string {
+    const now = new Date().getTime();
+    const meetTime = new Date(meeting.date).getTime();
+    const diff = meetTime - now;
+
+    if (diff <= 0) return '';
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+    return `${days}d ${hours}h ${minutes}m left`;
   }
 }

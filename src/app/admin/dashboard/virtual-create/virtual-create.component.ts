@@ -27,7 +27,7 @@ export class VirtualCreateComponent implements OnInit {
       title: ['', Validators.required],
       agenda: ['', Validators.required],
       date: [defaultDate, Validators.required],
-      meetLink: ['', [Validators.required, Validators.pattern(/https?:\/\/.+/)]],
+      meetLink: ['', Validators.pattern(/https?:\/\/.+/)], // ✅ Optional: no required validator
       recordingLink: ['', Validators.pattern(/https?:\/\/.+/)],
       isLive: [false]
     });
@@ -94,6 +94,7 @@ export class VirtualCreateComponent implements OnInit {
     const meetData: VirtualMeet = {
       ...formValue,
       date: isoDate,
+      meetLink: formValue.meetLink?.trim() === '' ? undefined : formValue.meetLink,
       recordingLink: formValue.recordingLink?.trim() === '' ? undefined : formValue.recordingLink
     };
 
@@ -124,7 +125,7 @@ export class VirtualCreateComponent implements OnInit {
       title: meeting.title,
       agenda: meeting.agenda,
       date: localDate,
-      meetLink: meeting.meetLink,
+      meetLink: meeting.meetLink || '',
       recordingLink: meeting.recordingLink || '',
       isLive: meeting.isLive || false,
     });
