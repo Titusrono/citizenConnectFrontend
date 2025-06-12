@@ -10,22 +10,25 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./virtual-create.component.scss']
 })
 export class VirtualCreateComponent implements OnInit {
-  meetings: VirtualMeet[] = [];
+  meetings: (VirtualMeet & { isUpcoming: boolean; isDone: boolean })[] = [];
   form: FormGroup;
   editingId: string | null = null;
   loading = false;
   error = '';
+  showForm = false;
+
+  filter: 'all' | 'upcoming' | 'done' | 'live' = 'all';
 
   constructor(private virtualService: VirtualService, private fb: FormBuilder) {
     const now = new Date();
-    const defaultDate = now.toISOString().slice(0, 16); // Format for datetime-local
+    const defaultDate = now.toISOString().slice(0, 16);
 
     this.form = this.fb.group({
       title: ['', Validators.required],
       agenda: ['', Validators.required],
-      date: [defaultDate, Validators.required], // Default to current datetime
+      date: [defaultDate, Validators.required],
       meetLink: ['', [Validators.required, Validators.pattern(/https?:\/\/.+/)]],
-      recordingLink: ['', Validators.pattern(/https?:\/\/.+/)], // Optional URL pattern
+      recordingLink: ['', Validators.pattern(/https?:\/\/.+/)],
       isLive: [false]
     });
   }
@@ -34,11 +37,25 @@ export class VirtualCreateComponent implements OnInit {
     this.loadMeetings();
   }
 
+  toggleForm() {
+    this.showForm = !this.showForm;
+    if (!this.showForm) {
+      this.resetForm();
+    }
+  }
+
   loadMeetings() {
     this.loading = true;
+    const now = new Date();
+
     this.virtualService.getAllMeetings().subscribe({
       next: data => {
-        this.meetings = data;
+        this.meetings = data.map(meeting => {
+          const meetingDate = new Date(meeting.date);
+          const isUpcoming = meetingDate > now;
+          const isDone = !isUpcoming;
+          return { ...meeting, isUpcoming, isDone };
+        });
         this.loading = false;
       },
       error: () => {
@@ -48,69 +65,84 @@ export class VirtualCreateComponent implements OnInit {
     });
   }
 
+  getFilteredMeetings() {
+    switch (this.filter) {
+      case 'upcoming':
+        return this.meetings.filter(m => m.isUpcoming && !m.isLive);
+      case 'done':
+        return this.meetings.filter(m => m.isDone && !m.isLive);
+      case 'live':
+        return this.meetings.filter(m => m.isLive);
+      default:
+        return this.meetings;
+    }
+  }
+
+  setFilter(filter: 'all' | 'upcoming' | 'done' | 'live') {
+    this.filter = filter;
+  }
+
   submit() {
     if (this.form.invalid) {
-      this.form.markAllAsTouched(); // Trigger error messages for all fields
+      this.form.markAllAsTouched();
       return;
     }
 
     const formValue = this.form.value;
-
-    // Convert to full ISO date string
     const isoDate = new Date(formValue.date).toISOString();
 
-    // Remove empty recordingLink to bypass URL validation if not provided
     const meetData: VirtualMeet = {
       ...formValue,
       date: isoDate,
       recordingLink: formValue.recordingLink?.trim() === '' ? undefined : formValue.recordingLink
     };
 
-    if (this.editingId) {
-      this.virtualService.updateMeeting(this.editingId, meetData).subscribe({
-        next: () => {
-          this.loadMeetings();
-          this.resetForm();
-        },
-        error: err => {
-          console.error('Update error:', err);
-          this.error = 'Failed to update meeting: ' + (err?.error?.message || err.message || 'Unknown error');
-        }
-      });
-    } else {
-      this.virtualService.createMeeting(meetData).subscribe({
-        next: () => {
-          this.loadMeetings();
-          this.resetForm();
-        },
-        error: err => {
-          console.error('Create error:', err);
-          this.error = 'Failed to create meeting: ' + (err?.error?.message || err.message || 'Unknown error');
-        }
-      });
-    }
+    const request$ = this.editingId
+      ? this.virtualService.updateMeeting(this.editingId, meetData)
+      : this.virtualService.createMeeting(meetData);
+
+    request$.subscribe({
+      next: () => {
+        const isUpdate = !!this.editingId;
+        this.loadMeetings();
+        this.resetForm();
+        this.showForm = false;
+        window.alert(`Meeting ${isUpdate ? 'updated' : 'created'} successfully.`);
+      },
+      error: err => {
+        const action = this.editingId ? 'update' : 'create';
+        this.error = `Failed to ${action} meeting: ` + (err?.error?.message || err.message || 'Unknown error');
+      }
+    });
   }
 
   edit(meeting: VirtualMeet) {
     this.editingId = meeting._id || null;
-    const localDate = new Date(meeting.date).toISOString().slice(0, 16); // Format back to datetime-local
+    const localDate = new Date(meeting.date).toISOString().slice(0, 16);
 
     this.form.patchValue({
       title: meeting.title,
       agenda: meeting.agenda,
       date: localDate,
       meetLink: meeting.meetLink,
-      recordingLink: meeting.recordingLink,
+      recordingLink: meeting.recordingLink || '',
       isLive: meeting.isLive || false,
     });
+
+    this.showForm = true;
   }
 
   delete(id?: string) {
     if (!id) return;
     if (confirm('Are you sure you want to delete this meeting?')) {
       this.virtualService.deleteMeeting(id).subscribe({
-        next: () => this.loadMeetings(),
-        error: () => this.error = 'Failed to delete meeting.'
+        next: () => {
+          this.loadMeetings();
+          window.alert('Meeting deleted successfully.');
+        },
+        error: () => {
+          this.error = 'Failed to delete meeting.';
+        }
       });
     }
   }
