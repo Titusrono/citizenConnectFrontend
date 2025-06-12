@@ -16,13 +16,18 @@ export class PetitionService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
-  // Approve a petition by ID
-  approvePetition(id: string): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/approve/${id}`, {});
+  // Update petition by ID
+  updatePetition(id: string, updateData: any): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, updateData);
   }
 
-  // Delete a petition by ID
+  // Delete petition by ID
   deletePetition(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  }
+
+  // Approve a petition (optional extra logic)
+  approvePetition(id: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/approve/${id}`, {});
   }
 }

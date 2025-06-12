@@ -1,0 +1,91 @@
+<div class="max-w-screen-lg mx-auto p-8">
+  <h2 class="text-3xl font-bold text-blue-700 mb-6">🛠 Manage Submitted Petitions</h2>
+
+  <div *ngIf="petitions.length === 0" class="text-gray-600">No petitions submitted yet.</div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div *ngFor="let petition of petitions" 
+         class="bg-white shadow-md border border-gray-200 p-6 rounded-lg hover:shadow-lg hover:border-blue-300 transition duration-300">
+      <h3 class="text-xl font-bold text-gray-800 mb-2">{{ petition.title }}</h3>
+      <p class="text-gray-700 mb-2">{{ petition.description }}</p>
+      <p class="text-sm text-blue-700 mb-1">Target: {{ petition.targetAuthority }}</p>
+      <p class="text-sm text-gray-500 mb-2">Submitted by: {{ petition.email }}</p>
+
+      <div *ngIf="petition.supportingDocs" class="mb-3">
+        📎 
+        <a [href]="'/uploads/' + petition.supportingDocs" 
+           target="_blank" 
+           class="text-blue-600 hover:text-blue-800 underline">
+          View Supporting Doc
+        </a>
+      </div>
+
+      <div class="flex gap-3 mt-4">
+        <button 
+          (click)="editPetition(petition)" 
+          class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded transition">
+          Edit
+        </button>
+        <button 
+          (click)="deletePetition(petition._id)" 
+          class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit form modal -->
+  <div *ngIf="selectedPetition" class="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg">
+      <h2 class="text-xl font-bold mb-4 text-blue-700">Edit Petition</h2>
+      <form (ngSubmit)="submitEdit()">
+
+        <!-- Title Field -->
+        <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Petition Title</label>
+        <input 
+          id="title"
+          class="w-full border border-gray-300 p-2 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" 
+          [(ngModel)]="selectedPetition.title" 
+          name="title" 
+          placeholder="Enter the petition's title"
+          required />
+
+        <!-- Description Field -->
+        <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+        <textarea 
+          id="description"
+          class="w-full border border-gray-300 p-2 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" 
+          [(ngModel)]="selectedPetition.description" 
+          name="description" 
+          rows="4" 
+          placeholder="Describe the issue and what the petition aims to achieve"
+          required></textarea>
+
+        <!-- Target Authority Field -->
+        <label for="targetAuthority" class="block text-sm font-medium text-gray-700 mb-1">Target Authority</label>
+        <input 
+          id="targetAuthority"
+          class="w-full border border-gray-300 p-2 mb-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" 
+          [(ngModel)]="selectedPetition.targetAuthority" 
+          name="targetAuthority" 
+          placeholder="e.g. County Government, Ministry of Education" />
+
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-2">
+          <button 
+            type="button" 
+            (click)="cancelEdit()" 
+            class="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded transition">
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

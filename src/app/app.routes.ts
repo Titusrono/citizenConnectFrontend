@@ -32,6 +32,7 @@ import { VirtualCreateComponent } from "./admin/dashboard/virtual-create/virtual
 import { RoleGuard } from "./core/auth/role.guard";
 import { AuthGuard } from "./core/auth/auth.guard";
 import { AuthService } from "./core/auth/auth.service";
+import { AdminpetitionComponent } from "./admin/dashboard/adminpetition/adminpetition.component";
 
 export const routes: Routes = [
   // Public routes
@@ -69,6 +70,7 @@ export const routes: Routes = [
       { path: 'report-admin', component: ReportAdminComponent },
       { path: 'vote-create', component: VoteCreateComponent },
       { path: 'virtual-create', component: VirtualCreateComponent },
+      {path:'adminpetition', title:'Admin Petition', component:AdminpetitionComponent},
       {path: 'usersreg', title: 'Users Register', component:UsersregComponent},
       {path:'blog_admin', title:'Admin Blog', component:BlogAdminComponent},
       {path:'profile', title:'Profile', component:ProfileComponent},
