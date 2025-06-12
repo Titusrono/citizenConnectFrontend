@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { Router, RouterLink, RouterOutlet } from '@angular/router'; 
+import { CommonModule } from '@angular/common';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,19 +14,28 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-isSidebarOpen: any;
-toggleSidebar() {
-throw new Error('Method not implemented.');
-}
-isHomeRoute(): any {
-throw new Error('Method not implemented.');
-}
+  isSidebarOpen = true;
+
   constructor(private router: Router) {}
+
+  /**
+   * Toggles the sidebar open/closed state
+   */
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  /**
+   * Returns true if we are on the home route of the dashboard
+   */
+  isHomeRoute(): boolean {
+    return this.router.url === '/dashboard' || this.router.url === '/dashboard/';
+  }
 
   /**
    * Returns true if we're on the dashboard root (i.e., show home cards)
    */
   isRootDashboard(): boolean {
-    return this.router.url === '/dashboard' || this.router.url === '/dashboard/';
+    return this.isHomeRoute(); // alias to maintain existing usage
   }
 }

@@ -10,6 +10,9 @@ export interface VirtualMeet {
   meetLink: string;
   recordingLink?: string;
   isLive?: boolean;
+  upcoming?: boolean;   // ✅ NEW field to indicate if the meeting is upcoming
+  isDone?: boolean;     // ✅ NEW field to indicate if the meeting has passed
+  countdown?: number;   // Optional for countdown info from backend
 }
 
 @Injectable({

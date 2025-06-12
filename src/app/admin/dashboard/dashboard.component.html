@@ -1,69 +1,63 @@
 <div class="min-h-screen flex flex-col md:flex-row bg-gray-50">
 
-  <!-- 📱 Mobile Horizontal Nav -->
-  <nav class="bg-white shadow-md p-4 flex flex-wrap gap-4 justify-start md:hidden sticky top-0 z-50">
-    <a routerLink="report-admin" routerLinkActive="text-rose-700" class="flex flex-col items-center text-gray-600 hover:text-rose-700">
-      <span class="text-xl">📑</span>
-      <span class="text-xs">Reports</span>
-    </a>
-    <a routerLink="vote-create" routerLinkActive="text-indigo-700" class="flex flex-col items-center text-gray-600 hover:text-indigo-700">
-      <span class="text-xl">🧠</span>
-      <span class="text-xs">Vote</span>
-    </a>
-    <a routerLink="usersreg" routerLinkActive="text-gray-800" class="flex flex-col items-center text-gray-600 hover:text-gray-800">
-      <span class="text-xl">🛠️</span>
-      <span class="text-xs">Users</span>
-    </a>
-    <a routerLink="blog_admin" routerLinkActive="text-green-700" class="flex flex-col items-center text-gray-600 hover:text-green-700">
-      <span class="text-xl">➕</span>
-      <span class="text-xs">Blogs</span>
-    </a>
-    <a routerLink="virtual-create" routerLinkActive="text-blue-700" class="flex flex-col items-center text-gray-600 hover:text-blue-700">
-      <span class="text-xl">🏗️</span>
-      <span class="text-xs">Virtual</span>
-    </a>
-    <a routerLink="profile" class="ml-auto flex flex-col items-center text-gray-600 hover:text-purple-700">
-      <span class="text-xl">👤</span>
-      <span class="text-xs">Profile</span>
-    </a>
+  <!-- 📱 Mobile Top Bar with Toggle Button -->
+  <nav class="bg-white shadow-md p-4 flex items-center justify-between md:hidden sticky top-0 z-50">
+    <button (click)="toggleSidebar()" class="text-gray-700 hover:text-purple-700 text-2xl">
+      ☰
+    </button>
+    <span class="text-lg font-semibold text-purple-700">Admin Panel</span>
   </nav>
+
+  <!-- 📱 Mobile Sidebar -->
+  <aside
+    class="md:hidden bg-white shadow-md p-4 flex flex-col gap-4 transition-all duration-300"
+    [ngClass]="{ 'block': isSidebarOpen, 'hidden': !isSidebarOpen }"
+  >
+    <a routerLink="report-admin" routerLinkActive="text-rose-700" class="flex items-center gap-2 text-gray-600 hover:text-rose-700">
+      📑 <span>Reports</span>
+    </a>
+    <a routerLink="vote-create" routerLinkActive="text-indigo-700" class="flex items-center gap-2 text-gray-600 hover:text-indigo-700">
+      🧠 <span>Vote Create</span>
+    </a>
+    <a routerLink="usersreg" routerLinkActive="text-gray-800" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+      🛠️ <span>Users</span>
+    </a>
+    <a routerLink="blog_admin" routerLinkActive="text-green-700" class="flex items-center gap-2 text-gray-600 hover:text-green-700">
+      ➕ <span>Blogs</span>
+    </a>
+    <a routerLink="virtual-create" routerLinkActive="text-blue-700" class="flex items-center gap-2 text-gray-600 hover:text-blue-700">
+      🏗️ <span>Virtual meet</span>
+    </a>
+    <a routerLink="profile" class="flex items-center gap-2 text-gray-600 hover:text-purple-700">
+      👤 <span>Profile</span>
+    </a>
+  </aside>
 
   <!-- 💻 Desktop Sidebar -->
   <aside class="hidden md:flex md:flex-col w-64 bg-white shadow-md p-10 fixed top-0 left-0 h-screen z-40 justify-between">
-    <!-- Top Nav Section -->
     <div>
       <h2 class="text-xl font-bold text-purple-700 mb-6">Admin Panel</h2>
       <nav class="flex flex-col space-y-4 overflow-hidden">
         <a routerLink="report-admin" routerLinkActive="text-rose-700" class="flex items-center gap-2 text-gray-600 hover:text-rose-700">
-          <span>📑</span>
-          <span>Reports</span>
+          📑 <span>Reports</span>
         </a>
         <a routerLink="vote-create" routerLinkActive="text-indigo-700" class="flex items-center gap-2 text-gray-600 hover:text-indigo-700">
-          <span>🧠</span>
-          <span>Vote Create</span>
+          🧠 <span>Vote Create</span>
         </a>
         <a routerLink="usersreg" routerLinkActive="text-gray-800" class="flex items-center gap-2 text-gray-600 hover:text-gray-800">
-          <span>🛠️</span>
-          <span>Users</span>
+          🛠️ <span>Users</span>
         </a>
         <a routerLink="blog_admin" routerLinkActive="text-green-700" class="flex items-center gap-2 text-gray-600 hover:text-green-700">
-          <span>➕</span>
-          <span>Blogs</span>
+          ➕ <span>Blogs</span>
         </a>
         <a routerLink="virtual-create" routerLinkActive="text-blue-700" class="flex items-center gap-2 text-gray-600 hover:text-blue-700">
-          <span>🏗️</span>
-          <span>Virtual meet</span>
+          🏗️ <span>Virtual meet</span>
         </a>
       </nav>
     </div>
 
-    <!-- Bottom Profile Link -->
     <div class="pt-6 border-t border-gray-200">
-      <a
-        routerLink="profile"
-        class="flex items-center gap-3 text-gray-600 hover:text-purple-700 transition"
-        title="Manage Profile"
-      >
+      <a routerLink="profile" class="flex items-center gap-3 text-gray-600 hover:text-purple-700 transition" title="Manage Profile">
         <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-full flex items-center justify-center text-xl hover:bg-purple-200 transition">
           👤
         </div>
