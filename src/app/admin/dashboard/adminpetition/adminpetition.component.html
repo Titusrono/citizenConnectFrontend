@@ -9,7 +9,14 @@
       <h3 class="text-xl font-bold text-gray-800 mb-2">{{ petition.title }}</h3>
       <p class="text-gray-700 mb-2">{{ petition.description }}</p>
       <p class="text-sm text-blue-700 mb-1">Target: {{ petition.targetAuthority }}</p>
-      <p class="text-sm text-gray-500 mb-2">Submitted by: {{ petition.email }}</p>
+
+      <!-- 👤 User Details -->
+      <div *ngIf="petition.createdBy" class="text-sm text-gray-600 mb-2">
+        <p><strong>Submitted by:</strong></p>
+        <p>Name: {{ petition.createdBy.name }}</p>
+        <p>Email: {{ petition.createdBy.email }}</p>
+        <p>Phone: {{ petition.createdBy.contact }}</p>
+      </div>
 
       <div *ngIf="petition.supportingDocs" class="mb-3">
         📎 

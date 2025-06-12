@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,9 +14,9 @@ export class PetitionComponent {
   petitionForm: FormGroup;
   selectedFile: File | null = null;
   successMessage: string = '';  // Message to show on success
-  errorMessage: string = '';  // Message to show on error
-  showSuccessMessage: boolean = false;  // Control visibility of success message
-  showErrorMessage: boolean = false;  // Control visibility of error message
+  errorMessage: string = '';    // Message to show on error
+  showSuccessMessage: boolean = false;
+  showErrorMessage: boolean = false;
 
   // Authorities array for dropdown
   authorities: string[] = [
@@ -31,7 +31,7 @@ export class PetitionComponent {
     this.petitionForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      targetAuthority: ['', Validators.required], // Now required
+      targetAuthority: ['', Validators.required],
       supportingDocs: ['']
     });
   }
@@ -50,11 +50,25 @@ export class PetitionComponent {
         formData.append('supportingDocs', this.selectedFile);
       }
 
-      this.http.post('http://localhost:3000/petitions', formData).subscribe(
+      // Get token from local storage
+      const token = localStorage.getItem('access_token');
+      if (!token) {
+        this.errorMessage = 'User not authenticated. Please log in.';
+        this.showErrorMessage = true;
+        setTimeout(() => this.showErrorMessage = false, 3000);
+        return;
+      }
+
+      const headers = new HttpHeaders({
+        Authorization: `Bearer ${token}`
+      });
+
+      this.http.post('http://localhost:3000/petitions', formData, { headers }).subscribe(
         (res) => {
           this.successMessage = 'Petition Successfully Submitted!';
           this.showSuccessMessage = true;
           this.petitionForm.reset();
+          this.selectedFile = null;
           setTimeout(() => {
             this.showSuccessMessage = false;
           }, 3000);

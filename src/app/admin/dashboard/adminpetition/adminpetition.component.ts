@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { PetitionService } from '../../../services/petition.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { PetitionService } from '../services/petition.service'; // ✅ Adjust path if needed
 
 @Component({
   selector: 'app-adminpetition',
   templateUrl: './adminpetition.component.html',
-  imports:[CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   styleUrls: ['./adminpetition.component.scss']
 })
 export class AdminpetitionComponent implements OnInit {
@@ -23,6 +22,7 @@ export class AdminpetitionComponent implements OnInit {
   fetchPetitions(): void {
     this.petitionService.getAllPetitions().subscribe({
       next: (data) => {
+        // Each petition should now include populated `createdBy` user details
         this.petitions = data;
       },
       error: (err) => {
