@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,22 +7,28 @@ import { Observable } from 'rxjs';
 })
 export class ReportService {
 
-  private apiUrl = 'http://localhost:3000/report'; // ✅ URL of your NestJS endpoint
+  private apiUrl = 'http://localhost:3000/report'; // ✅ NestJS endpoint
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // ✅ Function to submit report
+  // ✅ Submit report with JWT in headers
   submitReport(formData: FormData): Observable<any> {
-    return this.http.post(this.apiUrl, formData);
+    const token = localStorage.getItem('access_token'); // Must match TOKEN_KEY in AuthService
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post(this.apiUrl, formData, { headers });
   }
 
-  // ✅ Function to get all reports
+  // ✅ Get all reports (public)
   getReports(): Observable<any> {
-    return this.http.get(this.apiUrl);  // This fetches all reports
+    return this.http.get(this.apiUrl);
   }
 
-  // ✅ Function to delete a specific report by ID
+  // ✅ Delete a report
   deleteReport(reportId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${reportId}`);  // This deletes a report by ID
+    return this.http.delete(`${this.apiUrl}/${reportId}`);
   }
 }

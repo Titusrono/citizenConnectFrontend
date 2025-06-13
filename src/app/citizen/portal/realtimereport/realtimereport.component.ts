@@ -12,8 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class RealtimereportComponent implements OnInit {
   issues: any[] = [];
-  location: string = ''; // For binding and autofill
-  showForm = false;      // <-- Add this boolean for toggling form visibility
+  location: string = '';
+  showForm = false;
   private readonly apiBaseUrl = 'http://localhost:3000';
 
   ngOnInit() {
@@ -29,25 +29,29 @@ export class RealtimereportComponent implements OnInit {
 
     const form = event.target as HTMLFormElement;
     const formData = new FormData(form);
+    formData.set('location', this.location); // Sync ngModel field
 
-    // If location input is bound via ngModel, we sync it into the form manually
-    formData.set('location', this.location);
+    const token = localStorage.getItem('access_token');
 
     fetch(`${this.apiBaseUrl}/report`, {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`
+        // Do NOT set Content-Type manually when using FormData
+      },
       body: formData
     })
       .then(response => {
         if (response.ok) {
           this.showPopup("✅ Issue reported successfully!");
           form.reset();
-          this.location = ''; // Reset bound field too
+          this.location = '';
           this.fetchIssues();
-
-          // Optionally hide the form after successful submission
           this.showForm = false;
         } else {
-          this.showPopup("❌ Failed to report the issue.", true);
+          response.json().then(res => {
+            this.showPopup(`❌ Failed: ${res.message}`, true);
+          });
         }
       })
       .catch(() => {
@@ -76,7 +80,7 @@ export class RealtimereportComponent implements OnInit {
           const { latitude, longitude } = position.coords;
           this.reverseGeocode(latitude, longitude);
         },
-        (error) => {
+        () => {
           this.showPopup("❌ Unable to retrieve location.", true);
         }
       );
@@ -102,7 +106,6 @@ export class RealtimereportComponent implements OnInit {
     if (!popup) return;
 
     popup.innerHTML = message;
-
     popup.className = `fixed top-5 right-5 px-4 py-3 rounded-lg shadow-lg z-50 transition transform duration-300 ease-out
       ${isError ? 'bg-red-100 text-red-700 border border-red-300' : 'bg-green-100 text-green-700 border border-green-300'}`;
 
