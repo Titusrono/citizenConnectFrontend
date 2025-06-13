@@ -5,41 +5,41 @@ import { Observable } from 'rxjs';
 export interface Blog {
   _id: string;
   title: string;
-  date: string;
+  date: string;      // ISO string format from backend
   summary: string;
   category: string;
-  content?: string; // Optional full content field
+  content: string;   // full blog content
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class BlogsService {
-  private apiUrl = 'http://localhost:3000/blogs'; // Adjust to your backend URL
+  private apiUrl = 'http://localhost:3000/blogs'; // Update to match your backend host if needed
 
   constructor(private http: HttpClient) {}
 
-  // ✅ Fetch all blogs
+  /** ✅ Get all blogs */
   getBlogs(): Observable<Blog[]> {
     return this.http.get<Blog[]>(this.apiUrl);
   }
 
-  // ✅ Fetch a single blog by ID
+  /** ✅ Get a single blog by ID */
   getBlogById(id: string): Observable<Blog> {
     return this.http.get<Blog>(`${this.apiUrl}/${id}`);
   }
 
-  // ✅ Create a new blog
+  /** ✅ Create a new blog post */
   createBlog(blogData: Partial<Blog>): Observable<Blog> {
     return this.http.post<Blog>(this.apiUrl, blogData);
   }
 
-  // ✅ Update an existing blog — uses PATCH to match backend
+  /** ✅ Update blog using PATCH */
   updateBlog(id: string, blogData: Partial<Blog>): Observable<Blog> {
-    return this.http.patch<Blog>(`${this.apiUrl}/${id}`, blogData); // ✅ changed to PATCH
+    return this.http.patch<Blog>(`${this.apiUrl}/${id}`, blogData);
   }
 
-  // ✅ Delete a blog
+  /** ✅ Delete blog */
   deleteBlog(id: string): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
   }

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { BlogsService, Blog } from '../../services/blogs.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-blogsdetails',
   templateUrl: './blogsdetails.component.html',
-  imports:[CommonModule],
+  imports: [CommonModule, RouterLink],
   styleUrls: ['./blogsdetails.component.scss']
 })
 export class BlogsdetailsComponent implements OnInit {
@@ -19,26 +19,29 @@ export class BlogsdetailsComponent implements OnInit {
     private blogsService: BlogsService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadBlog();
   }
 
-  loadBlog() {
+  loadBlog(): void {
     const blogId = this.route.snapshot.paramMap.get('id');
-    if (blogId) {
-      this.loading = true;
-      this.blogsService.getBlogById(blogId).subscribe({
-        next: (data) => {
-          this.blog = data;
-          this.loading = false;
-        },
-        error: (err) => {
-          this.error = 'Failed to load the blog article.';
-          this.loading = false;
-        }
-      });
-    } else {
-      this.error = 'No blog ID provided in route.';
+
+    if (!blogId) {
+      this.error = 'No blog ID provided in the route.';
+      return;
     }
+
+    this.loading = true;
+    this.blogsService.getBlogById(blogId).subscribe({
+      next: (data: Blog) => {
+        this.blog = data;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching blog:', err);
+        this.error = 'Failed to load the blog article.';
+        this.loading = false;
+      }
+    });
   }
 }

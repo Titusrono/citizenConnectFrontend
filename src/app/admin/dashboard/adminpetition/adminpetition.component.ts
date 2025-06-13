@@ -11,7 +11,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 })
 export class AdminpetitionComponent implements OnInit {
   petitions: any[] = [];
+  filteredPetitions: any[] = [];
+  selectedAuthority: string = '';
   selectedPetition: any = null;
+
+  // ✅ Authority options
+  authorities: string[] = [
+    'Government',
+    'Local Council',
+    'Education Department',
+    'Environmental Agency',
+    'Healthcare Authority'
+  ];
 
   constructor(private petitionService: PetitionService) {}
 
@@ -22,8 +33,17 @@ export class AdminpetitionComponent implements OnInit {
   fetchPetitions(): void {
     this.petitionService.getAllPetitions().subscribe({
       next: (data) => {
-        // Each petition should now include populated `createdBy` user details
-        this.petitions = data;
+        this.petitions = data.map((petition: any) => ({
+          ...petition,
+          createdBy: petition.createdBy || {
+            username: 'Unknown',
+            email: '-',
+            phone_no: '-',
+            subCounty: '-',
+            ward: '-'
+          }
+        }));
+        this.applyFilter(); // apply current filter
       },
       error: (err) => {
         console.error('Failed to load petitions', err);
@@ -31,8 +51,18 @@ export class AdminpetitionComponent implements OnInit {
     });
   }
 
+  applyFilter(): void {
+    if (!this.selectedAuthority) {
+      this.filteredPetitions = this.petitions;
+    } else {
+      this.filteredPetitions = this.petitions.filter(
+        p => p.targetAuthority === this.selectedAuthority
+      );
+    }
+  }
+
   editPetition(petition: any): void {
-    this.selectedPetition = { ...petition }; // clone for editing
+    this.selectedPetition = { ...petition };
   }
 
   cancelEdit(): void {

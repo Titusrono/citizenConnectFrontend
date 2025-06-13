@@ -11,33 +11,52 @@ import { Router } from '@angular/router';
 })
 export class BlogComponent implements OnInit {
   blogs: Blog[] = [];
+  filteredBlogs: Blog[] = [];
   loading = false;
   error = '';
-blog: any;
+  selectedCategory: string = '';
+
+  // ✅ Category filter options
+  categoryOptions: string[] = [
+    'Governance',
+    'Infrastructure',
+    'Health',
+    'Education',
+    'Environment',
+    'Public Safety'
+  ];
 
   constructor(private blogsService: BlogsService, private router: Router) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchBlogs();
   }
 
-  fetchBlogs() {
+  fetchBlogs(): void {
     this.loading = true;
     this.error = '';
 
     this.blogsService.getBlogs().subscribe({
       next: (data) => {
         this.blogs = data;
+        this.applyCategoryFilter(); // filter immediately on load
         this.loading = false;
       },
       error: (err) => {
+        console.error('Blog fetch failed:', err);
         this.error = 'Failed to load blogs. Please try again later.';
         this.loading = false;
-      },
+      }
     });
   }
 
-  goToFullArticle(blogId: string) {
+  applyCategoryFilter(): void {
+    this.filteredBlogs = this.selectedCategory
+      ? this.blogs.filter(blog => blog.category === this.selectedCategory)
+      : this.blogs;
+  }
+
+  goToFullArticle(blogId: string): void {
     if (!blogId) {
       console.warn('No blog ID provided for navigation.');
       return;
